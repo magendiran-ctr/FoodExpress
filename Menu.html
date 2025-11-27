@@ -32,82 +32,93 @@
             padding-bottom: 20px;
         }
 
-        /* Header */
-        .main-header {
-            background: var(--card);
-            padding: 18px 28px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
+       /* Header Container */
+.main-header {
+    background: var(--card);
+    padding: 18px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
 
-        .logo {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
+/* Logo Styles */
+.logo {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
 
-        .logo:hover {
-            transform: scale(1.05);
-        }
+.logo:hover {
+    transform: scale(1.05);
+}
 
-        .logo-top {
-            font-size: 14px;
-            font-weight: 500;
-            color: #2c3e50;
-            letter-spacing: 1px;
-        }
+.logo-top {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c3e50;
+    letter-spacing: 1px;
+}
 
-        .logo-main {
-            font-size: 36px;
-            font-weight: 900;
-            color: rgb(31, 70, 31);
-            letter-spacing: -1px;
-            line-height: 1;
-        }
+.logo-main {
+    font-size: 36px;
+    font-weight: 900;
+    color: rgb(31, 70, 31);
+    letter-spacing: -1px;
+    line-height: 1;
+}
 
-        .header-cart {
-            position: relative;
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: 0.3s;
-        }
+/* Right Side Wrapper (Holds Home + Cart) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Spacing between Home and Cart */
+}
 
-        .header-cart:hover {
-            background: #eff6ff;
-            color: var(--primary);
-        }
+/* Shared Style for Buttons (Home & Cart) */
+.header-icon-btn {
+    position: relative;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: 0.3s;
+    color: var(--text); /* Ensure icon is black/text color */
+    text-decoration: none; /* Removes underline from <a> tag */
+}
 
-        .header-cart i {
-            font-size: 1.5rem;
-        }
+.header-icon-btn:hover {
+    background: #eff6ff;
+    color: var(--primary);
+}
 
-        .cart-count {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: var(--primary);
-            color: white;
-            font-size: 0.75rem;
-            font-weight: bold;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.header-icon-btn i {
+    font-size: 1.5rem;
+}
 
+/* Cart Count Specifics */
+.cart-count {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
         /* Toast */
         .toast {
             position: fixed;
@@ -950,16 +961,23 @@
     </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="logo" onclick="showPage('menuPage')">
-            <span class="logo-top">FOOD</span>
-            <span class="logo-main">EXPRESS</span>
-        </div>
-        <div class="header-cart" onclick="showPage('cartPage')">
+   <header class="main-header">
+    <div class="logo" onclick="showPage('menuPage')">
+        <span class="logo-top">FOOD</span>
+        <span class="logo-main">EXPRESS</span>
+    </div>
+
+    <div class="header-actions">
+        <a href="index.html" class="header-icon-btn" title="Back to Home">
+            <i class="fas fa-home"></i>
+        </a>
+
+        <div class="header-cart header-icon-btn" onclick="showPage('cartPage')">
             <i class="fas fa-shopping-bag"></i>
             <div class="cart-count" id="cartCount">0</div>
         </div>
-    </header>
+    </div>
+</header>
 
     <div id="toast" class="toast">Cart updated</div>
 

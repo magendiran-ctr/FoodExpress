@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Grocery Store</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      padding-bottom: 100px;
+    }
+
+    .header {
+      background: white;
+      padding: 16px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: #1a73e8;
+    }
+
+    .section {
+      margin: 20px;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1a1a1a;
+    }
+
+    .products-grid {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scrollbar-width: thin;
+    }
+
+    .product-card {
+      min-width: 180px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .cart-controls {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      display: flex;
+      gap: 4px;
+      z-index: 10;
+    }
+
+    .cart-btn {
+      width: 28px;
+      height: 28px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      color: #1a73e8;
+      transition: all 0.2s ease;
+    }
+    .cart-btn:hover {
+      background: #1a73e8;
+      color: white;
+    }
+
+    .product-image {
+      height: 140px;
+      background: #f1f1f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 4px 8px;
+      background: #ff4444;
+      color: white;
+      font-size: 11px;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .delivery-time {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      padding: 4px 8px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .product-info {
+      padding: 12px;
+    }
+    .product-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .product-size {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+    .price-info {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .current-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .original-price {
+      font-size: 13px;
+      text-decoration: line-through;
+      color: #9ca3af;
+    }
+
+    .cart-summary {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #1a73e8;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 1000;
+    }
+    .cart-summary:hover {
+      transform: scale(1.05);
+    }
+    .cart-summary.hidden {
+      display: none;
+    }
+    .cart-total {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-size: 22px;
+      color: #1a1a1a;
+    }
+
+    .close-btn {
+      font-size: 28px;
+      cursor: pointer;
+      color: #6b7280;
+      background: none;
+      border: none;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-price {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .cart-item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #e5e7eb;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .qty-btn:hover {
+      background: #f3f4f6;
+    }
+
+    .total-section {
+      padding: 16px 0;
+      border-top: 2px solid #e5e7eb;
+      margin-top: 16px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .total-row.grand-total {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1a73e8;
+      margin-top: 12px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 16px;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: background 0.2s;
+    }
+    .checkout-btn:hover {
+      background: #155ab6;
+    }
+
+    /* Payment Options */
+    .payment-options {
+      display: none;
+      margin-top: 20px;
+    }
+    .payment-options.active {
+      display: block;
+    }
+
+    .payment-option {
+      padding: 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .payment-option:hover {
+      border-color: #1a73e8;
+      background: #f0f7ff;
+    }
+    .payment-option.selected {
+      border-color: #1a73e8;
+      background: #e3f2fd;
+    }
+
+    .payment-icon {
+      font-size: 24px;
+    }
+
+    .pay-btn {
+      width: 100%;
+      padding: 16px;
+      background: #10b981;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: background 0.2s;
+    }
+    .pay-btn:hover {
+      background: #059669;
+    }
+    .pay-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(400px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(400px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>🛒 QuickMart Grocery</h1>
+  </div>
+
+  <div id="sectionsContainer"></div>
+
+  <div class="cart-summary hidden" id="cartSummary" onclick="openCart()">
+    <div>🛒 <span id="cartCount">0</span> items</div>
+    <div class="cart-total">₹<span id="cartTotalAmount">0</span></div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div class="modal" id="cartModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Your Cart</h2>
+        <button class="close-btn" onclick="closeCart()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="cartItemsList"></div>
+        
+        <div class="total-section">
+          <div class="total-row">
+            <span>Subtotal:</span>
+            <span>₹<span id="subtotal">0</span></span>
+          </div>
+          <div class="total-row">
+            <span>Delivery:</span>
+            <span>₹<span id="delivery">40</span></span>
+          </div>
+          <div class="total-row grand-total">
+            <span>Total:</span>
+            <span>₹<span id="grandTotal">0</span></span>
+          </div>
+        </div>
+
+        <button class="checkout-btn" onclick="showPaymentOptions()">Proceed to Payment</button>
+
+        <div class="payment-options" id="paymentOptions">
+          <h3 style="margin-bottom: 16px;">Select Payment Method</h3>
+          
+          <div class="payment-option" onclick="selectPayment('upi')">
+            <span class="payment-icon">📱</span>
+            <div>
+              <div style="font-weight: 600;">UPI</div>
+              <div style="font-size: 12px; color: #6b7280;">Google Pay, PhonePe, Paytm</div>
+            </div>
+          </div>
+
+          <div class="payment-option" onclick="selectPayment('card')">
+            <span class="payment-icon">💳</span>
+            <div>
+              <div style="font-weight: 600;">Credit/Debit Card</div>
+              <div style="font-size: 12px; color: #6b7280;">Visa, Mastercard, Rupay</div>
+            </div>
+          </div>
+
+          <div class="payment-option" onclick="selectPayment('netbanking')">
+            <span class="payment-icon">🏦</span>
+            <div>
+              <div style="font-weight: 600;">Net Banking</div>
+              <div style="font-size: 12px; color: #6b7280;">All major banks</div>
+            </div>
+          </div>
+
+          <div class="payment-option" onclick="selectPayment('cod')">
+            <span class="payment-icon">💵</span>
+            <div>
+              <div style="font-weight: 600;">Cash on Delivery</div>
+              <div style="font-size: 12px; color: #6b7280;">Pay when you receive</div>
+            </div>
+          </div>
+
+          <button class="pay-btn" id="payBtn" disabled onclick="processPayment()">Pay ₹<span id="payAmount">0</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Products data with multiple sections
+    const productSections = [
+      {
+        title: 'Top Deals on Kitchen Staples',
+        products: [
+          { name: 'Aashirvaad Multigrains Atta', size: '5 kg', currentPrice: 300, originalPrice: 406, discount: 26, deliveryTime: '11 MINS', image: { width: '90px', height: '80px', bg: '#FF8C00', text: 'Aashirvaad<br>Multigrains<br>Atta' }},
+          { name: 'Aashirvaad Pure Cow Ghee', size: '500 ml', currentPrice: 359, originalPrice: 489, discount: 26, deliveryTime: '11 MINS', image: { width: '80px', height: '80px', bg: '#8B0000', text: 'Aashirvaad<br>Pure Cow<br>Ghee' }},
+          { name: 'Tata Sampann Chana Dal', size: '1 kg', currentPrice: 99, originalPrice: 160, discount: 38, deliveryTime: '11 MINS', image: { width: '70px', height: '100px', bg: '#228B22', text: 'Tata<br>Sampann<br>Chana<br>Dal' }},
+          { name: 'Supreme Harvest Kachi Ghani', size: '1 ltr', currentPrice: 174, originalPrice: 220, discount: 20, deliveryTime: '11 MINS', image: { width: '60px', height: '110px', bg: '#8B4513', text: 'Supreme<br>Harvest<br>Kachi<br>Ghani' }},
+          { name: 'Sivaji Vkr Boiled Rice', size: '25 kg', currentPrice: 1696, originalPrice: 1950, discount: 13, deliveryTime: '11 MINS', image: { width: '90px', height: '70px', bg: '#E6E6FA', text: 'Sivaji Vkr<br>Boiled Rice', border: '2px solid #4169E1', color: '#4169E1' }},
+          { name: 'Aashirvaad Select Sharbati', size: '5 kg', currentPrice: 300, originalPrice: 406, discount: 26, deliveryTime: '11 MINS', image: { width: '80px', height: '80px', bg: '#FFD700', text: 'Aashirvaad<br>Select<br>Sharbati', color: '#8B4513' }},
+          { name: 'Happilo Natural Premium', size: '900 g', currentPrice: 806, originalPrice: 1450, discount: 44, deliveryTime: '11 MINS', image: { width: '70px', height: '100px', bg: '#90EE90', text: 'Happilo<br>100%<br>Natural', color: '#006400' }},
+          { name: 'Fortune Rice Bran', size: '870 g', currentPrice: 150, originalPrice: 198, discount: 24, deliveryTime: '11 MINS', image: { width: '70px', height: '100px', bg: '#F5DEB3', text: 'Fortune<br>Rice Bran', color: '#8B4513' }}
+        ]
+      },
+      {
+        title: 'Fresh Fruits & Vegetables',
+        products: [
+          { name: 'Fresh Tomatoes', size: '1 kg', currentPrice: 45, originalPrice: 60, discount: 25, deliveryTime: '11 MINS', image: { width: '80px', height: '80px', bg: '#FF6347', text: 'Fresh<br>Tomatoes' }},
+          { name: 'Potato', size: '2 kg', currentPrice: 50, originalPrice: 70, discount: 29, deliveryTime: '11 MINS', image: { width: '80px', height: '80px', bg: '#D2691E', text: 'Potato', color: '#FFF' }},
+          { name: 'Onion', size: '1 kg', currentPrice: 35, originalPrice: 50, discount: 30, deliveryTime: '11 MINS', image: { width: '80px', height: '80px', bg: '#DDA0DD', text: 'Onion', color: '#000' }},
+          { name: 'Fresh Bananas', size: '12 pcs', currentPrice: 60, originalPrice: 80, discount: 25, deliveryTime: '11 MINS', image: { width: '70px', height: '90px', bg: '#FFD700', text: 'Fresh<br>Bananas', color: '#000' }},
+          { name: 'Green Apple', size: '4 pcs', currentPrice: 120, originalPrice: 160, discount: 25, deliveryTime: '11 MINS', image: { width: '80px', height: '80px', bg: '#90EE90', text: 'Green<br>Apple', color: '#006400' }},
+          { name: 'Fresh Carrots', size: '500 g', currentPrice: 30, originalPrice: 45, discount: 33, deliveryTime: '11 MINS', image: { width: '70px', height: '90px', bg: '#FF8C00', text: 'Fresh<br>Carrots' }}
+        ]
+      },
+      {
+        title: 'Dairy & Beverages',
+        products: [
+          { name: 'Amul Fresh Milk', size: '500 ml', currentPrice: 28, originalPrice: 32, discount: 12, deliveryTime: '11 MINS', image: { width: '60px', height: '110px', bg: '#87CEEB', text: 'Amul<br>Fresh<br>Milk' }},
+          { name: 'Mother Dairy Curd', size: '400 g', currentPrice: 35, originalPrice: 45, discount: 22, deliveryTime: '11 MINS', image: { width: '80px', height: '80px', bg: '#F0E68C', text: 'Mother<br>Dairy<br>Curd', color: '#000' }},
+          { name: 'Britannia Bread', size: '400 g', currentPrice: 38, originalPrice: 45, discount: 16, deliveryTime: '11 MINS', image: { width: '80px', height: '90px', bg: '#F5DEB3', text: 'Britannia<br>Bread', color: '#8B4513' }},
+          { name: 'Real Fruit Juice', size: '1 ltr', currentPrice: 120, originalPrice: 150, discount: 20, deliveryTime: '11 MINS', image: { width: '60px', height: '110px', bg: '#FFA500', text: 'Real<br>Fruit<br>Juice' }},
+          { name: 'Nescafe Coffee', size: '200 g', currentPrice: 420, originalPrice: 500, discount: 16, deliveryTime: '11 MINS', image: { width: '70px', height: '100px', bg: '#8B4513', text: 'Nescafe<br>Coffee' }},
+          { name: 'Tata Tea Gold', size: '500 g', currentPrice: 270, originalPrice: 320, discount: 16, deliveryTime: '11 MINS', image: { width: '80px', height: '90px', bg: '#DAA520', text: 'Tata Tea<br>Gold', color: '#000' }}
+        ]
+      },
+      {
+        title: 'Snacks & Instant Food',
+        products: [
+          { name: 'Maggi Noodles', size: '12 pack', currentPrice: 144, originalPrice: 180, discount: 20, deliveryTime: '11 MINS', image: { width: '90px', height: '70px', bg: '#FFD700', text: 'Maggi<br>Noodles', color: '#FF0000' }},
+          { name: 'Lays Classic', size: '100 g', currentPrice: 40, originalPrice: 50, discount: 20, deliveryTime: '11 MINS', image: { width: '90px', height: '80px', bg: '#FFD700', text: 'Lays<br>Classic', color: '#000' }},
+          { name: 'Kurkure Masala', size: '90 g', currentPrice: 38, originalPrice: 45, discount: 16, deliveryTime: '11 MINS', image: { width: '70px', height: '100px', bg: '#FF4500', text: 'Kurkure<br>Masala' }},
+          { name: 'Parle-G Biscuit', size: '800 g', currentPrice: 48, originalPrice: 60, discount: 20, deliveryTime: '11 MINS', image: { width: '80px', height: '90px', bg: '#F0E68C', text: 'Parle-G<br>Biscuit', color: '#8B4513' }},
+          { name: 'Britannia Good Day', size: '600 g', currentPrice: 85, originalPrice: 100, discount: 15, deliveryTime: '11 MINS', image: { width: '80px', height: '90px', bg: '#FFE4B5', text: 'Good Day', color: '#8B4513' }},
+          { name: 'Haldiram Namkeen', size: '200 g', currentPrice: 60, originalPrice: 75, discount: 20, deliveryTime: '11 MINS', image: { width: '80px', height: '90px', bg: '#DAA520', text: 'Haldiram<br>Namkeen', color: '#000' }}
+        ]
+      }
+    ];
+
+    // Cart state
+    const cart = {};
+    let selectedPayment = null;
+
+    // Initialize sections
+    function initializeSections() {
+      const container = document.getElementById('sectionsContainer');
+      container.innerHTML = '';
+
+      productSections.forEach((section, sectionIndex) => {
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = 'section';
+        sectionDiv.innerHTML = `
+          <div class="section-header">
+            <h2 class="section-title">${section.title}</h2>
+          </div>
+          <div class="products-grid" id="section-${sectionIndex}"></div>
+        `;
+        container.appendChild(sectionDiv);
+
+        renderProducts(section.products, `section-${sectionIndex}`, sectionIndex);
+      });
+    }
+
+    // Render products
+    function renderProducts(products, containerId, sectionIndex) {
+      const container = document.getElementById(containerId);
+      
+      products.forEach((product, productIndex) => {
+        const globalIndex = `${sectionIndex}-${productIndex}`;
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="cart-controls">
+            <div class="cart-btn remove-btn" onclick="removeFromCart('${globalIndex}')">-</div>
+            <div class="cart-btn" onclick="addToCart('${globalIndex}')">+</div>
+          </div>
+          <div class="product-image">
+            <div style="width: ${product.image.width}; height: ${product.image.height}; background: ${product.image.bg}; ${product.image.border ? 'border: ' + product.image.border + ';' : ''} border-radius: 4px; display: flex; align-items: center; justify-content: center; color: ${product.image.color || 'white'}; font-size: 7px; text-align: center;">${product.image.text}</div>
+            <div class="discount-badge">${product.discount}% OFF</div>
+            <div class="delivery-time">${product.deliveryTime}</div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">${product.name}</div>
+            <div class="product-size">${product.size}</div>
+            <div class="price-info">
+              <span class="current-price">₹${product.currentPrice}</span>
+              <span class="original-price">₹${product.originalPrice}</span>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Get product by global index
+    function getProduct(globalIndex) {
+      const [sectionIndex, productIndex] = globalIndex.split('-').map(Number);
+      return productSections[sectionIndex].products[productIndex];
+    }
+
+    // Add to cart
+    function addToCart(globalIndex) {
+      const product = getProduct(globalIndex);
+      if (!cart[globalIndex]) {
+        cart[globalIndex] = { product, quantity: 0 };
+      }
+      cart[globalIndex].quantity++;
+      updateCartSummary();
+      showNotification(`${product.name} added to cart`);
+    }
+
+    // Remove from cart
+    function removeFromCart(globalIndex) {
+      if (cart[globalIndex] && cart[globalIndex].quantity > 0) {
+        cart[globalIndex].quantity--;
+        if (cart[globalIndex].quantity === 0) {
+          delete cart[globalIndex];
+        }
+        updateCartSummary();
+        showNotification('Item removed from cart');
+      }
+    }
+
+    // Update cart summary
+    function updateCartSummary() {
+      const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+      const totalAmount = Object.values(cart).reduce((sum, item) => sum + (item.product.currentPrice * item.quantity), 0);
+      
+      document.getElementById('cartCount').textContent = totalItems;
+      document.getElementById('cartTotalAmount').textContent = totalAmount;
+      
+      const cartSummary = document.getElementById('cartSummary');
+      if (totalItems > 0) {
+        cartSummary.classList.remove('hidden');
+      } else {
+        cartSummary.classList.add('hidden');
+      }
+    }
+
+    // Open cart modal
+    function openCart() {
+      const modal = document.getElementById('cartModal');
+      modal.classList.add('active');
+      renderCartItems();
+      document.getElementById('paymentOptions').classList.remove('active');
+    }
+
+    // Close cart modal
+    function closeCart() {
+      const modal = document.getElementById('cartModal');
+      modal.classList.remove('active');
+    }
+
+    // Render cart items
+    function renderCartItems() {
+      const container = document.getElementById('cartItemsList');
+      container.innerHTML = '';
+
+      if (Object.keys(cart).length === 0) {
+        container.innerHTML = '<p style="text-align: center; padding: 40px; color: #6b7280;">Your cart is empty</p>';
+        return;
+      }
+
+      let subtotal = 0;
+
+      Object.entries(cart).forEach(([globalIndex, item]) => {
+        const itemTotal = item.product.currentPrice * item.quantity;
+        subtotal += itemTotal;
+
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.product.name}</div>
+            <div class="cart-item-price">₹${item.product.currentPrice} × ${item.quantity} = ₹${itemTotal}</div>
+          </div>
+          <div class="cart-item-quantity">
+            <button class="qty-btn" onclick="removeFromCart('${globalIndex}'); renderCartItems();">-</button>
+            <span style="font-weight: 600; min-width: 20px; text-align: center;">${item.quantity}</span>
+            <button class="qty-btn" onclick="addToCart('${globalIndex}'); renderCartItems();">+</button>
+          </div>
+        `;
+        container.appendChild(cartItem);
+      });
+
+      const delivery = 40;
+      const grandTotal = subtotal + delivery;
+
+      document.getElementById('subtotal').textContent = subtotal;
+      document.getElementById('delivery').textContent = delivery;
+      document.getElementById('grandTotal').textContent = grandTotal;
+      document.getElementById('payAmount').textContent = grandTotal;
+    }
+
+    // Show payment options
+    function showPaymentOptions() {
+      document.getElementById('paymentOptions').classList.add('active');
+    }
+
+    // Select payment method
+    function selectPayment(method) {
+      selectedPayment = method;
+      
+      document.querySelectorAll('.payment-option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      
+      event.target.closest('.payment-option').classList.add('selected');
+      document.getElementById('payBtn').disabled = false;
+    }
+
+    // Process payment
+    function processPayment() {
+      if (!selectedPayment) {
+        showNotification('Please select a payment method');
+        return;
+      }
+
+      const grandTotal = document.getElementById('grandTotal').textContent;
+      const paymentMethods = {
+        'upi': 'UPI',
+        'card': 'Credit/Debit Card',
+        'netbanking': 'Net Banking',
+        'cod': 'Cash on Delivery'
+      };
+
+      // Simulate payment processing
+      document.getElementById('payBtn').textContent = 'Processing...';
+      document.getElementById('payBtn').disabled = true;
+
+      setTimeout(() => {
+        closeCart();
+        showSuccessMessage(paymentMethods[selectedPayment], grandTotal);
+        
+        // Clear cart
+        Object.keys(cart).forEach(key => delete cart[key]);
+        updateCartSummary();
+        selectedPayment = null;
+      }, 2000);
+    }
+
+    // Show success message
+    function showSuccessMessage(method, amount) {
+      const successDiv = document.createElement('div');
+      successDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        z-index: 3000;
+        text-align: center;
+        animation: popIn 0.3s ease;
+      `;
+      
+      successDiv.innerHTML = `
+        <div style="font-size: 60px; margin-bottom: 16px;">✅</div>
+        <h2 style="color: #10b981; margin-bottom: 12px;">Order Successful!</h2>
+        <p style="color: #6b7280; margin-bottom: 8px;">Payment Method: ${method}</p>
+        <p style="font-size: 24px; font-weight: bold; color: #1a1a1a;">₹${amount}</p>
+        <p style="color: #6b7280; margin-top: 16px;">Your order will be delivered soon</p>
+      `;
+
+      const overlay = document.createElement('div');
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 2999;
+      `;
+
+      document.body.appendChild(overlay);
+      document.body.appendChild(successDiv);
+
+      setTimeout(() => {
+        successDiv.remove();
+        overlay.remove();
+      }, 3000);
+    }
+
+    // Show notification
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.textContent = message;
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #10b981;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 1000;
+        animation: slideIn 0.3s ease;
+      `;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+      }, 2000);
+    }
+
+    // Add pop-in animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes popIn {
+        from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+        to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize on page load
+    initializeSections();
+  </script>
+
+</body>
+</html>

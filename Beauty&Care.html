@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deals Section</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f8f9fa;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1a1a1a;
+    }
+
+    .see-all {
+      font-size: 14px;
+      color: #1a73e8;
+      cursor: pointer;
+    }
+
+    .products-grid {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scrollbar-width: none; /* Firefox */
+    }
+    .products-grid::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Edge */
+    }
+
+    .product-card {
+      min-width: 180px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .product-image {
+      height: 140px;
+      background: #f1f1f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .product-info {
+      padding: 12px;
+    }
+    .product-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .price-info {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .current-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .original-price {
+      font-size: 13px;
+      text-decoration: line-through;
+      color: #9ca3af;
+    }
+
+    .add-cart-btn {
+      margin-top: 8px;
+      padding: 6px 12px;
+      font-size: 14px;
+      background: #1a73e8;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .add-cart-btn:hover {
+      background: #155ab6;
+    }
+
+    /* Hidden section */
+    .see-all-products {
+      display: none;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .see-all-products.active {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+
+
+              <!-- Beauty & Care Section -->
+    <section>
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">Top Deals in Beauty & Care</h2>
+           
+        </div>
+        <div class="products-grid" id="beautyGrid">
+            <div class="product-card">
+                 <div class="cart-controls">
+                    <div class="cart-btn remove-btn" onclick="removeFromCart('Sunfeast Dark Fantasy Bourbon', event)">-</div>
+                    <div class="cart-btn" onclick="addToCart('Sunfeast Dark Fantasy Bourbon', event)">+</div>
+                </div>
+                <div class="product-image">
+                    <div style="width: 80px; height: 120px; background: #8B0000; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; text-align: center;">Tresemme<br>Keratin</div>
+                    <div class="discount-badge discount-60">60% OFF</div>
+                
+                    <div class="delivery-time">11 MINS</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Tresemme Keratin Smooth Shampoo</div>
+                    <div class="product-size">580 ml</div>
+                    <div class="price-info">
+                        <span class="current-price">₹443</span>
+                        <span class="original-price">₹1108</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                 <div class="cart-controls">
+                    <div class="cart-btn remove-btn" onclick="removeFromCart('Sunfeast Dark Fantasy Bourbon', event)">-</div>
+                    <div class="cart-btn" onclick="addToCart('Sunfeast Dark Fantasy Bourbon', event)">+</div>
+                </div>
+                <div class="product-image">
+                    <div style="width: 80px; height: 100px; background: #90EE90; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #006400; font-size: 9px; text-align: center;">Himalaya<br>Neem</div>
+                    <div class="discount-badge discount-53">53% OFF</div>
+                    
+                    <div class="delivery-time">11 MINS</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Himalaya Purifying Neem Face Wash</div>
+                    <div class="product-size">400 ml</div>
+                    <div class="price-info">
+                        <span class="current-price">₹276</span>
+                        <span class="original-price">₹599</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                 <div class="cart-controls">
+                    <div class="cart-btn remove-btn" onclick="removeFromCart('Sunfeast Dark Fantasy Bourbon', event)">-</div>
+                    <div class="cart-btn" onclick="addToCart('Sunfeast Dark Fantasy Bourbon', event)">+</div>
+                </div>
+                <div class="product-image">
+                    <div style="width: 70px; height: 110px; background: #90EE90; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #006400; font-size: 8px; text-align: center;">Rexona<br>Women<br>Aloe Vera</div>
+                    <div class="discount-badge discount-53">53% OFF</div>
+                    
+                    <div class="delivery-time">11 MINS</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Rexona Women Roll on aloe vera</div>
+                    <div class="product-size">50 ml</div>
+                    <div class="price-info">
+                        <span class="current-price">₹89</span>
+                        <span class="original-price">₹190</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                 <div class="cart-controls">
+                    <div class="cart-btn remove-btn" onclick="removeFromCart('Sunfeast Dark Fantasy Bourbon', event)">-</div>
+                    <div class="cart-btn" onclick="addToCart('Sunfeast Dark Fantasy Bourbon', event)">+</div>
+                </div>
+                <div class="product-image">
+                    <div style="width: 80px; height: 100px; background: #FFB6C1; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #FF1493; font-size: 8px; text-align: center;">Head &<br>Shoulders<br>Smooth</div>
+                    <div class="discount-badge discount-61">61% OFF</div>
+                   
+                    <div class="delivery-time">11 MINS</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Head & Shoulders Smooth And Silky...</div>
+                    <div class="product-size">650 ml</div>
+                    <div class="price-info">
+                        <span class="current-price">₹437</span>
+                        <span class="original-price">₹1125</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                 <div class="cart-controls">
+                    <div class="cart-btn remove-btn" onclick="removeFromCart('Sunfeast Dark Fantasy Bourbon', event)">-</div>
+                    <div class="cart-btn" onclick="addToCart('Sunfeast Dark Fantasy Bourbon', event)">+</div>
+                </div>
+                <div class="product-image">
+                    <div style="width: 60px; height: 110px; background: #E6E6FA; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #8A2BE2; font-size: 8px; text-align: center;">Arcta<br>Anti-<br>Hairfall</div>
+                    <div class="discount-badge discount-66">66% OFF</div>
+                
+                    <div class="delivery-time">11 MINS</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Arcta Anti-Hairfall Onion Shampoo</div>
+                    <div class="product-size">200 ml</div>
+                    <div class="price-info">
+                        <span class="current-price">₹99</span>
+                        <span class="original-price">₹299</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                 <div class="cart-controls">
+                    <div class="cart-btn remove-btn" onclick="removeFromCart('Sunfeast Dark Fantasy Bourbon', event)">-</div>
+                    <div class="cart-btn" onclick="addToCart('Sunfeast Dark Fantasy Bourbon', event)">+</div>
+                </div>
+                <div class="product-image">
+                    <div style="width: 90px; height: 60px; background: #4169E1; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 8px; text-align: center;">Dove Cream<br>Beauty Bar</div>
+                    <div class="discount-badge discount-31">31% OFF</div>
+                    <div class="delivery-time">11 MINS</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Dove Cream Beauty Bathing...</div>
+                    <div class="product-size">625 g</div>
+                    <div class="price-info">
+                        <span class="current-price">₹357</span>
+                        <span class="original-price">₹522</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card"> <div class="cart-controls">
+                    <div class="cart-btn remove-btn" onclick="removeFromCart('Sunfeast Dark Fantasy Bourbon', event)">-</div>
+                    <div class="cart-btn" onclick="addToCart('Sunfeast Dark Fantasy Bourbon', event)">+</div>
+                </div>
+                <div class="product-image">
+                    <div style="width: 60px; height: 110px; background: #2F4F4F; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 7px; text-align: center;">Biotique<br>Herbcolor<br>3N Brown</div>
+                    <div class="discount-badge discount-52">52% OFF</div>
+                   
+                    <div class="delivery-time">11 MINS</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Biotique Herbcolor 3N Darkest Brown</div>
+                    <div class="product-size">110 ml</div>
+                    <div class="price-info">
+                        <span class="current-price">₹180</span>
+                        <span class="original-price">₹375</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                 <div class="cart-controls">
+                    <div class="cart-btn remove-btn" onclick="removeFromCart('Sunfeast Dark Fantasy Bourbon', event)">-</div>
+                    <div class="cart-btn" onclick="addToCart('Sunfeast Dark Fantasy Bourbon', event)">+</div>
+                </div>
+                <div class="product-image">
+                    <div style="width: 70px; height: 100px; background: #FFE4E1; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #DC143C; font-size: 8px; text-align: center;">Fiama<br>Soap</div>
+                    <div class="delivery-time">11 MINS</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Fiama Soap</div>
+                    <div class="product-size">125 g</div>
+                    <div class="price-info">
+                        <span class="current-price">₹70</span>
+                        <span class="original-price">₹79</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+ 
+
+  <!-- <script>
+    // See All functionality
+    document.querySelectorAll('.see-all').forEach(link => {
+      link.addEventListener('click', function() {
+        const section = this.closest('.section');
+        const seeAllGrid = section.querySelector('.see-all-products');
+        seeAllGrid.classList.toggle('active');
+        this.textContent = seeAllGrid.classList.contains('active') ? "Hide ▲" : "See All >";
+      });
+    });
+
+    // Add to Cart buttons
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('add-cart-btn')) {
+        const name = e.target.closest('.product-card').querySelector('.product-name').textContent;
+        alert(`${name} added to cart 🛒`);
+      }
+    });
+  </script> -->
+
+</body>
+</html>

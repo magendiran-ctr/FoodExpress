@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Food Express - Search</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --accent: #fc8019;
+      --bg: #f8f8f8;
+    }
+
+    /* ========= Base ========= */
+    html,body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* disable page scroll while modal open */
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    /* ========= Navbar ========= */
+    .navbar {
+      background: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: flex-end;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .nav-item {
+      color: #333;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .nav-item:hover {
+      color: var(--accent);
+    }
+
+    /* ========= Search Modal Overlay ========= */
+    .search-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .search-overlay.active {
+      display: flex;
+    }
+
+    /* ========= Search Card ========= */
+    .search-card {
+      background: white;
+      border-radius: 12px;
+      padding: 22px;
+      width: 500px;
+      max-width: 100%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      position: relative;
+      animation: fadeIn 220ms ease;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    @keyframes fadeIn {
+      from { transform: translateY(-12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .search-header {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+    }
+
+    .search-card h2 {
+      margin: 0;
+      font-size: 18px;
+      color: var(--accent);
+      font-weight:600;
+    }
+
+    .search-card .search-row {
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-top:8px;
+    }
+
+    .search-card input[type="text"] {
+      flex:1;
+      padding: 12px 14px;
+      border: 2px solid #e6e6e6;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+    }
+    .search-card input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(252,128,25,0.08);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #999;
+      line-height:1;
+      padding:6px;
+      border-radius:6px;
+    }
+    .close-btn:hover {
+      color: var(--accent);
+      background: rgba(252,128,25,0.05);
+    }
+
+    /* ========= Results ========= */
+    .results {
+      margin-top: 14px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .category {
+      margin: 12px 0 8px;
+      font-size: 14px;
+      color: #444;
+      font-weight: 600;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      gap:12px;
+    }
+    .result-item:hover,
+    .result-item:focus {
+      background: #fff6ef; /* light accent */
+      outline: none;
+    }
+    .result-item img {
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .result-details h4 {
+      margin: 0;
+      font-size: 15px;
+      color: #222;
+    }
+    .result-details p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .no-results {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    /* tags */
+    .tags {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+    .tag {
+      background: var(--accent);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      user-select:none;
+    }
+    .tag:focus { outline: 2px solid rgba(0,0,0,0.08); }
+
+    /* responsive: mobile full screen feel */
+    @media (max-width: 600px) {
+      .search-card {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        max-height: 100vh;
+        padding: 16px;
+      }
+      .result-item img { width:48px; height:48px; }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <!-- <div class="navbar">
+    <!-- prevent default navigation; call openSearch(event) -->
+    <!-- <a href="#" class="nav-item" onclick="openSearch(event)"> --> -->
+      <img src="/Images/Search.png" width="20" alt="search icon"> Search
+    </a>
+  </div>
+
+  <!-- Search Modal -->
+  <div class="search-overlay" id="searchOverlay" onclick="overlayClick(event)" aria-hidden="true">
+    <div class="search-card" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+      <button class="close-btn" aria-label="Close search" onclick="closeSearch()">&times;</button>
+
+      <div class="search-header">
+        <h2 id="searchTitle">Search</h2>
+      </div>
+
+      <div class="search-row">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search restaurants or dishes..."
+          oninput="performSearch()"
+          aria-label="Search restaurants or dishes"
+        />
+      </div>
+
+      <div class="results" id="resultsBox" tabindex="0" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Sample data ----------
+    const restaurants = [
+      { name: "Pizza Palace", desc: "Delicious cheesy pizzas", img: "https://images.unsplash.com/photo-1601924638867-3ec3f3f120b1?w=800&q=60&auto=format&fit=crop" },
+      { name: "Biryani House", desc: "Authentic Hyderabadi biryani", img: "https://images.unsplash.com/photo-1604908177522-17a58fc9b7b6?w=800&q=60&auto=format&fit=crop" },
+      { name: "Burger Hub", desc: "Juicy burgers and fries", img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&q=60&auto=format&fit=crop" },
+      { name: "Ice Cream World", desc: "Cool desserts & sundaes", img: "https://images.unsplash.com/photo-1544378732-1d0a0f4aa7d7?w=800&q=60&auto=format&fit=crop" },
+      { name: "Curry Corner", desc: "Spicy Indian curries", img: "https://images.unsplash.com/photo-1604908176926-7aaa3b9c42d7?w=800&q=60&auto=format&fit=crop" }
+    ];
+
+    const dishes = [
+      { name: "Margherita Pizza", desc: "Classic cheese pizza", img: "https://images.unsplash.com/photo-1498579809087-ef1e558fd1f9?w=800&q=60&auto=format&fit=crop" },
+      { name: "Chicken Biryani", desc: "Spicy rice with chicken", img: "https://images.unsplash.com/photo-1604908177018-aef6e3b5a5b0?w=800&q=60&auto=format&fit=crop" },
+      { name: "Veg Burger", desc: "Healthy veg delight", img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&q=60&auto=format&fit=crop" },
+      { name: "Vanilla Ice Cream", desc: "Creamy vanilla scoop", img: "https://images.unsplash.com/photo-1544378732-1d0a0f4aa7d7?w=800&q=60&auto=format&fit=crop" },
+      { name: "Paneer Curry", desc: "Rich Indian curry", img: "https://images.unsplash.com/photo-1604908176926-7aaa3b9c42d7?w=800&q=60&auto=format&fit=crop" },
+      { name: "French Fries", desc: "Crispy golden fries", img: "https://images.unsplash.com/photo-1564758866819-4f5f5f4b3f2a?w=800&q=60&auto=format&fit=crop" }
+    ];
+
+    // ---------- elements ----------
+    const overlay = document.getElementById('searchOverlay');
+    const searchInput = document.getElementById('searchInput');
+    const resultsBox = document.getElementById('resultsBox');
+
+    // ---------- open/close ----------
+    function openSearch(e) {
+      if (e && e.preventDefault) e.preventDefault(); // stop anchor default action
+      overlay.classList.add('active');
+      document.body.classList.add('modal-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      searchInput.value = '';
+      showPopularSearches();
+      // focus after small delay so mobile keyboards behave
+      setTimeout(() => searchInput.focus(), 60);
+    }
+
+    function closeSearch() {
+      overlay.classList.remove('active');
+      document.body.classList.remove('modal-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      searchInput.value = '';
+      resultsBox.innerHTML = '';
+    }
+
+    // click outside card to close
+    function overlayClick(e) {
+      if (e.target === overlay) closeSearch();
+    }
+
+    // Esc only closes when modal is open
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        closeSearch();
+      }
+    });
+
+    // ---------- search logic: grouped by category ----------
+    function performSearch() {
+      const q = searchInput.value.trim().toLowerCase();
+      resultsBox.innerHTML = '';
+
+      if (!q) {
+        showPopularSearches();
+        return;
+      }
+
+      const restaurantsFound = restaurants.filter(r =>
+        r.name.toLowerCase().includes(q) || r.desc.toLowerCase().includes(q)
+      );
+      const dishesFound = dishes.filter(d =>
+        d.name.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q)
+      );
+
+      if (restaurantsFound.length === 0 && dishesFound.length === 0) {
+        resultsBox.innerHTML = `<div class="no-results">No results found for "<strong>${escapeHtml(q)}</strong>"</div>`;
+        return;
+      }
+
+      let html = '';
+
+      if (restaurantsFound.length) {
+        html += `<div class="category">Restaurants</div>`;
+        restaurantsFound.forEach(r => {
+          html += resultItemHtml(r.name, r.desc, r.img, 'restaurant');
+        });
+      }
+
+      if (dishesFound.length) {
+        html += `<div class="category">Dishes</div>`;
+        dishesFound.forEach(d => {
+          html += resultItemHtml(d.name, d.desc, d.img, 'dish');
+        });
+      }
+
+      resultsBox.innerHTML = html;
+    }
+
+    function resultItemHtml(name, desc, img, type) {
+      // data-name used by event delegation
+      return `
+        <div class="result-item" tabindex="0" data-name="${escapeAttr(name)}" data-type="${type}">
+          <img src="${img}" alt="${escapeAttr(name)}">
+          <div class="result-details">
+            <h4>${escapeHtml(name)}</h4>
+            <p>${escapeHtml(desc)}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // handle clicks on results (event delegation)
+    resultsBox.addEventListener('click', (e) => {
+      const el = e.target.closest('.result-item');
+      if (!el) return;
+      const name = el.dataset.name;
+      const type = el.dataset.type;
+      // Demo behavior: log and close. Replace with navigation as needed.
+      console.log('Selected', type, name);
+      closeSearch();
+      // example: window.location.href = `/search?item=${encodeURIComponent(name)}`;
+    });
+
+    // keyboard support: Enter on focused result
+    resultsBox.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const el = e.target.closest('.result-item');
+        if (!el) return;
+        el.click();
+      }
+    });
+
+    // ---------- popular searches ----------
+    function showPopularSearches() {
+      resultsBox.innerHTML = `
+        <div><strong>Popular Searches:</strong></div>
+        <div class="tags" role="list">
+          <button class="tag" type="button" onclick="setSearch('Pizza')">🍕 Pizza</button>
+          <button class="tag" type="button" onclick="setSearch('Burger')">🍔 Burger</button>
+          <button class="tag" type="button" onclick="setSearch('Biryani')">🍛 Biryani</button>
+          <button class="tag" type="button" onclick="setSearch('Ice Cream')">🍨 Ice Cream</button>
+        </div>
+      `;
+    }
+
+    function setSearch(value) {
+      searchInput.value = value;
+      performSearch();
+    }
+
+    // small helper to avoid XSS in injected HTML
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+    function escapeAttr(str) {
+      if (!str) return '';
+      return String(str).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+
+    // initialize: nothing shown until user opens (optional)
+    // showPopularSearches(); // uncomment if you want it visible on load
+  </script>
+</body>
+</html>

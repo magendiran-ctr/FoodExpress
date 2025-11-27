@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FreshMenu-style Blog</title>
+  <style>
+    :root{
+      --bg:#fafafa; --card:#ffffff; --muted:#6b7280; --accent:#ff6f3c; --accent-2:#ff8a4c; --glass:rgba(255,255,255,0.6);
+      --radius:12px; --max-width:1100px; --shadow: 0 6px 20px rgba(16,24,40,0.08);
+      --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:var(--font-sans); background:linear-gradient(180deg,#fff 0%,var(--bg) 100%); color:#111827; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      padding:24px; display:flex; justify-content:center;
+    }
+    .container{width:100%; max-width:var(--max-width);} 
+
+    /* Header */
+    header{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:28px}
+    .brand{display:flex; align-items:center; gap:14px}
+    .logo{background:linear-gradient(90deg,var(--accent),var(--accent-2)); padding:10px 14px; border-radius:10px; color:white; font-weight:700; font-size:18px; box-shadow:var(--shadow)}
+    nav{display:flex; gap:12px; align-items:center}
+    .nav-link{color:var(--muted); text-decoration:none; font-weight:600; padding:8px 12px; border-radius:10px}
+    .nav-link:hover{background:#fff; color:#111}
+    .actions{display:flex; gap:10px; align-items:center}
+    .btn{padding:8px 12px; border-radius:10px; border:0; cursor:pointer; font-weight:700}
+    .btn.primary{background:var(--accent); color:#fff}
+    .btn.ghost{background:transparent; border:1px solid #eee; color:var(--muted)}
+
+    /* Hero */
+    .hero{display:flex; align-items:center; justify-content:space-between; gap:18px; background:linear-gradient(90deg, rgba(255,111,60,0.06), rgba(255,138,76,0.03)); padding:22px; border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:22px}
+    .hero-left{max-width:62%}
+    .hero h1{margin:0; font-size:26px}
+    .hero p{margin-top:8px; color:var(--muted)}
+
+    /* Categories */
+    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-bottom:22px}
+    .card{background:var(--card); padding:18px; border-radius:14px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px; text-decoration:none; color:inherit}
+    .card h3{margin:0}
+    .card p{margin:0; color:var(--muted); font-size:14px}
+    .card .meta{display:flex; justify-content:space-between; align-items:center}
+    .chip{background:#fff; padding:6px 10px; border-radius:999px; font-size:12px; border:1px solid #f3f4f6}
+
+    /* Footer */
+    footer{display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-top:30px; padding-top:18px; border-top:1px solid #f3f4f6}
+    .footer-col{display:flex; flex-direction:column; gap:8px}
+    .socials{display:flex; gap:8px}
+    .social{width:36px;height:36px;border-radius:8px;display:inline-grid;place-items:center;background:#fff;border:1px solid #f3f4f6}
+
+    /* Category page layout */
+    .category-wrap{background:var(--card); padding:20px; border-radius:14px; box-shadow:var(--shadow)}
+    .back-btn{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:10px; border:0;background:#fff; cursor:pointer}
+    .section{margin-top:16px}
+    .recipe-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px}
+    .recipe{background:linear-gradient(180deg,#fff,#fff); padding:14px; border-radius:12px; border:1px solid #f8fafc}
+    .recipe h4{margin:0 0 6px 0}
+    .meta-row{display:flex; gap:10px; color:var(--muted); font-size:13px}
+    .ingredients{margin-top:10px; font-size:14px}
+
+    /* Responsive tweaks */
+    @media (max-width:720px){
+      .hero-left{max-width:100%}
+      header{flex-direction:column; align-items:stretch}
+      .actions{justify-content:flex-end}
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="logo">FRESH<span style="opacity:.9; font-weight:600">MENU</span></div>
+        <div style="color:var(--muted); font-weight:600">Blog</div>
+      </div>
+      <nav aria-label="Main navigation">
+        <a class="nav-link" href="#">Home</a>
+        <a class="nav-link" href="#categories">Categories</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </nav>
+      <div class="actions">
+        <select aria-label="Delivery location" id="deliverySelect" class="chip">
+          <option>Deliver to: Bangalore</option>
+          <option>Deliver to: Mumbai</option>
+          <option>Deliver to: Delhi</option>
+        </select>
+        <button class="btn ghost">Sign in</button>
+        <button class="btn primary">Subscribe</button>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-left">
+        <h1>FreshMenu Blog — Recipes, Nutrition & Practical Guides</h1>
+        <p>Practical, tested, and easy-to-follow content to help you eat better — recipes, diet plans, meal-prep, and daily health tips.</p>
+      </div>
+      <div style="min-width:220px; text-align:right">
+        <div style="font-size:12px; color:var(--muted)">Featured</div>
+        <h3 style="margin:6px 0 0 0">Quick 20-min Protein Bowl</h3>
+        <div style="color:var(--muted); font-size:13px">30g protein • 420 kcal</div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
+        <h2 style="margin:0">Explore Categories</h2>
+        <div style="color:var(--muted); font-size:14px">Click a card to open the category in a new tab</div>
+      </div>
+      <div class="grid" id="categoryGrid">
+        <!-- cards added by JS -->
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-col">
+        <strong>Company</strong>
+        <a class="nav-link" href="#">About</a>
+        <a class="nav-link" href="#">Careers</a>
+        <a class="nav-link" href="#">Blog</a>
+      </div>
+      <div class="footer-col">
+        <strong>Help</strong>
+        <a class="nav-link" href="#">FAQs</a>
+        <a class="nav-link" href="#">Contact</a>
+        <a class="nav-link" href="#">Terms</a>
+      </div>
+      <div class="footer-col">
+        <strong>Follow</strong>
+        <div class="socials">
+          <div class="social">IG</div>
+          <div class="social">FB</div>
+          <div class="social">TW</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /* ---------- DATA ---------- */
+    const CATEGORIES = [
+      {
+        id:'healthy-recipes', title:'Healthy Recipes', desc:'Complete recipes with ingredients, instructions, prep time, and calories', featured:true
+      },
+      {id:'health-nutrition', title:'Health & Nutrition', desc:'Macronutrients guide, balanced plate tips, and hydration advice'},
+      {id:'guide', title:'Guide', desc:'Meal prep strategies, shopping tips, and portion control guidance'},
+      {id:'health-tips', title:'Health Tips', desc:'Morning routines, energy management, sleep tips, and immunity boosters'},
+      {id:'diet-plans', title:'Diet Plans', desc:'Weight management, high-protein, plant-based, Mediterranean, and anti-inflammatory diets'}
+    ];
+
+    const CONTENT = {
+      'healthy-recipes':{
+        title:'Healthy Recipes',
+        intro:'Simple, balanced recipes you can make at home. Each recipe includes ingredients, step-by-step instructions, prep time and calories.',
+        items:[
+          {name:'Grilled Chicken Quinoa Bowl', prep:'25 mins', kcal:480, protein:'38g', ingredients:['200g chicken breast','1 cup cooked quinoa','Mixed greens','Cherry tomatoes','Olive oil','Lemon','Salt & pepper'], steps:[
+            'Marinate chicken with olive oil, salt, pepper and lemon for 10 minutes.', 'Grill chicken 6-7 minutes per side until cooked through.', 'Assemble bowl with quinoa, greens, sliced chicken and tomatoes. Drizzle lemon and olive oil.'
+          ]},
+          {name:'Chickpea & Spinach Curry', prep:'30 mins', kcal:360, protein:'18g', ingredients:['1 can chickpeas','2 cups spinach','Onion','Garlic','Tomato puree','Spices'], steps:['Sauté onion and garlic.','Add spices and tomato puree.','Add chickpeas and spinach, simmer 8-10 minutes.']}
+        ]
+      },
+      'health-nutrition':{
+        title:'Health & Nutrition', intro:'Understand macronutrients, portion balance, and hydration to power your day.', sections:[
+          {h:'Macronutrients 101', body:'Protein, carbohydrates, and fats — what they do, how much you need, and practical sources.'},
+          {h:'Balanced Plate', body:'A simple rule: half veg, one quarter lean protein, one quarter whole grains. Adjust portions for goals.'},
+          {h:'Hydration', body:'Aim for 2-3 liters per day depending on activity. Include electrolytes when sweating.'}
+        ]
+      },
+      'guide':{
+        title:'Guide', intro:'Meal prep, smart shopping, and portion control techniques.', sections:[
+          {h:'Meal Prep Basics', body:'Choose 2-3 proteins, 2-3 carbs and several vegetables. Cook in batches and store in clear containers.'},
+          {h:'Shopping Tips', body:'Shop the perimeter first, make a list, and freeze bulk proteins into portions.'},
+          {h:'Portion Control', body:'Use your hand as a guide: palm=protein, fist=carbs, cupped hand=veg.'}
+        ]
+      },
+      'health-tips':{
+        title:'Health Tips', intro:'Daily routines that improve energy, sleep and immunity.', sections:[
+          {h:'Morning Routine', body:'Hydrate first, move for 10 minutes, prioritize protein at breakfast.'},
+          {h:'Sleep', body:'Maintain consistent bedtime; reduce screens 1 hour before bed.'},
+          {h:'Immunity Boosters', body:'Vitamin D, sufficient protein, and sleep — add citrus and greens.'}
+        ]
+      },
+      'diet-plans':{
+        title:'Diet Plans', intro:'Practical diet templates for common goals.', plans:[
+          {name:'Weight Management', desc:'Calorie deficit with higher protein and fiber.', sample:'Breakfast: Oats + berries / Lunch: Grilled chicken salad / Dinner: Lentil soup'},
+          {name:'High-Protein', desc:'Aim 1.6-2.2g protein/kg of bodyweight. Focus on lean meats, dairy, legumes.'},
+          {name:'Plant-Based', desc:'Whole-food plant-focused meals. Include legumes, tofu, nuts for protein.'},
+          {name:'Mediterranean', desc:'Olive oil, fish, whole grains, vegetables and moderate dairy.'},
+          {name:'Anti-inflammatory', desc:'Emphasize omega-3s, colorful veg, turmeric and whole foods.'}
+        ]
+      }
+    };
+
+    /* ---------- RENDERING: Index (cards) ---------- */
+    function makeCard(cat){
+      const a = document.createElement('a');
+      a.className = 'card';
+      a.setAttribute('role','button');
+      a.setAttribute('aria-pressed','false');
+      a.dataset.cat = cat.id;
+      // href set later to include query param and open new tab
+      a.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:flex-start">
+          <div>
+            <h3>${cat.title}</h3>
+            <p>${cat.desc}</p>
+          </div>
+          <div class="chip">Open</div>
+        </div>
+      `;
+      return a;
+    }
+
+    function renderIndex(){
+      const grid = document.getElementById('categoryGrid');
+      grid.innerHTML = '';
+      CATEGORIES.forEach(c => {
+        const card = makeCard(c);
+        // make clickable open in new tab with query param
+        const link = document.createElement('a');
+        link.className = card.className;
+        link.href = addQueryParam(location.pathname, 'cat', c.id);
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.innerHTML = card.innerHTML;
+        grid.appendChild(link);
+      })
+    }
+
+    /* ---------- RENDERING: Category Page (single file opens with ?cat=...) ---------- */
+    function renderCategory(catId){
+      const cat = CONTENT[catId];
+      if(!cat) return renderIndex();
+      // create a new page layout in body
+      document.body.innerHTML = '';
+      const wrapper = document.createElement('div'); wrapper.className='container';
+
+      const top = document.createElement('div'); top.style.marginBottom='14px';
+      const back = document.createElement('button'); back.className='back-btn'; back.textContent='← Back'; back.onclick = ()=> { if(history.length>1) history.back(); else location.href = location.pathname }
+      top.appendChild(back);
+      const title = document.createElement('h1'); title.style.margin='12px 0 0 0'; title.textContent = cat.title;
+      const intro = document.createElement('p'); intro.style.color='var(--muted)'; intro.textContent = cat.intro || cat.title;
+      wrapper.appendChild(top); wrapper.appendChild(title); wrapper.appendChild(intro);
+
+      // content by category
+      if(catId === 'healthy-recipes'){
+        const section = document.createElement('div'); section.className='section category-wrap';
+        const grid = document.createElement('div'); grid.className='recipe-grid';
+        cat.items.forEach(r =>{
+          const rc = document.createElement('article'); rc.className='recipe';
+          rc.innerHTML = `<h4>${r.name}</h4>
+            <div class='meta-row'><div>${r.prep}</div><div>${r.kcal} kcal</div><div>${r.protein}</div></div>
+            <div class='ingredients'><strong>Ingredients</strong><ul>${r.ingredients.map(i=>`<li>${i}</li>`).join('')}</ul></div>
+            <div style='margin-top:8px'><strong>Instructions</strong><ol>${r.steps.map(s=>`<li>${s}</li>`).join('')}</ol></div>`;
+          grid.appendChild(rc);
+        })
+        section.appendChild(grid);
+        wrapper.appendChild(section);
+      } else if(catId === 'health-nutrition' || catId === 'guide' || catId === 'health-tips'){
+        const section = document.createElement('div'); section.className='section category-wrap';
+        (cat.sections || cat.sections || []).forEach(s => {
+          const box = document.createElement('div'); box.style.marginBottom='12px';
+          box.innerHTML = `<h3 style='margin:0 0 6px 0'>${s.h}</h3><p style='margin:0; color:var(--muted)'>${s.body}</p>`;
+          section.appendChild(box);
+        })
+        wrapper.appendChild(section);
+      } else if(catId === 'diet-plans'){
+        const section = document.createElement('div'); section.className='section category-wrap';
+        cat.plans.forEach(p=>{
+          const box = document.createElement('div'); box.style.marginBottom='12px';
+          box.innerHTML = `<h4 style='margin:0'>${p.name}</h4><div style='color:var(--muted)'>${p.desc || ''}</div><div style='margin-top:6px; color:var(--muted)'><strong>Sample:</strong> ${p.sample || p.desc || ''}</div>`;
+          section.appendChild(box);
+        })
+        wrapper.appendChild(section);
+      }
+
+      // footer for category page
+      const foot = document.createElement('footer'); foot.style.marginTop='20px'; foot.innerHTML = `<div style='color:var(--muted)'>This is a single-file demo. Close tab to return.</div>`;
+      wrapper.appendChild(foot);
+
+      document.body.appendChild(wrapper);
+    }
+
+    /* ---------- UTILS ---------- */
+    function addQueryParam(path, key, val){
+      // keep any existing path
+      const p = path.split('?')[0];
+      return p + '?' + encodeURIComponent(key) + '=' + encodeURIComponent(val);
+    }
+
+    function getQueryParam(name){
+      const url = new URL(location.href);
+      return url.searchParams.get(name);
+    }
+
+    /* ---------- INIT ---------- */
+    (function init(){
+      const cat = getQueryParam('cat');
+      if(cat){
+        // render category page
+        renderCategory(cat);
+        return;
+      }
+      renderIndex();
+
+      // small UX: keyboard focus indicators for card links
+      document.addEventListener('keydown', e=>{ if(e.key==='Tab'){ document.querySelectorAll('.card, .nav-link, .btn').forEach(el=>el.style.outline='2px solid #e6e6e6') } });
+    })();
+
+  </script>
+</body>
+</html>

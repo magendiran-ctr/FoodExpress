@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food-Express /Delicious Food Delivered</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>  
+    <div class="container">
+        <!-- Header -->
+        <header>
+                 <div class="logo">
+                <span class="logo-top">FOOD</span>
+                <span class="logo-main">EXPRESS</span>
+            </div>
+            <nav>
+                <a href="#" class="active">Home</a>
+                <a href="Menu.html" target="_blank" >Menu</a>
+                <a href="corporate.html" target="_blank">Corporate</a>
+                <a href="About.html" target="_blank">About</a>
+                <a href="#">Blogs</a>
+            </nav>
+             <div class="header-right">
+      <button id="cartBtn" class="cart-btn">
+        🛒 Cart <span id="cartCount">0</span>
+      </button>
+                 <a href="sign-in.html">
+                    <button class="signin-btn"> 
+                      <span>👤</span>
+                    <span>Sign in</span>
+                  </button>
+                </a> 
+            </div>
+        </header>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-left">
+                <h1>
+                    Healthy <span class="red">Eating is<br>an</span> <span class="orange">Important</span> Part<br>of Lifestyle
+                </h1>
+                <p class="hero-subtitle">
+                    We Prepare Delicious Food<br>
+                    For You We Are Always
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-explore">Explore Now</button>
+                    <button class="btn-video">
+                        <!-- <div class="play-circle">▶</div>
+                        <span>Palay Video</span> -->
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="main-bowl">
+                    <img src="/Images/bowl image.jpg" alt="Healthy Salad Bowl">
+                </div>
+                <div class="discount-tag">
+                    <div class="percent">20%</div>
+                    <div class="off-text">off</div>
+                </div>
+                <div class="info-card delivery">
+                    <div class="card-icon">🚚</div>
+                    <div class="card-text">
+                        <h4>Fast Delivery</h4>
+                        <p>Promise To Deliver<br>Within 30 Mins</p>
+                    </div>
+                </div>
+                <div class="info-card pickup">
+                    <div class="card-icon">🛍️</div>
+                    <div class="card-text">
+                        <h4>Pick Up</h4>
+                        <p>Pickup Delivery At<br>Your Doorstep</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-sections">  
+                <div class="carousel-container" id="carousel">
+                    <!-- Product Card 1 -->
+                    <div class="product-card card-pink">
+                        <div class="product-img">
+                            <img src="/Images/biriyani.jpg" alt="biriyani">
+                        </div>
+                        <div class="product-name">Hydrabadi biriyani</div>
+                        <div class="product-bottom">
+                            <div class="price">₹190.00</div>
+                            <button class="fav-btn">♥</button>
+                        </div>
+                        <div class="product-footer">
+                            <button class="order-btn">Order Now →</button>
+                            <div class="rating-badge">★ 5.0</div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="product-card card-orange">
+                        <div class="product-img">
+                            <img src="/Images/Burger.jpg" alt="Healthy Salad">
+                        </div>
+                        <div class="product-name"> Chicken Burger</div>
+                        <div class="product-bottom">
+                            <div class="price">₹180.00</div>
+                            <button class="fav-btn">♥</button>
+                        </div>
+                        <div class="product-footer">
+                            <button class="order-btn">Order Now →</button>
+                            <div class="rating-badge">★ 5.0</div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="product-card card-green">
+                        <div class="product-img">
+                            <img src="/Images/Fruits.jpg" alt="Fruitsz">
+                        </div>
+                        <div class="product-name">Fruitsz</div>
+                        <div class="product-bottom">
+                            <div class="price">₹400.00</div>
+                            <button class="fav-btn">♥</button>
+                        </div>
+                        <div class="product-footer">
+                            <button class="order-btn">Order Now →</button>
+                            <div class="rating-badge">★ 5.0</div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 -->
+                    <div class="product-card card-purple">
+                        <div class="product-img">
+                            <img src="/Images/vegtabless.jpg" alt="Vegetables">
+                        </div>
+                        <div class="product-name">Vegetables </div>
+                        <div class="product-bottom">
+                            <div class="price">₹340.00</div>
+                            <button class="fav-btn">♥</button>
+                        </div>
+                        <div class="product-footer">
+                            <button class="order-btn">Order Now →</button>
+                            <div class="rating-badge">★ 5.0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+
+ <!-- <-- Service Cards --> 
+<section class="cards">
+  <div class="service-card" data-service="food">
+    <div class="card-content"> 
+      <h3>FOOD DELIVERY</h3>
+      <p class="card-subtitle">FROM RESTAURANTS</p>
+      <p class="discount">UPTO 60% OFF</p>
+    </div>
+    <div class="card-image">
+      <img src="https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Food delivery">
+    </div>
+    <button class="card-arrow" data-url="mahi1.html">→</button>
+  </div>
+
+  <div class="service-card" data-service="grocery">
+    <div class="card-content">
+      <h3>INSTAMART</h3>
+      <p class="card-subtitle">INSTANT GROCERY</p>
+      <p class="discount">UPTO 60% OFF</p>
+    </div>
+    <div class="card-image">
+      <img src="https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Grocery basket">
+    </div>
+    <button class="card-arrow" data-url="Instamart.html">→</button>
+  </div>
+</section>
+
+
+  <!-- 🌮 Food Categories Section (Smash/Fan Cards) -->
+<section class="food-section" id="foodSection">
+  <div class="section-header">
+    <h2 class="adv-heading">Order our best food options</h2>
+  </div>
+
+  <!-- Horizontal Scroll Container -->
+  <div class="food-scroll" id="foodScroll">
+    <div class="food-card">
+      <img src="/Images/biriyani 3.jpg" alt="Biryani">
+      <h3>Biryani</h3>
+    </div>
+
+    <div class="food-card">
+      <img src="/Images/shakes.jpg" alt="Shake">
+      <h3>Shake</h3>
+    </div>
+
+    <div class="food-card">
+      <img src="/Images/cake.jpg" alt="Cake">
+      <h3>Cake</h3>
+    </div>
+
+    <div class="food-card">
+      <img src="/Images/pizza 1.jpg" alt="Pizza">
+      <h3>Pizza</h3>
+    </div>
+
+    <div class="food-card">
+      <img src="/Images/Burger.jpg" alt="Burger">
+      <h3>Burger</h3>
+    </div>
+
+    <div class="food-card">
+      <img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=300&fit=crop" alt="Shawarma">
+      <h3>Shawarma</h3>
+    </div>
+
+    <div class="food-card">
+      <img src="/Images/parota.jpg" alt="Parotta">
+      <h3>Parotta</h3>
+    </div>
+
+    <div class="food-card">
+      <img src="/Images/Noodles.jpg" alt="Noodles">
+      <h3>Noodles</h3>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Grocery Products ========================== -->
+       <section class="productss-section">
+    <h3 class="instamart-heading">🛒 Shop Groceries on Instamart</h3>
+
+    <div class="items-container">
+
+        <!-- Product Card 1 -->
+        <div class="product-cards">
+            <div class="product-imgs">
+                <img src="/Images/Onion.jpg" alt="Berries Salad">
+            </div>
+
+            <div class="product-name">Onion</div>
+
+            <div class="product-bottom">
+                <div class="price">₹190.00</div>
+                <button class="fav-btn">♥</button>
+            </div>
+
+            <div class="product-footer">
+                <button class="order-btn"> + Add To Cart </button>
+                <div class="rating-badge">★ 3.5</div>
+            </div>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div class="product-cards">
+            <div class="product-imgs">
+                <img src="/Images/tomatoes.png" alt="Healthy Salad">
+            </div>
+
+            <div class="product-name">Tomato</div>
+
+            <div class="product-bottom">
+                <div class="price">₹120.00</div>
+                <button class="fav-btn">♥</button>
+            </div>
+
+            <div class="product-footer">
+                <button class="order-btn">+ Add To Cart</button>
+                <div class="rating-badge">★ 5.0</div>
+            </div>
+        </div>
+
+        <!-- Product Card 3 -->
+        <div class="product-cards">
+            <div class="product-imgs">
+                <img src="/Images/Potato.webp" alt="Veg Salad">
+            </div>
+
+            <div class="product-name"> Potato</div>
+
+            <div class="product-bottom">
+                <div class="price">₹400.00</div>
+                <button class="fav-btn">♥</button>
+            </div>
+
+            <div class="product-footer">
+                <button class="order-btn">+ Add To Cart</button>
+                <div class="rating-badge">★ 4.7</div>
+            </div>
+        </div>
+
+        <!-- Product Card 4 -->
+        <div class="product-cards">
+            <div class="product-imgs">
+                <img src="/Images/Breads.jpg" alt="Healthy Bowl">
+            </div>
+
+            <div class="product-name">Breads</div>
+
+            <div class="product-bottom">
+                <div class="price">₹230.00</div>
+                <button class="fav-btn">♥</button>
+            </div>
+
+            <div class="product-footer">
+                <button class="order-btn">+ Add To Cart</button>
+                <div class="rating-badge">★ 4.0</div>
+            </div>
+        </div>
+
+        <!-- Product Card 5 -->
+<div class="product-cards">
+    <div class="product-imgs">
+        <img src="/Images/bananaa.jpg" alt="Fruit Bowl">
+    </div>
+
+    <div class="product-name">Banana</div>
+
+    <div class="product-bottom">
+        <div class="price">₹280.00</div>
+        <button class="fav-btn">♥</button>
+    </div>
+
+    <div class="product-footer">
+        <button class="order-btn">+ Add To Cart</button>
+        <div class="rating-badge">★ 4.7</div>
+    </div>
+</div>
+
+<!-- Product Card 6 -->
+<div class="product-cards">
+    <div class="product-imgs">
+        <img src="/Images/beetroot.webp" alt="Pasta Bowl">
+    </div>
+
+    <div class="product-name">Beetroot</div>
+
+    <div class="product-bottom">
+        <div class="price">₹250.00</div>
+        <button class="fav-btn">♥</button>
+    </div>
+
+    <div class="product-footer">
+        <button class="order-btn">+ Add To Cart</button>
+        <div class="rating-badge">★ 4.8</div>
+    </div>
+</div>
+
+<!-- Product Card 7 -->
+<div class="product-cards">
+    <div class="product-imgs">
+        <img src="/Images/Biscuitss.jpg" alt="Fruit Smoothie">
+    </div>
+
+    <div class="product-name">Fruit Smoothie</div>
+
+    <div class="product-bottom">
+        <div class="price">₹100.00</div>
+        <button class="fav-btn">♥</button>
+    </div>
+
+    <div class="product-footer">
+        <button class="order-btn">+ Add To Cart</button>
+        <div class="rating-badge">★ 5.0</div>
+    </div>
+</div>
+
+<!-- Product Card 8 -->
+<div class="product-cards">
+    <div class="product-imgs">
+        <img src="/Images/Eggs.png" alt="Chicken Bowl">
+    </div>
+
+    <div class="product-name">Eggs</div>
+
+    <div class="product-bottom">
+        <div class="price">₹420.00</div>
+        <button class="fav-btn">♥</button>
+    </div>
+
+    <div class="product-footer">
+        <button class="order-btn">+ Add To Cart</button>
+        <div class="rating-badge">★ 4.6</div>
+    </div>
+</div>
+    </div>
+
+    <!-- SEE ALL PRODUCTS BUTTON -->
+<div class="see-all-wrapper">
+    <button id="seeAllBtn" class="see-all-btn">See All Products  ˅
+</button>
+</div>
+
+<!-- MORE PRODUCTS (Initially Hidden) -->
+<div class="more-products" id="moreProducts">
+
+    <!-- Product 9 -->
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/Carrot.jpg" alt="Dry Fruits">
+        </div>
+        <div class="product-name"> Carrot</div>
+        <div class="product-bottom">
+            <div class="price">₹350.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.9</div>
+        </div>
+    </div>
+
+    <!-- Product 10 -->
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/Fruits.jpg" alt="Bread">
+        </div>
+        <div class="product-name">Fruits</div>
+        <div class="product-bottom">
+            <div class="price">₹55.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.4</div>
+        </div>
+    </div>
+
+    <!-- Product 11 -->
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/Chocolates.png" alt="Juice">
+        </div>
+        <div class="product-name">Chocolate</div>
+        <div class="product-bottom">
+            <div class="price">₹120.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.8</div>
+        </div>
+    </div>
+
+    <!-- Product 12 -->
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/Oilllll.jpg" alt="Cookies">
+        </div>
+        <div class="product-name">Fortune Oil </div>
+        <div class="product-bottom">
+            <div class="price">₹200.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/Maggies.jpg" alt="Cookies">
+        </div>
+        <div class="product-name">Maggies</div>
+        <div class="product-bottom">
+            <div class="price">₹40.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/lays.jpg" alt="Cookies">
+        </div>
+        <div class="product-name">Chocolate Cookies</div>
+        <div class="product-bottom">
+            <div class="price">₹130.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/Milkl.webp" alt="Cookies">
+        </div>
+        <div class="product-name">Milk</div>
+        <div class="product-bottom">
+            <div class="price">₹100.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/Liquids.jpg" alt="Cookies">
+        </div>
+        <div class="product-name">Breeze Detergent</div>
+        <div class="product-bottom">
+            <div class="price">₹90.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/Monster.jpg" alt="Cookies">
+        </div>
+        <div class="product-name">Monster Drink</div>
+        <div class="product-bottom">
+            <div class="price">₹190.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/kinderjoy.jpg" alt="Cookies">
+        </div>
+        <div class="product-name">kinderjoy</div>
+        <div class="product-bottom">
+            <div class="price">₹210.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/oreo.jpg" alt="Cookies">
+        </div>
+        <div class="product-name">Oreo</div>
+        <div class="product-bottom">
+            <div class="price">₹120.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="/Images/milkshake.jpg" alt="Cookies">
+        </div>
+        <div class="product-name">milkshake</div>
+        <div class="product-bottom">
+            <div class="price">₹90.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <!-- <div class="product-cards">
+        <div class="product-imgs">
+            <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=300&h=300&fit=crop" alt="Cookies">
+        </div>
+        <div class="product-name">Chocolate Cookies</div>
+        <div class="product-bottom">
+            <div class="price">₹90.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div> -->
+    <!-- <div class="product-cards">
+        <div class="product-imgs">
+            <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=300&h=300&fit=crop" alt="Cookies">
+        </div>
+        <div class="product-name">Chocolate Cookies</div>
+        <div class="product-bottom">
+            <div class="price">₹90.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=300&h=300&fit=crop" alt="Cookies">
+        </div>
+        <div class="product-name">Chocolate Cookies</div>
+        <div class="product-bottom">
+            <div class="price">₹90.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=300&h=300&fit=crop" alt="Cookies">
+        </div>
+        <div class="product-name">Chocolate Cookies</div>
+        <div class="product-bottom">
+            <div class="price">₹90.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btn">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div> -->
+    
+</div>
+</div>
+</section>
+<div id="toast" class="toast"></div>
+
+<!-- ====================== Restaurant Section ====================== -->
+   <section class="dineout-section">
+        <h1>Discover Best Restaurants on Dineout</h1>
+        <div class="restaurant-scroll" id="restaurantScroll"></div>
+    </section>
+
+    <!-- ====================== Review Section ===================== -->
+<section>
+<div class="reviews-section">
+    <!-- Header -->
+    <div class="reviews-header">
+      <h1 class="reviews-title">Customer Reviews</h1>
+      <div class="navs-buttons">
+        <button class="navs-btn" id="prevBtn" aria-label="Previous">‹</button>
+        <button class="navs-btn" id="nextBtn" aria-label="Next">›</button>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-section">
+      <button class="filter-btn active" data-filter="all">All Reviews</button>
+      <button class="filter-btn" data-filter="5">5 Stars</button>
+      <button class="filter-btn" data-filter="4">4 Stars</button>
+      <button class="filter-btn" data-filter="3">3 Stars</button>
+      <button class="filter-btn" data-filter="recent">Most Recent</button>
+    </div>
+
+    <!-- Reviews -->
+    <div class="reviews-container">
+      <div class="reviews-track" id="reviewsTrack">
+        <!-- Review Card 1 -->
+        <div class="review-card" data-rating="5">
+          <div class="review-header">
+            <img src="https://i.pravatar.cc/150?img=1" alt="Mahadev " class="reviewer-avatar">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Mahadev </div>
+              <div class="reviewer-location">
+                📍 Thanjavur
+              </div>
+            </div>
+            <div class="review-meta">
+              <div class="review-date">
+                🕒 24th September, 2025
+              </div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p class="review-text">
+            The positive aspect was undoubtedly the efficiency of the service. The queue moved quickly, the staff was friendly, and the food was up to the usual McDonald's standard – hot and satisfying.
+          </p>
+          <div class="review-actions">
+            <button class="action-btn" onclick="likeReview(this)">
+              <span>👍</span> <span class="count">24</span>
+            </button>
+            <button class="action-btn">
+              <span>💬</span> <span>Reply</span>
+            </button>
+            <button class="action-btn">
+              <span>🔗</span> <span>Share</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Review Card 2 -->
+        <div class="review-card" data-rating="5">
+          <div class="review-header">
+            <img src="https://i.pravatar.cc/150?img=5" alt="Gowtham" class="reviewer-avatar">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Gowtham</div>
+              <div class="reviewer-location">
+                📍 Kumbakkonam
+              </div>
+            </div>
+            <div class="review-meta">
+              <div class="review-date">
+                🕒 18th September, 2025
+              </div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p class="review-text">
+            Outstanding experience! The delivery was prompt, food arrived hot and fresh. The packaging was excellent and eco-friendly. Highly recommend their premium burgers!
+          </p>
+          <div class="review-actions">
+            <button class="action-btn" onclick="likeReview(this)">
+              <span>👍</span> <span class="count">18</span>
+            </button>
+            <button class="action-btn">
+              <span>💬</span> <span>Reply</span>
+            </button>
+            <button class="action-btn">
+              <span>🔗</span> <span>Share</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Review Card 3 -->
+        <div class="review-card" data-rating="4">
+          <div class="review-header">
+            <img src="https://i.pravatar.cc/150?img=8" alt="Albert Raj" class="reviewer-avatar">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Albert Raj</div>
+              <div class="reviewer-location">
+                📍Pondicherry
+              </div>
+            </div>
+            <div class="review-meta">
+              <div class="review-date">
+                🕒 15th September, 2023
+              </div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star empty">★</span>
+          </div>
+          <p class="review-text">
+            Great food quality and reasonable prices. The only minor issue was a slight delay in delivery, but customer service handled it professionally. Will definitely order again!
+          </p>
+          <div class="review-actions">
+            <button class="action-btn" onclick="likeReview(this)">
+              <span>👍</span> <span class="count">32</span>
+            </button>
+            <button class="action-btn">
+              <span>💬</span> <span>Reply</span>
+            </button>
+            <button class="action-btn">
+              <span>🔗</span> <span>Share</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Review Card 4 -->
+        <div class="review-card" data-rating="5">
+          <div class="review-header">
+            <img src="https://i.pravatar.cc/150?img=12" alt="Elavarasan" class="reviewer-avatar">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Elavarasan</div>
+              <div class="reviewer-location">
+                📍 Trichy
+              </div>
+            </div>
+            <div class="review-meta">
+              <div class="review-date">
+                🕒 10th September, 2023
+              </div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p class="review-text">
+            Absolutely love this service! The app is user-friendly, tracking is accurate, and the food always arrives in perfect condition. Best food delivery experience I've had!
+          </p>
+          <div class="review-actions">
+            <button class="action-btn" onclick="likeReview(this)">
+              <span>👍</span> <span class="count">45</span>
+            </button>
+            <button class="action-btn">
+              <span>💬</span> <span>Reply</span>
+            </button>
+            <button class="action-btn">
+              <span>🔗</span> <span>Share</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Review Card 5 -->
+        <div class="review-card" data-rating="4">
+          <div class="review-header">
+            <img src="https://i.pravatar.cc/150?img=15" alt="Barath" class="reviewer-avatar">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Barath</div>
+              <div class="reviewer-location">
+                📍 Pondicherry
+              </div>
+            </div>
+            <div class="review-meta">
+              <div class="review-date">
+                🕒 5th September, 2024
+              </div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star empty">★</span>
+          </div>
+          <p class="review-text">
+            Solid service overall. Good variety of restaurants, fair pricing, and reliable delivery. Customer support could be faster, but otherwise very satisfied with my orders.
+          </p>
+          <div class="review-actions">
+            <button class="action-btn" onclick="likeReview(this)">
+              <span>👍</span> <span class="count">21</span>
+            </button>
+            <button class="action-btn">
+              <span>💬</span> <span>Reply</span>
+            </button>
+            <button class="action-btn">
+              <span>🔗</span> <span>Share</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Review Card 6 -->
+        <div class="review-card" data-rating="5">
+          <div class="review-header">
+            <img src="https://i.pravatar.cc/150?img=20" alt="Lisa Martinez" class="reviewer-avatar">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Mahendiran</div>
+              <div class="reviewer-location">
+                📍 Cuddalore
+              </div>
+            </div>
+            <div class="review-meta">
+              <div class="review-date">
+                🕒 1st September, 2025
+              </div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p class="review-text">
+            Exceptional service from start to finish! The driver was courteous, food was piping hot, and the whole process was seamless. This is now my go-to delivery app!
+          </p>
+          <div class="review-actions">
+            <button class="action-btn" onclick="likeReview(this)">
+              <span>👍</span> <span class="count">38</span>
+            </button>
+            <button class="action-btn">
+              <span>💬</span> <span>Reply</span>
+            </button>
+            <button class="action-btn">
+              <span>🔗</span> <span>Share</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overall Rating -->
+    <div class="overall-rating">
+      <div class="rating-score">4.6</div>
+      <div class="rating-stars">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star half">★</span>
+      </div>
+      <div class="rating-count">Based on 1,360 reviews</div>
+    </div>
+  </div>
+  </section>
+ <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <!-- Company Info -->
+            <div class="footer-section">
+               <div class="logos">
+                <span class="logos-top">FOOD</span>
+                <span class="logos-main">EXPRESS</span>
+            </div>
+                <p class="copyright">© 2025 Food-Express Limited</p>
+            </div> 
+            
+                <!-- Company Links -->
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#"> Food Corporate</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Food-Express One</a></li>
+                    <li><a href="#">Food-Express Instamart</a></li>
+                    <li><a href="#">Food-Express Dineout</a></li>
+                    <li><a href="#">Food-Express Genie</a></li>
+                    <li><a href="#">Minis</a></li>
+                    <li><a href="#">Pyng</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Us -->
+            <div class="footer-section">
+                <h3>Contact us</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Help & Support</a></li>
+                    <li><a href="#">Partner with us</a></li>
+                    <li><a href="#">Ride with us</a></li>
+                </ul>
+
+                <h3 style="margin-top: 40px;">Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Investor Relations</a></li>
+                </ul>
+            </div>
+
+            <!-- Available In -->
+            <div class="footer-section">
+                <h3>Available in:</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Bangalore</a></li>
+                    <li><a href="#">Gurgaon</a></li>
+                    <li><a href="#">Hyderabad</a></li>
+                    <li><a href="#">Delhi</a></li>
+                    <li><a href="#">Mumbai</a></li>
+                    <li><a href="#">Pune</a></li>
+                </ul>
+                <select class="cities-dropdown">
+                    <option>100 cities</option>
+                </select>
+            </div>
+
+            <!-- Life at Swiggy -->
+            <div class="footer-section">
+                <h3>Life at Food-Express</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Explore with Food-Express</a></li>
+                    <li><a href="#">Food-Express</a></li>
+                    <li><a href="#">Snackables</a></li>
+                </ul>
+
+                <!-- Add Font Awesome in your <head> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<h3 style="margin-top: 40px;">Social Links</h3>
+<div class="social-links">
+    <a href="https://www.linkedin.com" target="_blank" class="social-icon">
+        <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="https://www.instagram.com" target="_blank" class="social-icon">
+        <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.facebook.com" target="_blank" class="social-icon">
+        <i class="fab fa-facebook"></i>
+    </a>
+    </a>
+    <a href="https://www.twitter.com" target="_blank" class="social-icon">
+        <i class="fab fa-twitter"></i>
+    </a>
+</div>
+
+        </div>
+    </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

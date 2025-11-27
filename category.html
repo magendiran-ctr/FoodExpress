@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FreshMenu Category</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Inter, sans-serif;
+      }
+      body {
+        background: #fff;
+        overflow-x: hidden;
+        padding-bottom: 60px;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      img {
+        max-width: 100%;
+        border-radius: 14px;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1150px;
+        margin: auto;
+      }
+
+      .back-btn {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        padding: 10px 18px;
+        border-radius: 10px;
+        background: #fff;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .banner {
+        height: 260px;
+        border-radius: 20px;
+        margin-top: 10px;
+        display: flex;
+        align-items: flex-end;
+        padding: 40px;
+        color: white;
+        font-size: 42px;
+        font-weight: 900;
+        position: relative;
+      }
+      .banner::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+      }
+      .banner h2 {
+        position: relative;
+        z-index: 2;
+      }
+
+      .page-content {
+        margin-top: 30px;
+        padding: 25px;
+        border-radius: 20px;
+        border: 1px solid #eee;
+      }
+
+      /* Title */
+      .section-title {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 14px;
+      }
+
+      /* Recipes */
+      .recipe-card {
+        margin-bottom: 26px;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 18px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      }
+      .recipe-card h3 {
+        margin-bottom: 8px;
+        font-size: 22px;
+        font-weight: 800;
+      }
+      .meta-row {
+        font-size: 14px;
+        color: #777;
+        margin-bottom: 10px;
+      }
+      .recipe-card ul,
+      .recipe-card ol {
+        margin-left: 20px;
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      /* Sections */
+      .section-block {
+        margin-bottom: 22px;
+      }
+      .section-block h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .section-block p {
+        color: #666;
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      /* Diet Plans */
+      .plan-card {
+        margin-bottom: 20px;
+        padding: 18px;
+        border-radius: 18px;
+        border: 1px solid #eee;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      }
+      .plan-card h3 {
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .plan-card p {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <button class="back-btn" onclick="history.back()">← Back</button>
+
+      <div id="banner" class="banner"><h2></h2></div>
+
+      <div class="page-content">
+        <h2 id="title" class="section-title"></h2>
+        <p id="intro" style="color: #666; margin-bottom: 20px"></p>
+
+        <div id="contentArea"></div>
+      </div>
+    </div>
+
+    <script>
+      /* -------------------------
+   CATEGORY CONTENT SYSTEM
+--------------------------*/
+      const data = {
+        /* ----------------- HEALTHY RECIPES ----------------- */
+        "healthy-recipes": {
+          bannerImg:
+            "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1400",
+          color: "#FF7A3D",
+          title: "Healthy Recipes",
+          intro:
+            "Balanced, delicious meals you can cook fast. Full recipes with ingredients, prep steps, and nutrition.",
+          recipes: [
+            {
+              name: "Grilled Chicken Quinoa Bowl",
+              meta: "25 mins • 480 kcal • 38g protein",
+              ingredients: [
+                "200g chicken breast",
+                "1 cup cooked quinoa",
+                "Mixed greens",
+                "Cherry tomatoes",
+                "Olive oil",
+                "Lemon",
+                "Salt & pepper",
+              ],
+              steps: [
+                "Marinate chicken with oil, lemon, salt and pepper for 10 minutes.",
+                "Grill 6–7 minutes per side.",
+                "Assemble quinoa, greens, sliced chicken, tomatoes, olive oil + lemon.",
+              ],
+            },
+            {
+              name: "Chickpea & Spinach Curry",
+              meta: "30 mins • 360 kcal • 18g protein",
+              ingredients: [
+                "1 cup boiled chickpeas",
+                "2 cups spinach",
+                "1 onion",
+                "3 garlic cloves",
+                "½ cup tomato puree",
+                "Cumin, turmeric, salt",
+              ],
+              steps: [
+                "Sauté onion + garlic.",
+                "Add spices + tomato puree; cook 3 mins.",
+                "Add chickpeas + spinach; simmer 10 mins.",
+              ],
+            },
+            {
+              name: "Avocado Egg Toast",
+              meta: "8 mins • 320 kcal • 17g protein",
+              ingredients: [
+                "2 eggs",
+                "1 avocado",
+                "Sourdough bread",
+                "Salt, pepper, chili flakes",
+              ],
+              steps: [
+                "Toast bread.",
+                "Mash avocado + seasoning.",
+                "Add fried/poached eggs on top.",
+              ],
+            },
+          ],
+        },
+
+        /* ----------------- HEALTH & NUTRITION ----------------- */
+        "health-nutrition": {
+          bannerImg:
+            "https://images.unsplash.com/photo-1527698266440-12104e498b76?w=1400",
+          color: "#2D9CDB",
+          title: "Health & Nutrition",
+          intro:
+            "Simple science-backed guidance to help you nourish your body better.",
+          sections: [
+            {
+              h: "Macronutrients 101",
+              p: "Proteins repair tissue, carbs fuel your muscles, fats support hormones. Choose lean proteins, whole grains, and plant fats.",
+            },
+            {
+              h: "The Balanced Plate Formula",
+              p: "½ veggies, ¼ lean protein, ¼ whole grain carbs. Adjust portions for weight goals.",
+            },
+            {
+              h: "Hydration Strategy",
+              p: "2–3 liters daily. Add electrolytes during intense activity or heat.",
+            },
+          ],
+        },
+
+        /* ----------------- GUIDE ----------------- */
+        guide: {
+          bannerImg:
+            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400",
+          color: "#9B51E0",
+          title: "Guides",
+          intro:
+            "Smart, actionable frameworks to simplify your health journey.",
+          sections: [
+            {
+              h: "Meal Prep Fundamentals",
+              p: "Batch-cook 2 proteins, 2 carbs, and 3 veggies. Store in labeled containers.",
+            },
+            {
+              h: "Smart Grocery Shopping",
+              p: "Shop perimeter first. Make a list. Freeze protein into weekly portions.",
+            },
+            {
+              h: "Portion Control That Works",
+              p: "Use hand-size rule: palm = protein, fist = carbs, cupped hand = veggies.",
+            },
+          ],
+        },
+
+        /* ----------------- HEALTH TIPS ----------------- */
+        "health-tips": {
+          bannerImg:
+            "https://images.unsplash.com/photo-1514996937319-344454492b37?w=1400",
+          color: "#27AE60",
+          title: "Health Tips",
+          intro:
+            "Daily habits that boost energy, immunity and long-term wellness.",
+          sections: [
+            {
+              h: "Morning Routine for High Energy",
+              p: "Hydrate immediately, walk 10 minutes, eat protein-rich breakfast.",
+            },
+            {
+              h: "Sleep Optimization",
+              p: "Consistent bedtime. No screens 1 hour before sleep. Keep room cool.",
+            },
+            {
+              h: "Immune-Support Basics",
+              p: "Vitamin D, quality sleep, daily greens, citrus fruits, hydration.",
+            },
+          ],
+        },
+
+        /* ----------------- DIET PLANS ----------------- */
+        "diet-plans": {
+          bannerImg:
+            "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1400",
+          color: "#F2C94C",
+          title: "Diet Plans",
+          intro: "Choose a structure that fits your lifestyle and goals.",
+          plans: [
+            {
+              name: "Weight Loss Plan",
+              desc: "Mild calorie deficit, high protein, high fiber.",
+              sample:
+                "Breakfast: Oats + berries • Lunch: Grilled chicken salad • Dinner: Veg soup",
+            },
+            {
+              name: "High-Protein Diet",
+              desc: "1.6–2.2g protein/kg bodyweight.",
+              sample: "Eggs, Greek yogurt, lean meats, tofu, legumes.",
+            },
+            {
+              name: "Plant-Based Diet",
+              desc: "Whole-food plant-rich eating.",
+              sample: "Chickpeas, tofu, quinoa, veggies, nuts.",
+            },
+            {
+              name: "Mediterranean Diet",
+              desc: "Olive oil, fish, nuts, whole grains, veg.",
+              sample: "Fish bowl • Olive oil salad • Greek yogurt",
+            },
+            {
+              name: "Anti-Inflammatory Diet",
+              desc: "Omega-3s + colorful vegetables + turmeric.",
+              sample: "Salmon • Greens • Ginger tea",
+            },
+          ],
+        },
+      };
+
+      /* --------------------------
+   RENDER CATEGORY PAGE
+--------------------------- */
+      function renderPage() {
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get("cat");
+
+        if (!cat || !data[cat]) return;
+
+        const page = data[cat];
+
+        document.querySelector(
+          "#banner"
+        ).style.background = `url(${page.bannerImg}) center/cover`;
+
+        document.querySelector("#title").textContent = page.title;
+        document.querySelector("#intro").textContent = page.intro;
+
+        const content = document.querySelector("#contentArea");
+        content.innerHTML = "";
+
+        /* Recipes */
+        if (page.recipes) {
+          page.recipes.forEach((r) => {
+            content.innerHTML += `
+        <div class="recipe-card">
+          <h3>${r.name}</h3>
+          <div class="meta-row">${r.meta}</div>
+          <strong>Ingredients:</strong>
+          <ul>${r.ingredients.map((i) => `<li>${i}</li>`).join("")}</ul>
+          <strong>Steps:</strong>
+          <ol>${r.steps.map((s) => `<li>${s}</li>`).join("")}</ol>
+        </div>
+      `;
+          });
+        }
+
+        /* Sections */
+        if (page.sections) {
+          page.sections.forEach((s) => {
+            content.innerHTML += `
+        <div class="section-block">
+          <h3>${s.h}</h3>
+          <p>${s.p}</p>
+        </div>
+      `;
+          });
+        }
+
+        /* Diet Plans */
+        if (page.plans) {
+          page.plans.forEach((p) => {
+            content.innerHTML += `
+        <div class="plan-card">
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <p><strong>Sample:</strong> ${p.sample}</p>
+        </div>
+      `;
+          });
+        }
+      }
+
+      renderPage();
+    </script>
+  </body>
+</html>

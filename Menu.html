@@ -29,7 +29,7 @@
             font-family: "Inter", "Poppins", system-ui, -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
-            padding-bottom: 20px; /* Added bottom padding for mobile scroll */
+            padding-bottom: 20px;
         }
 
         /* Header */
@@ -150,30 +150,22 @@
 
         /* Menu Page */
         .menu-container {
-            padding: 30px;
+            padding: 20px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .hero-banner {
-            background: linear-gradient(120deg, #1e1e24, #2d3436);
+            background-image: url('/Images/MenuBg.png');
+            /* Fallback color/image if file missing */
+            background-color: #2d3436; 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             border-radius: 24px;
-            padding: 50px;
-            color: white;
             margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .hero-text h1 {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        .hero-text h1 span {
-            color: #fbbf24;
+            width: 100%;
+            min-height: 300px;
         }
 
         /* Controls */
@@ -298,10 +290,9 @@
             margin-bottom: 30px;
             overflow-x: auto;
             padding-bottom: 10px;
-            -webkit-overflow-scrolling: touch; /* Smooth scroll on mobile */
+            -webkit-overflow-scrolling: touch;
         }
         
-        /* Hide scrollbar for pills but allow scrolling */
         .filter-scroll::-webkit-scrollbar {
             height: 4px;
         }
@@ -562,7 +553,7 @@
             border-radius: 12px;
             border: 1px solid var(--border);
             font-size: 14px;
-            width: 100%; /* Ensure full width on mobile */
+            width: 100%;
         }
 
         #applyCouponBtn {
@@ -724,7 +715,6 @@
             padding: 20px;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
             align-items: center;
             gap: 16px;
             background: white;
@@ -745,12 +735,6 @@
             font-size: 24px;
             flex-shrink: 0;
         }
-
-        /* .payment-icon.gpay { background: linear-gradient(135deg, #4285f4 0%, #34a853 100%); }
-        .payment-icon.phonepe { background: linear-gradient(135deg, #5f259f 0%, #3e1f74 100%); }
-        .payment-icon.paytm { background: linear-gradient(135deg, #00baf2 0%, #0082c6 100%); }
-        .payment-icon.card { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .payment-icon.cod { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); } */
 
         .payment-radio {
             width: 24px;
@@ -802,7 +786,7 @@
             z-index: 9999;
             align-items: center;
             justify-content: center;
-            padding: 20px; /* Padding for mobile */
+            padding: 20px;
         }
 
         .success-modal.active {
@@ -857,7 +841,7 @@
         @media (max-width: 1024px) {
             .cart-layout,
             .checkout-grid {
-                grid-template-columns: 1fr; /* Stack sidebar below content */
+                grid-template-columns: 1fr;
             }
 
             .menu-container, 
@@ -883,7 +867,7 @@
                 gap: 15px;
             }
             .search-input {
-                width: 100%; /* Full width search */
+                width: 100%;
             }
             .filters-right {
                 flex-direction: column;
@@ -900,14 +884,9 @@
             .hero-banner {
                 flex-direction: column;
                 text-align: center;
-                padding: 30px;
-            }
-            .hero-banner i {
-                margin-top: 20px;
-                font-size: 3rem !important; /* Smaller icon */
-            }
-            .hero-text h1 {
-                font-size: 2rem;
+                width: 100%;
+                background-size: cover;
+                border-radius: 16px;
             }
 
             /* Cart Items Mobile View */
@@ -916,7 +895,7 @@
             }
             
             .cart-item {
-                grid-template-columns: 1fr; /* Stack content vertically */
+                grid-template-columns: 1fr;
                 text-align: center;
                 gap: 10px;
             }
@@ -924,7 +903,7 @@
             .cart-item-img img {
                 width: 80px;
                 height: 80px;
-                margin: 0 auto; /* Center image */
+                margin: 0 auto;
                 display: block;
             }
 
@@ -945,7 +924,7 @@
 
             /* Forms */
             .form-grid {
-                grid-template-columns: 1fr; /* Single column forms */
+                grid-template-columns: 1fr;
             }
             
             .form-section {
@@ -986,13 +965,7 @@
 
     <section id="menuPage" class="page-section active">
         <div class="menu-container">
-            <div class="hero-banner">
-                <div class="hero-text">
-                    <h1>Craving <br /><span>Something?</span></h1>
-                    <p>Order fresh, minimalist dining experiences directly to your door.</p>
-                </div>
-                <i class="fas fa-utensils" style="font-size: 5rem; opacity: 0.2"></i>
-            </div>
+            <div class="hero-banner"></div>
 
             <div class="controls-row">
                 <div class="search-container">
@@ -1309,38 +1282,98 @@
 
     <script>
         // Menu Data
-        const menuData = [
-            { id: 1, name: "Truffle Burger", price: 450, cat: "Burgers", isVeg: false, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500", desc: "Swiss cheese & truffle oil glaze." },
-            { id: 2, name: "Hyderabadi Biryani", price: 300, cat: "Biryani", isVeg: false, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500", desc: "Authentic dum cooked chicken." },
-            { id: 3, name: "Margherita Pizza", price: 350, cat: "Pizza", isVeg: true, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500", desc: "Fresh basil, mozzarella, tomato base." },
-            { id: 4, name: "Choco Lava Cake", price: 200, cat: "Desserts", isVeg: true, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476d?w=500", desc: "Warm gooey chocolate center." },
-            { id: 5, name: "Iced Latte", price: 150, cat: "Beverages", isVeg: true, img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=500", desc: "Cold brewed coffee with milk." },
-            { id: 6, name: "Pepperoni Pizza", price: 499, cat: "Pizza", isVeg: false, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500", desc: "Loaded with spicy pepperoni." },
-            { id: 7, name: "Paneer Biryani", price: 280, cat: "Biryani", isVeg: true, img: "https://images.unsplash.com/photo-1642821373181-696a54913e93?w=500", desc: "Marinated paneer cubes." },
-            { id: 8, name: "Crispy Zinger", price: 220, cat: "Burgers", isVeg: false, img: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500", desc: "Fried chicken fillet with spicy mayo." },
-            { id: 9, name: "Veggie Stack", price: 180, cat: "Burgers", isVeg: true, img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500", desc: "Double veggie patty with cheese." },
-            { id: 10, name: "BBQ Bacon Burger", price: 350, cat: "Burgers", isVeg: false, img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=500", desc: "Smoked bacon with BBQ sauce." },
-            { id: 11, name: "Mutton Biryani", price: 480, cat: "Biryani", isVeg: false, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500", desc: "Tender mutton pieces with aromatic spices." },
-            { id: 12, name: "Egg Biryani", price: 250, cat: "Biryani", isVeg: false, img: "https://images.unsplash.com/photo-1631515243349-e06036080fa3?w=500", desc: "Roasted eggs in spicy biryani rice." },
-            { id: 13, name: "BBQ Chicken Pizza", price: 450, cat: "Pizza", isVeg: false, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500", desc: "Smoked chicken, red onion, BBQ drizzle." },
-            { id: 14, name: "Veggie Supreme", price: 400, cat: "Pizza", isVeg: true, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500", desc: "Bell peppers, olives, corn, mushroom." },
-            { id: 15, name: "Four Cheese", price: 550, cat: "Pizza", isVeg: true, img: "https://images.unsplash.com/photo-1571407970349-bc1671bbc21d?w=500", desc: "Mozzarella, Cheddar, Parmesan, Gouda." },
-            { id: 16, name: "Pesto Pasta", price: 280, cat: "Pasta", isVeg: true, img: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=500", desc: "Creamy basil pesto with pine nuts." },
-            { id: 17, name: "Alfredo Chicken", price: 320, cat: "Pasta", isVeg: false, img: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=500", desc: "White sauce fettuccine with grilled chicken." },
-            { id: 18, name: "Spicy Arrabbiata", price: 250, cat: "Pasta", isVeg: true, img: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=500", desc: "Tomato sauce with red chili flakes." },
-            { id: 19, name: "Carbonara", price: 350, cat: "Pasta", isVeg: false, img: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=500", desc: "Egg, cheese, pancetta, and black pepper." },
-            { id: 20, name: "NY Cheesecake", price: 250, cat: "Desserts", isVeg: true, img: "https://images.unsplash.com/photo-1524351199678-941a58a3df26?w=500", desc: "Classic strawberry topped cheesecake." },
-            { id: 21, name: "Tiramisu", price: 280, cat: "Desserts", isVeg: true, img: "https://images.unsplash.com/photo-1571875257727-256c39da42af?w=500", desc: "Coffee flavored Italian custard dessert." },
-            { id: 22, name: "Fudge Brownie", price: 180, cat: "Desserts", isVeg: true, img: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=500", desc: "Walnut fudge brownie with vanilla scoop." },
-            { id: 23, name: "Berry Smoothie", price: 180, cat: "Beverages", isVeg: true, img: "https://images.unsplash.com/photo-1553530666-ba11a906095d?w=500", desc: "Mixed berries blended with yogurt." },
-            { id: 24, name: "Mint Mojito", price: 160, cat: "Beverages", isVeg: true, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500", desc: "Refreshing lime and mint mocktail." },
-            { id: 25, name: "Oreo Shake", price: 200, cat: "Beverages", isVeg: true, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=500", desc: "Thick shake with crushed Oreos." },
-            { id: 26, name: "Lemon Iced Tea", price: 120, cat: "Beverages", isVeg: true, img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500", desc: "Classic chilled tea with lemon." },
-            { id: 27, name: "Caesar Salad", price: 250, cat: "Salads", isVeg: true, img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=500", desc: "Lettuce, croutons, parmesan cheese." },
-            { id: 28, name: "Greek Salad", price: 240, cat: "Salads", isVeg: true, img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500", desc: "Feta, olives, cucumber, tomato." },
-            { id: 29, name: "Fish Tacos", price: 320, cat: "Tacos", isVeg: false, img: "https://images.unsplash.com/photo-1512838243191-e81e8f66f1f9?w=500", desc: "Crispy fish with slaw and lime." },
-            { id: 30, name: "Beef Tacos", price: 350, cat: "Tacos", isVeg: false, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500", desc: "Seasoned beef with salsa and guac." }
-        ];
+       const menuData = [
+    // --- EXISTING ITEMS (1-31) ---
+    { id: 1, name: "Chicken Burger", price: 450, cat: "Burgers", isVeg: false, img: "/Images/ChickenBurger.jpg", desc: "Swiss cheese & truffle oil glaze." },
+    { id: 2, name: "Hyderabadi Biryani", price: 300, cat: "Biryani", isVeg: false, img: "/Images/HydraBiryani.jpg", desc: "Authentic dum cooked chicken." },
+    { id: 3, name: "Margherita Pizza", price: 350, cat: "Pizza", isVeg: true, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500", desc: "Fresh basil, mozzarella, tomato base." },
+    { id: 4, name: "Choco Lava Cake", price: 200, cat: "Desserts", isVeg: true, img: "/Images/chococake.jpg", desc: "Warm gooey chocolate center." },
+    { id: 5, name: "Iced Latte", price: 150, cat: "Beverages", isVeg: true, img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=500", desc: "Cold brewed coffee with milk." },
+    { id: 6, name: "Pepperoni Pizza", price: 499, cat: "Pizza", isVeg: false, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500", desc: "Loaded with spicy pepperoni." },
+    { id: 7, name: "Paneer Biryani", price: 280, cat: "Biryani", isVeg: true, img: "/Images/PannerBiryani.jpg", desc: "Marinated paneer cubes." },
+    { id: 8, name: "Crispy Zinger", price: 220, cat: "Burgers", isVeg: false, img: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500", desc: "Fried chicken fillet with spicy mayo." },
+    { id: 9, name: "Veggie Stack", price: 180, cat: "Burgers", isVeg: true, img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500", desc: "Double veggie patty with cheese." },
+    { id: 10, name: "BBQ Bacon Burger", price: 350, cat: "Burgers", isVeg: false, img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=500", desc: "Smoked bacon with BBQ sauce." },
+    { id: 11, name: "Mutton Biryani", price: 480, cat: "Biryani", isVeg: false, img: "/Images/MuttonBiryani.jpg", desc: "Tender mutton pieces with aromatic spices." },
+    { id: 12, name: "Egg Biryani", price: 250, cat: "Biryani", isVeg: false, img: "/Images/eggBiryani.jpg", desc: "Roasted eggs in spicy biryani rice." },
+    { id: 13, name: "BBQ Chicken Pizza", price: 450, cat: "Pizza", isVeg: false, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500", desc: "Smoked chicken, red onion, BBQ drizzle." },
+    { id: 14, name: "Veggie Supreme", price: 400, cat: "Pizza", isVeg: true, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500", desc: "Bell peppers, olives, corn, mushroom." },
+    { id: 15, name: "Four Cheese", price: 550, cat: "Pizza", isVeg: true, img: "/Images/fourcheese.jpg", desc: "Mozzarella, Cheddar, Parmesan, Gouda." },
+    { id: 16, name: "Pesto Pasta", price: 280, cat: "Pasta", isVeg: true, img: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=500", desc: "Creamy basil pesto with pine nuts." },
+    { id: 17, name: "Alfredo Chicken", price: 320, cat: "Pasta", isVeg: false, img: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=500", desc: "White sauce fettuccine with grilled chicken." },
+    { id: 18, name: "Spicy Arrabbiata", price: 250, cat: "Pasta", isVeg: true, img: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=500", desc: "Tomato sauce with red chili flakes." },
+    { id: 19, name: "Carbonara", price: 350, cat: "Pasta", isVeg: false, img: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=500", desc: "Egg, cheese, pancetta, and black pepper." },
+    { id: 20, name: "NY Cheesecake", price: 250, cat: "Desserts", isVeg: true, img: "/Images/nyacake.jpg", desc: "Classic strawberry topped cheesecake." },
+    { id: 21, name: "Tiramisu", price: 280, cat: "Desserts", isVeg: true, img: "/Images/tiramisu.jpg", desc: "Coffee flavored Italian custard dessert." },
+    { id: 22, name: "Fudge Brownie", price: 180, cat: "Desserts", isVeg: true, img: "Images/brownie.jpg", desc: "Walnut fudge brownie with vanilla scoop." },
+    { id: 23, name: "Berry Smoothie", price: 180, cat: "Beverages", isVeg: true, img: "/Images/Berry Smoothie.jpg", desc: "Mixed berries blended with yogurt." },
+    { id: 24, name: "Mint Mojito", price: 160, cat: "Beverages", isVeg: true, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500", desc: "Refreshing lime and mint mocktail." },
+    { id: 25, name: "Oreo Shake", price: 200, cat: "Beverages", isVeg: true, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=500", desc: "Thick shake with crushed Oreos." },
+    { id: 26, name: "Lemon Iced Tea", price: 120, cat: "Beverages", isVeg: true, img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500", desc: "Classic chilled tea with lemon." },
+    { id: 27, name: "Caesar Salad", price: 250, cat: "Salads", isVeg: true, img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=500", desc: "Lettuce, croutons, parmesan cheese." },
+    { id: 28, name: "Greek Salad", price: 240, cat: "Salads", isVeg: true, img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500", desc: "Feta, olives, cucumber, tomato." },
+    { id: 29, name: "Fish Tacos", price: 320, cat: "Tacos", isVeg: false, img: "/Images/Fish Tacos.jpg", desc: "Crispy fish with slaw and lime." },
+    { id: 30, name: "Beef Tacos", price: 350, cat: "Tacos", isVeg: false, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500", desc: "Seasoned beef with salsa and guac." },
+    { id: 31, name: "Paneer Tikka Burger", price: 250, cat: "Burgers", isVeg: true, img: "/Images/Pannertikka.jpg", desc: "Seasoned Paneer Tikka Burger." },
+
+    // --- NEW ITEMS (32-66) ---
+    // SHAKES
+    { id: 32, name: "Mango Mastani", price: 220, cat: "Shakes", isVeg: true, img: "https://images.unsplash.com/photo-1577805947697-89e18249d767?w=500", desc: "Rich mango shake with ice cream and nuts." },
+    { id: 33, name: "KitKat Shake", price: 190, cat: "Shakes", isVeg: true, img: "/Images/KitKat Shake.jpg", desc: "Crunchy KitKat blended with vanilla." },
+    { id: 34, name: "Strawberry Shake", price: 180, cat: "Shakes", isVeg: true, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=500", desc: "Fresh strawberries blended with cream." },
+    { id: 35, name: "Chocolate PB Shake", price: 210, cat: "Shakes", isVeg: true, img: "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=500", desc: "Peanut butter and chocolate powerhouse." },
+
+    // NOODLES
+    { id: 36, name: "Chicken Hakka Noodles", price: 240, cat: "Noodles", isVeg: false, img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500", desc: "Stir-fried noodles with chicken strips." },
+    { id: 37, name: "Schezwan Veg Noodles", price: 200, cat: "Noodles", isVeg: true, img: "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=500", desc: "Spicy Schezwan sauce tossed noodles." },
+    { id: 38, name: "Egg Noodles", price: 210, cat: "Noodles", isVeg: false, img: "https://images.unsplash.com/photo-1552611052-33e04de081de?w=500", desc: "Scrambled egg stir-fry noodles." },
+    { id: 39, name: "Singapore Noodles", price: 250, cat: "Noodles", isVeg: true, img: "/Images/Singapore Noodles.jpg", desc: "Curry flavored thin rice vermicelli." },
+    { id: 40, name: "Prawn Pad Thai", price: 320, cat: "Noodles", isVeg: false, img: "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=500", desc: "Thai noodles with peanuts and prawns." },
+
+    // MEALS
+    { id: 41, name: "Butter Chicken Meal", price: 350, cat: "Meals", isVeg: false, img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=500", desc: "Butter chicken, rice, naan, and salad." },
+    { id: 42, name: "Paneer Butter Masala", price: 300, cat: "Meals", isVeg: true, img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=500", desc: "Rich paneer curry with jeera rice." },
+    { id: 43, name: "Rajma Chawal Bowl", price: 180, cat: "Meals", isVeg: true, img: "https://images.unsplash.com/photo-1606471191009-63994c53433b?w=500", desc: "Comfort food: Kidney beans curry with rice." },
+    { id: 44, name: "Fish Curry Meal", price: 380, cat: "Meals", isVeg: false, img: "/Images/Fish Curry Meal.jpg", desc: "Spicy fish curry with steamed rice." },
+    { id: 45, name: "Veg Thali Deluxe", price: 280, cat: "Meals", isVeg: true, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500", desc: "Dal, paneer, roti, rice, and dessert." },
+
+    // BIRYANI VARIETIES
+    { id: 46, name: "Prawn Biryani", price: 420, cat: "Biryani", isVeg: false, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500", desc: "Spiced rice with succulent prawns." },
+    { id: 47, name: "Mushroom Biryani", price: 260, cat: "Biryani", isVeg: true, img: "https://images.unsplash.com/photo-1642821373181-696a54913e93?w=500", desc: "Aromatic rice with earthy mushrooms." },
+    { id: 48, name: "Keema Biryani", price: 350, cat: "Biryani", isVeg: false, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500", desc: "Minced meat cooked with basmati rice." },
+
+    // PIZZA VARIETIES
+    { id: 49, name: "Chicken Tikka Pizza", price: 480, cat: "Pizza", isVeg: false, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500", desc: "Tandoori chicken chunks on pizza." },
+    { id: 50, name: "Farmhouse Special", price: 420, cat: "Pizza", isVeg: true, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500", desc: "Onion, capsicum, tomato, and mushroom." },
+    { id: 51, name: "Meat Lovers Pizza", price: 580, cat: "Pizza", isVeg: false, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500", desc: "Chicken, sausage, pepperoni overload." },
+
+    // BURGER VARIETIES
+    { id: 52, name: "Spicy Aloo Burger", price: 150, cat: "Burgers", isVeg: true, img: "/Images/burgersss.jpg", desc: "Spicy potato patty with indian herbs." },
+    { id: 53, name: "Lamb Smash Burger", price: 480, cat: "Burgers", isVeg: false, img: "/Images/Lamb Smash Burger.jpg", desc: "Juicy lamb patty with mint mayo." },
+    { id: 54, name: "Mushroom Swiss", price: 320, cat: "Burgers", isVeg: true, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500", desc: "Sautéed mushrooms and melted Swiss." },
+
+    // PASTA VARIETIES
+    { id: 55, name: "Mac N Cheese", price: 280, cat: "Pasta", isVeg: true, img: "/Images/chiese.jpg", desc: "Classic cheesy macaroni comfort food." },
+    { id: 56, name: "Seafood Marinara", price: 450, cat: "Pasta", isVeg: false, img: "/Images/sea.jpg", desc: "Mixed seafood in rich tomato sauce." },
+    { id: 57, name: "Pink Sauce Penne", price: 300, cat: "Pasta", isVeg: true, img: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=500", desc: "Blend of Alfredo and Arrabbiata sauces." },
+
+    // TACOS VARIETIES
+    { id: 58, name: "Shrimp Tacos", price: 340, cat: "Tacos", isVeg: false, img: "/Images/Shrimp Tacos.jpg", desc: "Grilled shrimp with mango salsa." },
+    { id: 59, name: "Bean & Corn Tacos", price: 220, cat: "Tacos", isVeg: true, img: "https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=500", desc: "Refried beans and sweet corn." },
+    { id: 60, name: "Chicken Tinga Tacos", price: 300, cat: "Tacos", isVeg: false, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500", desc: "Shredded chicken in chipotle sauce." },
+
+    // DESSERTS VARIETIES
+    { id: 61, name: "Red Velvet Jar", price: 220, cat: "Desserts", isVeg: true, img: "/Images/redvelvetjar.jpg", desc: "Layers of red velvet cake and frosting." },
+    { id: 62, name: "Chocolate Mousse", price: 180, cat: "Desserts", isVeg: true, img: "/Images/jarbrown.jpg", desc: "Airy, rich dark chocolate mousse." },
+    { id: 63, name: "Fruit Tart", price: 240, cat: "Desserts", isVeg: true, img: "/Images/fruitstat.jpg", desc: "Seasonal fruits on vanilla custard." },
+
+    // SALAD VARIETIES
+    { id: 64, name: "Grilled Chicken Salad", price: 280, cat: "Salads", isVeg: false, img: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=500", desc: "Char-grilled chicken with vinaigrette." },
+    { id: 65, name: "Quinoa Avocado", price: 320, cat: "Salads", isVeg: true, img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500", desc: "Superfood bowl with lemon dressing." },
+
+    // BEVERAGES VARIETIES
+    { id: 66, name: "Peach Iced Tea", price: 140, cat: "Beverages", isVeg: true, img: "/Images/Peach Iced Tea.jpg", desc: "Sweet peach infused chilled tea." }
+];
 
         const categories = ["All", "Biryani", "Pizza", "Burgers", "Pasta", "Desserts", "Beverages", "Salads", "Tacos","Shakes","Noodles","Meals",];
 

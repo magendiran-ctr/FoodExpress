@@ -47,21 +47,16 @@
         /* --- Floating Pill Navigation --- */
         nav {
             position: fixed;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%; /* Responsive width */
-            max-width: 1200px; /* Max width for large screens */
+            width: 100%;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(15px);
             padding: 0.8rem 2rem;
-            border-radius: 50px; /* Always Pill Shape */
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             border: 1px solid rgba(255,255,255,0.5);
-            top: 20px;
         }
 
         /* Animated Logo */
@@ -329,6 +324,7 @@
         }
 
         input, select, textarea {
+            font-family: 'Times New Roman', Times, serif;
             width: 100%;
             padding: 15px;
             border: 1px solid #ddd;
@@ -417,9 +413,9 @@
         }
 
         /* Mobile Devices (max-width: 768px) */
-        @media (max-width: 768px) {
+        @media (max-width: 210px) {
             /* Nav */
-            nav { width: 90%; padding: 0.8rem 1.2rem; }
+            nav { width: 100%; padding: 0.8rem 1.2rem; }
             .logo-main { font-size: 26px; }
             .back-btn { padding: 8px 14px; font-size: 0.8rem; }
 
@@ -457,7 +453,7 @@
             .menu-section { padding: 4rem 5%; border-radius: 30px 30px 0 0; }
             .menu-top { flex-direction: column; align-items: flex-start; gap: 15px; }
             .menu-top h2 { font-size: 2.2rem; }
-            .menu-cards { grid-template-columns: 1fr; } /* 1 card per row */
+            .menu-cards { grid-template-columns: 2fr; } /* 1 card per row */
 
             /* Contact Form */
             .contact-section { padding: 4rem 5%; }

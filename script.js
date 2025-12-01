@@ -880,6 +880,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         renderRestaurants();
     
+        
 
 
 

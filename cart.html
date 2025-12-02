@@ -146,6 +146,7 @@
         /* Cart Items */
         .cart-items {
             display: flex;
+            margin-left: -20px;
             flex-direction: column;
             gap: 16px;
         }
@@ -746,6 +747,62 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* Tablet */
+@media (max-width: 768px) {
+    .success-content {
+        max-width: 300px;
+        padding: 30px;
+        border-radius: 18px;
+    }
+    
+    .success-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+        margin-bottom: 16px;
+    }
+
+    .success-title {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .success-message {
+        font-size: 10px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .success-content {
+        max-width: 90%;
+        padding: 20px;
+        border-radius: 16px;
+    }
+    
+    .success-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        margin-bottom: 14px;
+    }
+
+    .success-title {
+        font-size: 12px;
+    }
+
+    .success-message {
+        font-size: 10px;
+    }
+
+    .success-btn,
+    .add-sample-btn {
+        width: 90%;
+        padding: 10px 0;
+        font-size: 8px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -1353,15 +1410,10 @@
     document.getElementById('checkoutBtn').addEventListener('click', showCheckout);
 
     // Back button
-    document.getElementById('backBtn').addEventListener('click', () => {
-        if (document.getElementById('paymentPage').classList.contains('active')) {
-            backToCheckout();
-        } else if (document.getElementById('checkoutPage').classList.contains('active')) {
-            showCart();
-        } else {
-            window.close();
-        }
-    });
+   document.getElementById("backBtn").addEventListener("click", () => {
+    window.location.href = "index.html#restaurantSection";
+});
+
 
     // Payment button (from checkout to payment)
     document.getElementById('paymentBtn').addEventListener('click', () => {

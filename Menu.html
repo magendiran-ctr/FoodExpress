@@ -160,24 +160,42 @@
         }
 
         /* Menu Page */
-        .menu-container {
-            padding: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+       .menu-container {
+    padding: 0;              /* REMOVE GAP */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.hero-banner {
+    width: 100%;
+    aspect-ratio: 16/5;
 
-        .hero-banner {
-            background-image: url('/Images/MenuBg.png');
-            /* Fallback color/image if file missing */
-            background-color: #2d3436; 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            border-radius: 24px;
-            margin-bottom: 30px;
-            width: 100%;
-            min-height: 300px;
-        }
+    background-image: url('/Images/MenuBg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    border-radius: 20px;
+    margin: 0;               /* ZERO EXTRA SPACE */
+    overflow: hidden;
+}
+
+/* ===== Tablet ===== */
+@media (max-width: 992px) {
+    .hero-banner {
+        border-radius: 18px;
+        background-size: contain;
+    }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 600px) {
+    .hero-banner {
+        border-radius: 14px;
+        background-size: contain;
+        background-position: center;
+    }
+}
+
 
         /* Controls */
         .controls-row {
@@ -217,81 +235,161 @@
         }
 
         .veg-toggle {
-            display: flex;
-            gap: 10px;
-            background: white;
-            padding: 5px;
-            border-radius: 50px;
-            border: 1px solid #eee;
-        }
+    display: flex;
+    gap: 10px;
+    background: white;
+    padding: 6px;
+    border-radius: 50px;
+    border: 1px solid #eee;
+    align-items: center;
+}
 
-        .veg-btn {
-            padding: 8px 16px;
-            border-radius: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: 0.2s;
-            border: 1px solid transparent;
-        }
+/* MAIN BUTTON */
+.veg-btn {
+    padding: 8px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: 0.2s;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
 
-        .veg-btn:hover {
-            background: #f3f4f6;
-        }
+.veg-btn:hover {
+    background: #f3f4f6;
+}
 
-        .veg-btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
+.veg-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
 
-        .icon-box {
-            width: 16px;
-            height: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid;
-            border-radius: 3px;
-        }
+/* ICONS */
+.icon-box {
+    width: 16px;
+    height: 16px;
+    border: 2px solid;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .icon-veg {
-            border-color: var(--success);
-        }
+.icon-veg {
+    border-color: var(--success);
+}
 
-        .icon-veg::after {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--success);
-            border-radius: 50%;
-        }
+.icon-veg::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+}
 
-        .icon-nonveg {
-            border-color: var(--danger);
-        }
+.icon-nonveg {
+    border-color: var(--danger);
+}
 
-        .icon-nonveg::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-top: 7px solid var(--danger);
-        }
+.icon-nonveg::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 7px solid var(--danger);
+}
 
-        .sort-dropdown {
-            padding: 12px 20px;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            outline: none;
-        }
+/* ============================= */
+/* RESPONSIVE BREAKPOINTS        */
+/* ============================= */
+
+/* TABLET VIEW */
+@media (max-width: 992px) {
+    .veg-toggle {
+        gap: 6px;
+        padding: 5px;
+    }
+
+    .veg-btn {
+        padding: 7px 14px;
+        font-size: 0.85rem;
+        gap: 6px;
+    }
+
+    .icon-box {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* MOBILE VIEW */
+@media (max-width: 600px) {
+    .veg-toggle {
+        gap: 4px;
+        padding: 4px;
+    }
+
+    .veg-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        gap: 5px;
+        border-radius: 40px;
+    }
+
+    .icon-box {
+        width: 12px;
+        height: 12px;
+    }
+
+    .icon-veg::after {
+        width: 6px;
+        height: 6px;
+    }
+
+    .icon-nonveg::after {
+        border-left: 3px solid transparent;
+        border-right: 3px solid transparent;
+        border-top: 6px solid var(--danger);
+    }
+}
+
+
+       .sort-dropdown {
+    padding: 12px 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    outline: none;
+    width: auto;
+    max-width: 100%;
+}
+/* === tab=== */
+@media (max-width: 992px) {
+    .sort-dropdown {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        border-radius: 10px;
+    }
+}
+/* === Mobile=== */
+@media (max-width: 600px) {
+    .sort-dropdown {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+        border-radius: 8px;
+        width: 100%;           /* makes it fit neatly in mobile layout */
+    }
+}
+
+
 
         /* Category Pills */
         .filter-scroll {
@@ -845,8 +943,7 @@
         }
 
        /* ============================================================
-   RESPONSIVE CSS LAYER — NO CHANGES TO EXISTING STYLES
-   Add this at the VERY END of your <style> section
+   RESPONSIVE CSS LAYER
    ============================================================ */
 
 /* ----------- Large Laptops (≤1280px) ----------- */
@@ -927,12 +1024,11 @@
     }
 
     /* Hero Banner */
-    .hero-banner {
-        min-height: 200px;
-        
+    /* .hero-banner {
+        min-height: 200px;  
         border-radius: 16px;
         background-position: center;
-    }
+    } */
 
     /* Filters scroll */
     .filter-scroll {
@@ -1079,8 +1175,6 @@
     <section id="menuPage" class="page-section active">
         <div class="menu-container">
             <div class="hero-banner"></div>
-
-            <div class="image-container">
 
             <div class="controls-row">
                 <div class="search-container">

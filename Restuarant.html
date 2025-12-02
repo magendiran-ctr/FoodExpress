@@ -4,39 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Express - Premium Menu</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
             --primary: #1a1a1a;
             --accent: #FF6B00;
-            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --glass: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.5);
             --text: #1f2937;
-            --danger: #ef4444;
-            --star: #fbbf24;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: "Poppins", system-ui, sans-serif;
+            font-family: "Poppins", sans-serif;
             background: #f3f4f6;
-            color: var(--text);
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
-        /* ================= HEADER (GLASS) ================= */
+        /* HEADER */
         .main-header {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
@@ -46,246 +36,116 @@
             z-index: 100;
         }
 
-        .logo {
-            cursor: pointer;
-            line-height: 1;
-        }
-
-        .logo-top {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            display: block;
-        }
-
         .logo-main {
             font-size: 26px;
             font-weight: 900;
             color: var(--primary);
-            letter-spacing: -1px;
         }
 
-        .header-actions { display: flex; gap: 15px; }
-
-        .header-icon-btn {
-            position: relative;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #fff;
-            color: var(--primary);
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-
-        .header-icon-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            color: var(--accent);
-        }
-
-        .cart-count {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--accent);
-            color: white;
-            font-size: 0.75rem;
-            font-weight: bold;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #fff;
-        }
-
-        /* ================= SECTION HEADER ================= */
+        /* TITLE SECTION */
         .section-header {
             text-align: center;
-            margin: 60px 0 40px;
-            position: relative;
+            margin: 50px 0;
         }
 
         .section-title {
-            font-family: 'Times New Roman', Times, serif;
             font-size: 42px;
             font-weight: 900;
-            color: #111;
-            margin-bottom: 8px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        /* Orange underline accent */
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            right: -10px;
-            width: 60px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 10px;
-            z-index: -1;
         }
 
         .section-subtitle {
-            font-size: 16px;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
+            color: #555;
         }
 
-        /* ================= CAROUSEL AREA ================= */
+        /* WRAPPER */
         .category-wrapper {
-            position: relative;
             max-width: 1600px;
-            margin: 0 auto;
-            padding: 40px 0; /* Space for shadows */
+            margin: auto;
+            position: relative;
+            padding: 40px 20px;
         }
 
+        /* HORIZONTAL SCROLL AREA */
         .food-categories {
             display: flex;
             gap: 35px;
-            padding: 60px 40px 40px; /* Top padding for floating images */
             overflow-x: auto;
-            scroll-behavior: smooth;
+            padding: 80px 20px 40px;
             scrollbar-width: none;
-            perspective: 1000px;
         }
+
         .food-categories::-webkit-scrollbar { display: none; }
 
         /* ARROWS */
         .cat-arrow {
             position: absolute;
-            top: 55%;
+            top: 52%;
             transform: translateY(-50%);
             width: 55px;
             height: 55px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.9);
-            border: 1px solid rgba(0,0,0,0.05);
-            font-size: 20px;
-            color: var(--primary);
-            cursor: pointer;
-            z-index: 20;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: white;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .cat-arrow:hover {
-            background: var(--primary);
-            color: #fff;
-            transform: translateY(-50%) scale(1.1);
+            cursor: pointer;
+            z-index: 20;
         }
 
         .cat-arrow.left { left: 10px; }
         .cat-arrow.right { right: 10px; }
 
-        /* ================= PREMIUM GLASS CARD ================= */
+        /* FOOD CATEGORY CARD */
         .food-category {
-            position: relative;
-            min-width: 200px;
-            height: 240px;
-            background: rgba(255, 255, 255, 0.65); /* Glass Background */
+            min-width: 230px;
+            background: rgba(255,255,255,0.75);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
             padding-bottom: 25px;
-            cursor: pointer;
-            box-shadow: 
-                0 10px 30px rgba(0,0,0,0.05),
-                inset 0 0 20px rgba(255,255,255,0.5);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            
-            /* Initial Animation State */
-            opacity: 0;
-            animation: slideUpFade 0.8s forwards;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
         }
 
-        /* CARD HOVER */
         .food-category:hover {
-            transform: translateY(-15px);
-            background: rgba(255, 255, 255, 0.85);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
         }
 
-        /* IMAGE CONTAINER */
+        /* FIXED RESPONSIVE IMAGE BOX */
         .img-box {
-            position: absolute;
-            top: -50px;
-            width: 140px;
-            height: 140px;
+            width: clamp(110px, 25vw, 150px);
+            height: clamp(110px, 25vw, 150px);
             border-radius: 50%;
+            background: white;
             padding: 5px;
-            background: #fff; /* Rim */
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            transition: transform 0.5s ease;
-            z-index: 2;
-        }
-        
-        /* Pseudo-element for Glow on Hover */
-        .img-box::after {
-            content: '';
             position: absolute;
-            top: 50%; left: 50%;
-            width: 100%; height: 100%;
-            transform: translate(-50%, -50%) scale(0.8);
-            background: var(--accent);
-            border-radius: 50%;
-            filter: blur(25px);
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 0.4s ease;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
         }
 
-        .food-category:hover .img-box {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .food-category:hover .img-box::after {
-            opacity: 0.4;
-        }
-
-        .food-category img {
+        .img-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
         }
 
-        /* CONTENT STYLES */
         .card-content {
+            padding-top: 100px;
             text-align: center;
-            width: 100%;
-            padding: 0 15px;
         }
 
         .food-category-name {
             font-size: 20px;
-            font-weight: 800;
-            color: #2d3436;
-            margin-bottom: 4px;
+            font-weight: 700;
         }
 
-        /* HEART ICON (Top Right) */
+
+        /* HEART BUTTON */
         .fav-btn {
             position: absolute;
             top: 15px;
@@ -293,151 +153,119 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: #fff;
+            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            color: #ccc;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            color: #bbb;
+            cursor: pointer;
             transition: 0.3s;
-            z-index: 10;
         }
 
-        .fav-btn:hover { transform: scale(1.1); }
-        .fav-btn.active { color: var(--danger); }
+        .fav-btn.active { color: red; }
 
-        /* KEYFRAMES FOR ENTRANCE */
-        @keyframes slideUpFade {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        /* ========================= RESPONSIVE FIXES ========================= */
+
+        /* TABLET */
+        @media (max-width: 992px) {
+            .food-category { min-width: 200px; }
+            .img-box { top: -50px; }
         }
 
-        /* MOBILE FIXES */
-        @media (max-width: 768px) {
-            .section-title { font-size: 32px; }
-            .food-category { min-width: 170px; height: 220px; }
-            .img-box { width: 120px; height: 120px; top: -40px; }
-            .cat-arrow { display: none; }
+        /* MOBILE */
+        @media (max-width: 600px) {
+            .section-title { font-size: 30px; }
+            
+            .food-categories { gap: 25px; padding-top: 70px; }
+
+            .food-category { min-width: 180px; }
+
+            .img-box {
+                width: 110px;
+                height: 110px;
+                top: -45px;
+            }
         }
     </style>
 </head>
+
 <body>
 
- 
+    <!-- HEADER -->
     <header class="main-header">
-        <div class="logo" onclick="window.location.reload()">
-            <span class="logo-top">FOOD</span>
-            <span class="logo-main">EXPRESS</span>
-        </div>
-
-        <div class="header-actions">
-            <a href="#" class="header-icon-btn">
-                <i class="fas fa-search"></i>
-            </a>
-            <div class="header-icon-btn" onclick="toggleCart()">
-                <i class="fas fa-shopping-bag"></i>
-                <div class="cart-count">2</div>
-            </div>
-        </div>
+        <div class="logo-main">FOOD EXPRESS</div>
     </header>
 
+    <!-- TITLE -->
     <div class="section-header">
-        <h1 class="section-title">Eat what makes you happy </h1>
-        <p class="section-subtitle">Discover the best food & drinks in your area from curated lists</p>
+        <h1 class="section-title">Eat what makes you happy</h1>
+        <p class="section-subtitle">Discover the best food & drinks in your area</p>
     </div>
 
+    <!-- CATEGORY SECTION -->
     <div class="category-wrapper">
+
         <button class="cat-arrow left" onclick="scrollCategories(-1)">
             <i class="fas fa-arrow-left"></i>
         </button>
 
-        <div class="food-categories" id="foodCategories">
-            </div>
+        <div class="food-categories" id="foodCategories"></div>
 
         <button class="cat-arrow right" onclick="scrollCategories(1)">
             <i class="fas fa-arrow-right"></i>
         </button>
+
     </div>
 
-    <script>
-        // Data with Ratings
-        const foodCategories = [
-           { name: "Biriyani", img: "/Images/biriyani 3.jpg" },
-  { name: "Idly", img: "Images/idly2.jpg" },
-  { name: "Dosa", img: "/Images/dosa2.jpg" },
-  { name: "Parotta", img: "/Images/parota.jpg" },
-  { name: "Pongal", img: "/Images/pongal.jpg" },
-  { name: "Meals", img: "/Images/meals.jpg" },
-  { name: "Noodles", img: "/Images/Noodles.jpg" },
-  { name: "Pizza", img: "Images/pizza 1.jpg" },
-  { name: "Paratha", img: "Images/Burger.jpg" },
-  { name: "Icecream", img: "Images/icecream.jpg" },
-  { name: "Shakes", img: "Images/shakes.jpg" },
-  { name: "Shawarma", img: "Images/shawarma.jpg" },
-  { name: "Cake", img: "Images/cake.jpg" },
-  { name: "Kebab", img: "Images/kebab.jpg" },
-  { name: "Burger", img: "Images/Burger.jpg" },
-  { name: "Salad", img: "Images/salad.jpg" } 
- ];
+<script>
+    const foodCategories = [
+        { name: "Biriyani", img: "/Images/biriyani 3.jpg" },
+        { name: "Idly", img: "Images/idly2.jpg" },
+        { name: "Dosa", img: "/Images/dosa2.jpg" },
+        { name: "Parotta", img: "/Images/parota.jpg" },
+        { name: "Pongal", img: "/Images/pongal.jpg" },
+        { name: "Meals", img: "/Images/meals.jpg" },
+        { name: "Noodles", img: "/Images/Noodles.jpg" },
+        { name: "Pizza", img: "Images/pizza 1.jpg" },
+        { name: "Burger", img: "Images/Burger.jpg" },
+        { name: "Icecream", img: "Images/icecream.jpg" },
+        { name: "Shakes", img: "Images/shakes.jpg" },
+        { name: "Shawarma", img: "Images/shawarma.jpg" },
+    ];
 
-        const container = document.getElementById("foodCategories");
+    const container = document.getElementById("foodCategories");
 
-        // 1. Render Cards with Staggered Animation
-        foodCategories.forEach((item, index) => {
-            const div = document.createElement("div");
-            div.classList.add("food-category");
-            
-            // Add staggered delay (0.1s, 0.2s, 0.3s...)
-            div.style.animationDelay = `${index * 0.1}s`;
+    foodCategories.forEach((item) => {
+        const div = document.createElement("div");
+        div.classList.add("food-category");
 
-            div.innerHTML = `
-                <div class="fav-btn" onclick="toggleFav(this, event)">
-                    <i class="fas fa-heart"></i>
-                </div>
-                
-                <div class="img-box">
-                    <img src="${item.img}" alt="${item.name}" loading="lazy">
-                </div>
-                
-                <div class="card-content">
-                    <div class="food-category-name">${item.name}</div>
-                </div>
-            `;
-            container.appendChild(div);
-        });
+        div.innerHTML = `
+            <div class="fav-btn" onclick="toggleFav(this, event)">
+                <i class="fas fa-heart"></i>
+            </div>
 
-        // 2. Scroll Functionality
-        function scrollCategories(direction) {
-            const scrollVal = 300;
-            container.scrollBy({ left: direction * scrollVal, behavior: "smooth" });
-        }
+            <div class="img-box">
+                <img src="${item.img}" alt="${item.name}">
+            </div>
 
-        // 3. Heart Toggle Feature
-        function toggleFav(element, event) {
-            event.stopPropagation(); // Prevent clicking the card parent
-            element.classList.toggle('active');
-            
-            // Visual feedback
-            // const icon = element.querySelector('i');
-            // if(element.classList.contains('active')) {
-            //     icon.style.transform = "scale(1.2)";
-            //     setTimeout(() => icon.style.transform = "scale(1)", 200);
-            // }
-        }
+            <div class="card-content">
+                <div class="food-category-name">${item.name}</div>
+            </div>
+        `;
 
-        // 4. Horizontal Scroll via Wheel
-        container.addEventListener("wheel", (e) => {
-            e.preventDefault();
-            container.scrollLeft += e.deltaY;
-        });
+        container.appendChild(div);
+    });
 
-    </script>
+    function scrollCategories(dir) {
+        container.scrollBy({ left: dir * 320, behavior: "smooth" });
+    }
+
+    function toggleFav(el, ev) {
+        ev.stopPropagation();
+        el.classList.toggle("active");
+    }
+</script>
+
 </body>
 </html>

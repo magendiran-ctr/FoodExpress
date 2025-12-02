@@ -16,25 +16,41 @@
                 <span class="logo-top">FOOD</span>
                 <span class="logo-main">EXPRESS</span>
             </div>
-            <nav>
-                <a href="#" class="active">Home</a>
-                <a href="Menu.html" target="_blank" >Menu</a>
-                <a href="Corporate.html" target="_blank">Corporate</a>
-                <a href="About.html" target="_blank">About</a>
-                <a href="Blog.html" target="_blank">Blog</a>
-            </nav>
-             <div class="header-right">
-      <button id="cartBtn" class="cart-btn">
-        🛒 Cart <span id="cartCount">0</span>
-      </button>
-                 <a href="sign-in.html">
-                    <button class="signin-btn"> 
-                      <span>👤</span>
-                    <span>Sign in</span>
-                  </button>
-                </a> 
-            </div>
+           <nav class="desktop-nav">
+        <a href="#" class="active">Home</a>
+        <a href="Menu.html" target="_blank">Menu</a>
+        <a href="Corporate.html" target="_blank">Corporate</a>
+        <a href="About.html" target="_blank">About</a>
+        <a href="Blog.html" target="_blank">Blog</a>
+    </nav>
+
+    <div class="header-right">
+        <button id="cartBtn" class="cart-btn" data-url="cart.html">
+            🛒 Cart <span id="cartCount">0</span>
+        </button>
+
+        <a href="sign-in.html">
+            <button class="signin-btn">
+                <span>👤</span>
+                <span>Sign in</span>
+            </button>
+        </a>
+
+        <!-- Mobile Hamburger -->
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
         </header>
+        <!-- mobile view -->
+        <div class="mobile-menu" id="mobileMenu">
+    <a href="Menu.html">Menu</a>
+    <a href="Corporate.html">Corporate</a>
+    <a href="About.html">About</a>
+    <a href="Blog.html">Blog</a>
+</div>
+<div class="overlay" id="overlay"></div>
+
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-left">
@@ -174,6 +190,7 @@
       <img src="https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Grocery basket">
     </div>
     <button class="card-arrow" data-url="Instamart.html">→</button>
+
   </div>
 </section>
 
@@ -248,7 +265,7 @@
             </div>
 
             <div class="product-footer">
-                <button class="order-btn"> + Add To Cart </button>
+                <button class="order-btns"> + Add To Cart </button>
                 <div class="rating-badge">★ 3.5</div>
             </div>
         </div>
@@ -267,7 +284,7 @@
             </div>
 
             <div class="product-footer">
-                <button class="order-btn">+ Add To Cart</button>
+                <button class="order-btns">+ Add To Cart</button>
                 <div class="rating-badge">★ 5.0</div>
             </div>
         </div>
@@ -286,7 +303,7 @@
             </div>
 
             <div class="product-footer">
-                <button class="order-btn">+ Add To Cart</button>
+                <button class="order-btns">+ Add To Cart</button>
                 <div class="rating-badge">★ 4.7</div>
             </div>
         </div>
@@ -305,7 +322,7 @@
             </div>
 
             <div class="product-footer">
-                <button class="order-btn">+ Add To Cart</button>
+                <button class="order-btns">+ Add To Cart</button>
                 <div class="rating-badge">★ 4.0</div>
             </div>
         </div>
@@ -324,7 +341,7 @@
     </div>
 
     <div class="product-footer">
-        <button class="order-btn">+ Add To Cart</button>
+        <button class="order-btns">+ Add To Cart</button>
         <div class="rating-badge">★ 4.7</div>
     </div>
 </div>
@@ -343,7 +360,7 @@
     </div>
 
     <div class="product-footer">
-        <button class="order-btn">+ Add To Cart</button>
+        <button class="order-btns">+ Add To Cart</button>
         <div class="rating-badge">★ 4.8</div>
     </div>
 </div>
@@ -362,7 +379,7 @@
     </div>
 
     <div class="product-footer">
-        <button class="order-btn">+ Add To Cart</button>
+        <button class="order-btns">+ Add To Cart</button>
         <div class="rating-badge">★ 5.0</div>
     </div>
 </div>
@@ -381,7 +398,7 @@
     </div>
 
     <div class="product-footer">
-        <button class="order-btn">+ Add To Cart</button>
+        <button class="order-btns">+ Add To Cart</button>
         <div class="rating-badge">★ 4.6</div>
     </div>
 </div>
@@ -407,7 +424,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.9</div>
         </div>
     </div>
@@ -423,7 +440,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.4</div>
         </div>
     </div>
@@ -439,7 +456,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.8</div>
         </div>
     </div>
@@ -455,7 +472,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
     </div>
@@ -469,7 +486,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
     </div>
@@ -483,7 +500,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
     </div>
@@ -497,7 +514,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
     </div>
@@ -511,7 +528,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
     </div>
@@ -525,7 +542,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
     </div>
@@ -539,7 +556,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
     </div>
@@ -553,7 +570,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
     </div>
@@ -567,35 +584,7 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
-            <div class="rating-badge">★ 4.6</div>
-        </div>
-    </div>
-    <!-- <div class="product-cards">
-        <div class="product-imgs">
-            <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=300&h=300&fit=crop" alt="Cookies">
-        </div>
-        <div class="product-name">Chocolate Cookies</div>
-        <div class="product-bottom">
-            <div class="price">₹90.00</div>
-            <button class="fav-btn">♥</button>
-        </div>
-        <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
-            <div class="rating-badge">★ 4.6</div>
-        </div>
-    </div> -->
-    <!-- <div class="product-cards">
-        <div class="product-imgs">
-            <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=300&h=300&fit=crop" alt="Cookies">
-        </div>
-        <div class="product-name">Chocolate Cookies</div>
-        <div class="product-bottom">
-            <div class="price">₹90.00</div>
-            <button class="fav-btn">♥</button>
-        </div>
-        <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
     </div>
@@ -609,7 +598,21 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
+     <div class="product-cards">
+        <div class="product-imgs">
+            <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=300&h=300&fit=crop" alt="Cookies">
+        </div>
+        <div class="product-name">Chocolate Cookies</div>
+        <div class="product-bottom">
+            <div class="price">₹90.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
     </div>
@@ -623,17 +626,31 @@
             <button class="fav-btn">♥</button>
         </div>
         <div class="product-footer">
-            <button class="order-btn">+ Add To Cart</button>
+            <button class="order-btns">+ Add To Cart</button>
             <div class="rating-badge">★ 4.6</div>
         </div>
-    </div> -->
+    </div>
+    <div class="product-cards">
+        <div class="product-imgs">
+            <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=300&h=300&fit=crop" alt="Cookies">
+        </div>
+        <div class="product-name">Chocolate Cookies</div>
+        <div class="product-bottom">
+            <div class="price">₹90.00</div>
+            <button class="fav-btn">♥</button>
+        </div>
+        <div class="product-footer">
+            <button class="order-btns">+ Add To Cart</button>
+            <div class="rating-badge">★ 4.6</div>
+        </div>
+    </div>
     
 </div>
 </div>
 </section>
 <div id="toast" class="toast"></div>
 
-<!-- ====================== Restaurant Section ====================== -->
+<!-- ====================== Restaurant Section ====================== --> 
    <section class="dineout-section">
         <h1>Discover Best Restaurants on Dineout</h1>
         <div class="restaurant-scroll" id="restaurantScroll"></div>

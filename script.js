@@ -55,11 +55,11 @@ document.querySelectorAll('button').forEach(button => {
 });
 
 // ================== CARD-ARROW NAVIGATION ==================
-document.querySelectorAll('.card-arrow').forEach(button => {
-  button.addEventListener('click', () => {
-    const url = button.getAttribute('data-url');
-    if (url) window.open(url, '_blank');
-  });
+document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("card-arrow")) {
+        const page = e.target.getAttribute("data-url");
+        if (page) window.location.href = page;
+    }
 });
 
 // //===================== More Products =======================//
@@ -145,7 +145,7 @@ function initProducts() {
   const productCards = document.querySelectorAll(".product-cards");
 
   productCards.forEach(card => {
-    const btn = card.querySelector(".order-btn");
+    const btn = card.querySelector(".order-btns");
     if (!btn) return;
 
     btn.addEventListener("click", () => {
@@ -176,8 +176,12 @@ document.addEventListener("DOMContentLoaded", () => {
   loadCart();
   initProducts();
 
-  document.getElementById("cartBtn")
-    .addEventListener("click", openCartPage);
+  document.getElementById("cartBtn").addEventListener("click", () => {
+    const btn = document.getElementById("cartBtn");
+    const page = btn.getAttribute("data-url");
+    if (page) window.location.href = page; // opens same tab
+});
+
 });
 
 // =============== Review Section ================//
@@ -631,254 +635,274 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     }
 },
-// {
-//     id: 7,
-//     name: 'A2B (Adyar Ananda Bhavan)',
-//     rating: '4.1',
-//     cuisine: 'South Indian, Sweets',
-//     location: 'Muthialpet',
-//     distance: '2.1 km',
-//     price: '₹450 for two',
-//     image: 'https://images.unsplash.com/photo-1525755662778-989d0524087e?w=400',
-//     menu: {
-//         'Starters': [
-//             {
-//                 name: 'Medu Vada',
-//                 price: 49,
-//                 desc: 'Crispy urad dal vada with sambar & chutney',
-//                 veg: true,
-//                 img: 'https://images.unsplash.com/photo-1589307000180-e506d4c300a5?w=300',
-//                 prepTime: '5-7 mins',
-//                 calories: 150,
-//                 spiceLevel: 'Mild',
-//                 customizations: ['Extra Crispy', 'Less Oil'],
-//                 nutrition: { protein: '4g', carbs: '18g', fat: '6g', fiber: '2g' }
-//             },
-//             {
-//                 name: 'Mini Sambar Idlis',
-//                 price: 79,
-//                 desc: 'Soft mini idlis dipped in hot sambar',
-//                 veg: true,
-//                 img: 'https://images.unsplash.com/photo-1601050690597-df7b7f71a3df?w=300',
-//                 prepTime: '6 mins',
-//                 calories: 210,
-//                 spiceLevel: 'Mild',
-//                 customizations: ['Extra Sambar', 'Less Salt'],
-//                 nutrition: { protein: '6g', carbs: '30g', fat: '4g', fiber: '3g' }
-//             }
-//         ],
-//         'Main Course': [
-//             {
-//                 name: 'Ghee Pongal',
-//                 price: 89,
-//                 desc: 'Rice dal combo cooked with ghee & pepper',
-//                 veg: true,
-//                 img: 'https://images.unsplash.com/photo-1589307000180-e506d4c300a5?w=300',
-//                 prepTime: '8 mins',
-//                 calories: 350,
-//                 spiceLevel: 'Mild',
-//                 customizations: ['Extra Ghee', 'Less Pepper'],
-//                 nutrition: { protein: '8g', carbs: '44g', fat: '14g', fiber: '4g' }
-//             },
-//             {
-//                 name: 'Rava Dosa',
-//                 price: 99,
-//                 desc: 'Crispy rava dosa with chutney & sambar',
-//                 veg: true,
-//                 img: 'https://images.unsplash.com/photo-1601050690597-df7b7f71a3df?w=300',
-//                 prepTime: '10-12 mins',
-//                 calories: 320,
-//                 spiceLevel: 'Mild',
-//                 customizations: ['Extra Crispy', 'Less Oil'],
-//                 nutrition: { protein: '7g', carbs: '55g', fat: '10g', fiber: '4g' }
-//             }
-//         ]
-//     }
-// },
-// {
-//     id: 8,
-//     name: 'Junior Kuppanna',
-//     rating: '4.2',
-//     cuisine: 'South Indian, Chettinad',
-//     location: 'Kottupalayam',
-//     distance: '2.8 km',
-//     price: '₹900 for two',
-//     image: 'https://images.unsplash.com/photo-1604908554160-6d4e985cbb13?w=400',
-//     menu: {
-//         'Starters': [
-//             {
-//                 name: 'Mutton Sukka',
-//                 price: 349,
-//                 desc: 'Dry-fried mutton with Chettinad spices',
-//                 veg: false,
-//                 img: 'https://images.unsplash.com/photo-1625246333195-198b4564a317?w=300',
-//                 prepTime: '15 mins',
-//                 calories: 420,
-//                 spiceLevel: 'Hot',
-//                 customizations: ['Extra Spicy', 'Less Oil'],
-//                 nutrition: { protein: '26g', carbs: '8g', fat: '32g', fiber: '2g' }
-//             },
-//             {
-//                 name: 'Podi Idli',
-//                 price: 129,
-//                 desc: 'Mini idlis tossed in spicy podi and ghee',
-//                 veg: true,
-//                 img: 'https://images.unsplash.com/photo-1589307000180-e506d4c300a5?w=300',
-//                 prepTime: '8 mins',
-//                 calories: 280,
-//                 spiceLevel: 'Hot',
-//                 customizations: ['Extra Podi', 'Less Ghee'],
-//                 nutrition: { protein: '7g', carbs: '36g', fat: '10g', fiber: '4g' }
-//             }
-//         ],
-//         'Main Course': [
-//             {
-//                 name: 'Chicken Biryani',
-//                 price: 249,
-//                 desc: 'Chettinad style spicy biryani',
-//                 veg: false,
-//                 img: 'https://images.unsplash.com/photo-1604908554160-6d4e985cbb13?w=300',
-//                 prepTime: '15-18 mins',
-//                 calories: 690,
-//                 spiceLevel: 'Hot',
-//                 customizations: ['Extra Chicken', 'Extra Spicy'],
-//                 nutrition: { protein: '28g', carbs: '78g', fat: '28g', fiber: '5g' }
-//             },
-//             {
-//                 name: 'Veg Meals',
-//                 price: 179,
-//                 desc: 'Rice, sambar, rasam, poriyal, kootu, curd, papad',
-//                 veg: true,
-//                 img: 'https://images.unsplash.com/photo-1589307000180-e506d4c300a5?w=300',
-//                 prepTime: '10 mins',
-//                 calories: 520,
-//                 spiceLevel: 'Mild',
-//                 customizations: ['Extra Sambar', 'Extra Rice'],
-//                 nutrition: { protein: '12g', carbs: '74g', fat: '16g', fiber: '10g' }
-//             }
-//         ]
-//     }
-// },
-// {
-//     id: 9,
-//     name: 'Café Xtasi',
-//     rating: '4.4',
-//     cuisine: 'Italian, Pizza',
-//     location: 'Mission Street',
-//     distance: '1.0 km',
-//     price: '₹1200 for two',
-//     image: 'https://images.unsplash.com/photo-1601924582971-df3b0f4dff98?w=400',
-//     menu: {
-//         'Starters': [
-//             {
-//                 name: 'Garlic Bread Supreme',
-//                 price: 179,
-//                 desc: 'Wood-fired garlic bread with herbs and cheese',
-//                 veg: true,
-//                 img: 'https://images.unsplash.com/photo-1548365328-8608aeb2f17c?w=300',
-//                 prepTime: '8-10 mins',
-//                 calories: 260,
-//                 spiceLevel: 'None',
-//                 customizations: ['Extra Cheese', 'No Garlic'],
-//                 nutrition: { protein: '8g', carbs: '32g', fat: '10g', fiber: '2g' }
-//             },
-//             {
-//                 name: 'BBQ Chicken Bites',
-//                 price: 249,
-//                 desc: 'Grilled chicken tossed in smoky BBQ sauce',
-//                 veg: false,
-//                 img: 'https://images.unsplash.com/photo-1600891963922-07f4e8a90344?w=300',
-//                 prepTime: '10-12 mins',
-//                 calories: 330,
-//                 spiceLevel: 'Mild',
-//                 customizations: ['Extra BBQ Sauce', 'Crispy Version'],
-//                 nutrition: { protein: '22g', carbs: '24g', fat: '16g', fiber: '1g' }
-//             }
-//         ],
-//         'Pizza': [
-//             {
-//                 name: 'Xtasi Special Veg',
-//                 price: 449,
-//                 desc: 'Wood-fired veg pizza with olives, jalapenos, mushrooms and cheese',
-//                 veg: true,
-//                 img: 'https://images.unsplash.com/photo-1618213837799-94d46e4e09e4?w=300',
-//                 prepTime: '12-15 mins',
-//                 calories: 720,
-//                 spiceLevel: 'Medium',
-//                 customizations: ['Extra Cheese', 'Thin Crust', 'Extra Jalapenos'],
-//                 nutrition: { protein: '26g', carbs: '88g', fat: '28g', fiber: '6g' }
-//             },
-//             {
-//                 name: 'Xtasi Chicken Feast',
-//                 price: 499,
-//                 desc: 'Loaded chicken pizza with pepperoni, grilled chicken and cheese',
-//                 veg: false,
-//                 img: 'https://images.unsplash.com/photo-1601924582971-df3b0f4dff98?w=300',
-//                 prepTime: '12-15 mins',
-//                 calories: 820,
-//                 spiceLevel: 'Mild',
-//                 customizations: ['Extra Chicken', 'Extra Cheese', 'Thin Crust'],
-//                 nutrition: { protein: '36g', carbs: '92g', fat: '34g', fiber: '5g' }
-//             }
-//         ],
-//         'Pasta': [
-//             {
-//                 name: 'Creamy Alfredo Pasta',
-//                 price: 329,
-//                 desc: 'Rich cream sauce pasta with herbs and parmesan',
-//                 veg: true,
-//                 img: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?w=300',
-//                 prepTime: '15 mins',
-//                 calories: 590,
-//                 spiceLevel: 'None',
-//                 customizations: ['Extra Cheese', 'Add Mushrooms', 'Less Cream'],
-//                 nutrition: { protein: '14g', carbs: '70g', fat: '26g', fiber: '3g' }
-//             },
-//             {
-//                 name: 'Chicken Arrabbiata Pasta',
-//                 price: 369,
-//                 desc: 'Spicy tomato-based pasta with grilled chicken',
-//                 veg: false,
-//                 img: 'https://images.unsplash.com/photo-1604908177173-9da8b9f81fb8?w=300',
-//                 prepTime: '15 mins',
-//                 calories: 640,
-//                 spiceLevel: 'Hot',
-//                 customizations: ['Extra Spicy', 'Extra Chicken', 'Less Garlic'],
-//                 nutrition: { protein: '26g', carbs: '76g', fat: '22g', fiber: '4g' }
-//             }
-//         ]
-//     }
-// }
+{
+    id: 7,
+    name: 'A2B (Adyar Ananda Bhavan)',
+    rating: '4.1',
+    cuisine: 'South Indian, Sweets',
+    location: 'Muthialpet',
+    distance: '2.1 km',
+    price: '₹450 for two',
+    image: 'https://images.unsplash.com/photo-1525755662778-989d0524087e?w=400',
+    menu: {
+        'Starters': [
+            {
+                name: 'Medu Vada',
+                price: 49,
+                desc: 'Crispy urad dal vada with sambar & chutney',
+                veg: true,
+                img: 'https://images.unsplash.com/photo-1589307000180-e506d4c300a5?w=300',
+                prepTime: '5-7 mins',
+                calories: 150,
+                spiceLevel: 'Mild',
+                customizations: ['Extra Crispy', 'Less Oil'],
+                nutrition: { protein: '4g', carbs: '18g', fat: '6g', fiber: '2g' }
+            },
+            {
+                name: 'Mini Sambar Idlis',
+                price: 79,
+                desc: 'Soft mini idlis dipped in hot sambar',
+                veg: true,
+                img: 'https://images.unsplash.com/photo-1601050690597-df7b7f71a3df?w=300',
+                prepTime: '6 mins',
+                calories: 210,
+                spiceLevel: 'Mild',
+                customizations: ['Extra Sambar', 'Less Salt'],
+                nutrition: { protein: '6g', carbs: '30g', fat: '4g', fiber: '3g' }
+            }
+        ],
+        'Main Course': [
+            {
+                name: 'Ghee Pongal',
+                price: 89,
+                desc: 'Rice dal combo cooked with ghee & pepper',
+                veg: true,
+                img: 'https://images.unsplash.com/photo-1589307000180-e506d4c300a5?w=300',
+                prepTime: '8 mins',
+                calories: 350,
+                spiceLevel: 'Mild',
+                customizations: ['Extra Ghee', 'Less Pepper'],
+                nutrition: { protein: '8g', carbs: '44g', fat: '14g', fiber: '4g' }
+            },
+            {
+                name: 'Rava Dosa',
+                price: 99,
+                desc: 'Crispy rava dosa with chutney & sambar',
+                veg: true,
+                img: 'https://images.unsplash.com/photo-1601050690597-df7b7f71a3df?w=300',
+                prepTime: '10-12 mins',
+                calories: 320,
+                spiceLevel: 'Mild',
+                customizations: ['Extra Crispy', 'Less Oil'],
+                nutrition: { protein: '7g', carbs: '55g', fat: '10g', fiber: '4g' }
+            }
+        ]
+    }
+},
+{
+    id: 8,
+    name: 'Junior Kuppanna',
+    rating: '4.2',
+    cuisine: 'South Indian, Chettinad',
+    location: 'Kottupalayam',
+    distance: '2.8 km',
+    price: '₹900 for two',
+    image: 'https://images.unsplash.com/photo-1604908554160-6d4e985cbb13?w=400',
+    menu: {
+        'Starters': [
+            {
+                name: 'Mutton Sukka',
+                price: 349,
+                desc: 'Dry-fried mutton with Chettinad spices',
+                veg: false,
+                img: 'https://images.unsplash.com/photo-1625246333195-198b4564a317?w=300',
+                prepTime: '15 mins',
+                calories: 420,
+                spiceLevel: 'Hot',
+                customizations: ['Extra Spicy', 'Less Oil'],
+                nutrition: { protein: '26g', carbs: '8g', fat: '32g', fiber: '2g' }
+            },
+            {
+                name: 'Podi Idli',
+                price: 129,
+                desc: 'Mini idlis tossed in spicy podi and ghee',
+                veg: true,
+                img: 'https://images.unsplash.com/photo-1589307000180-e506d4c300a5?w=300',
+                prepTime: '8 mins',
+                calories: 280,
+                spiceLevel: 'Hot',
+                customizations: ['Extra Podi', 'Less Ghee'],
+                nutrition: { protein: '7g', carbs: '36g', fat: '10g', fiber: '4g' }
+            }
+        ],
+        'Main Course': [
+            {
+                name: 'Chicken Biryani',
+                price: 249,
+                desc: 'Chettinad style spicy biryani',
+                veg: false,
+                img: 'https://images.unsplash.com/photo-1604908554160-6d4e985cbb13?w=300',
+                prepTime: '15-18 mins',
+                calories: 690,
+                spiceLevel: 'Hot',
+                customizations: ['Extra Chicken', 'Extra Spicy'],
+                nutrition: { protein: '28g', carbs: '78g', fat: '28g', fiber: '5g' }
+            },
+            {
+                name: 'Veg Meals',
+                price: 179,
+                desc: 'Rice, sambar, rasam, poriyal, kootu, curd, papad',
+                veg: true,
+                img: 'https://images.unsplash.com/photo-1589307000180-e506d4c300a5?w=300',
+                prepTime: '10 mins',
+                calories: 520,
+                spiceLevel: 'Mild',
+                customizations: ['Extra Sambar', 'Extra Rice'],
+                nutrition: { protein: '12g', carbs: '74g', fat: '16g', fiber: '10g' }
+            }
+        ]
+    }
+},
+{
+    id: 9,
+    name: 'Café Xtasi',
+    rating: '4.4',
+    cuisine: 'Italian, Pizza',
+    location: 'Mission Street',
+    distance: '1.0 km',
+    price: '₹1200 for two',
+    image: 'https://images.unsplash.com/photo-1601924582971-df3b0f4dff98?w=400',
+    menu: {
+        'Starters': [
+            {
+                name: 'Garlic Bread Supreme',
+                price: 179,
+                desc: 'Wood-fired garlic bread with herbs and cheese',
+                veg: true,
+                img: 'https://images.unsplash.com/photo-1548365328-8608aeb2f17c?w=300',
+                prepTime: '8-10 mins',
+                calories: 260,
+                spiceLevel: 'None',
+                customizations: ['Extra Cheese', 'No Garlic'],
+                nutrition: { protein: '8g', carbs: '32g', fat: '10g', fiber: '2g' }
+            },
+            {
+                name: 'BBQ Chicken Bites',
+                price: 249,
+                desc: 'Grilled chicken tossed in smoky BBQ sauce',
+                veg: false,
+                img: 'https://images.unsplash.com/photo-1600891963922-07f4e8a90344?w=300',
+                prepTime: '10-12 mins',
+                calories: 330,
+                spiceLevel: 'Mild',
+                customizations: ['Extra BBQ Sauce', 'Crispy Version'],
+                nutrition: { protein: '22g', carbs: '24g', fat: '16g', fiber: '1g' }
+            }
+        ],
+        'Pizza': [
+            {
+                name: 'Xtasi Special Veg',
+                price: 449,
+                desc: 'Wood-fired veg pizza with olives, jalapenos, mushrooms and cheese',
+                veg: true,
+                img: 'https://images.unsplash.com/photo-1618213837799-94d46e4e09e4?w=300',
+                prepTime: '12-15 mins',
+                calories: 720,
+                spiceLevel: 'Medium',
+                customizations: ['Extra Cheese', 'Thin Crust', 'Extra Jalapenos'],
+                nutrition: { protein: '26g', carbs: '88g', fat: '28g', fiber: '6g' }
+            },
+            {
+                name: 'Xtasi Chicken Feast',
+                price: 499,
+                desc: 'Loaded chicken pizza with pepperoni, grilled chicken and cheese',
+                veg: false,
+                img: 'https://images.unsplash.com/photo-1601924582971-df3b0f4dff98?w=300',
+                prepTime: '12-15 mins',
+                calories: 820,
+                spiceLevel: 'Mild',
+                customizations: ['Extra Chicken', 'Extra Cheese', 'Thin Crust'],
+                nutrition: { protein: '36g', carbs: '92g', fat: '34g', fiber: '5g' }
+            }
+        ],
+        'Pasta': [
+            {
+                name: 'Creamy Alfredo Pasta',
+                price: 329,
+                desc: 'Rich cream sauce pasta with herbs and parmesan',
+                veg: true,
+                img: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?w=300',
+                prepTime: '15 mins',
+                calories: 590,
+                spiceLevel: 'None',
+                customizations: ['Extra Cheese', 'Add Mushrooms', 'Less Cream'],
+                nutrition: { protein: '14g', carbs: '70g', fat: '26g', fiber: '3g' }
+            },
+            {
+                name: 'Chicken Arrabbiata Pasta',
+                price: 369,
+                desc: 'Spicy tomato-based pasta with grilled chicken',
+                veg: false,
+                img: 'https://images.unsplash.com/photo-1604908177173-9da8b9f81fb8?w=300',
+                prepTime: '15 mins',
+                calories: 640,
+                spiceLevel: 'Hot',
+                customizations: ['Extra Spicy', 'Extra Chicken', 'Less Garlic'],
+                nutrition: { protein: '26g', carbs: '76g', fat: '22g', fiber: '4g' }
+            }
+        ]
+    }
+}
 
         ];
 
-        // Store restaurant data in localStorage
-        function openRestaurant(restaurantId) {
-            const restaurant = restaurants.find(r => r.id === restaurantId);
-            if (restaurant) {
-                localStorage.setItem('selectedRestaurant', JSON.stringify(restaurant));
-                window.open('mahi.html', '_blank');
-            }
-        }
+        
+    // Store restaurant and go to menu page in SAME TAB
+    function openRestaurant(restaurantId) {
+        const restaurant = restaurants.find(r => r.id === restaurantId);
+        if (!restaurant) return;
 
-        function renderRestaurants() {
-            const container = document.getElementById('restaurantScroll');
-            container.innerHTML = restaurants.map(restaurant => `
-                <div class="restaurant-card" onclick="openRestaurant(${restaurant.id})">
-                    <img src="${restaurant.image}" alt="${restaurant.name}">
-                    <div class="restaurant-info">
-                        <h3>${restaurant.name} <span class="rating">${restaurant.rating}★</span></h3>
-                        <p>${restaurant.cuisine}</p>
-                        <p class="details">${restaurant.location} • ${restaurant.distance}</p>
-                        <p class="price">${restaurant.price}</p>
-                        <span class="tag">View Full Menu →</span>
-                        <div class="offers">Up to 15% off with bank offers</div>
-                    </div>
+        localStorage.setItem('selectedRestaurant', JSON.stringify(restaurant));
+        window.location.href = "mahi.html"; // SAME TAB
+    }
+
+    // Render cards
+    function renderRestaurants() {
+        const container = document.getElementById('restaurantScroll');
+        
+        container.innerHTML = restaurants.map(restaurant => `
+            <div class="restaurant-card" onclick="openRestaurant(${restaurant.id})">
+                <img src="${restaurant.image}" alt="${restaurant.name}">
+                <div>
+                    <h4>${restaurant.name} (${restaurant.rating}★)</h4>
+                    <p>${restaurant.cuisine}</p>
+                    <p>${restaurant.location} • ${restaurant.distance}</p>
                 </div>
-            `).join('');
-        }
+            </div>
+        `).join('');
+    }
 
         renderRestaurants();
+
+
+      //Hamburger // 
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobileMenu");
+const overlay = document.getElementById("overlay");
+
+// Open / Close menu
+hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    mobileMenu.classList.toggle("show");
+    overlay.classList.toggle("active");
+});
+
+// Close when clicking overlay
+overlay.addEventListener("click", () => {
+    hamburger.classList.remove("active");
+    mobileMenu.classList.remove("show");
+    overlay.classList.remove("active");
+});
     
         
 

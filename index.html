@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>  
-    <div class="container">
+    <div class="">
+      <div class="container">
         <!-- Header -->
         <header>
                  <div class="logo">
@@ -37,19 +38,26 @@
         </a>
 
         <!-- Mobile Hamburger -->
-        <div class="hamburger" id="hamburger">
-            <span></span><span></span><span></span>
+       <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-btn" id="closeBtn">
+            &times; </div>
+
+        <nav class="nav-links">
+            <a href="Menu.html">Menu</a>
+            <a href="Corporate.html">Corporate</a>
+            <a href="About.html">About</a>
+            <a href="Blog.html">Blog</a>
+        </nav>
     </div>
-        </header>
-        <!-- mobile view -->
-        <div class="mobile-menu" id="mobileMenu">
-    <a href="Menu.html">Menu</a>
-    <a href="Corporate.html">Corporate</a>
-    <a href="About.html">About</a>
-    <a href="Blog.html">Blog</a>
-</div>
-<div class="overlay" id="overlay"></div>
+
+    <div class="overlay" id="overlay"></div>
 
         <!-- Hero Section -->
         <section class="hero">
@@ -95,78 +103,100 @@
             </div>
         </section>
 
-        <!-- Products Section -->
-        <section class="products-sections">  
-                <div class="carousel-container" id="carousel">
-                    <!-- Product Card 1 -->
-                    <div class="product-card card-pink">
-                        <div class="product-img">
-                            <img src="/Images/biriyani.jpg" alt="biriyani">
-                        </div>
-                        <div class="product-name">Hydrabadi biriyani</div>
-                        <div class="product-bottom">
-                            <div class="price">₹190.00</div>
-                            <button class="fav-btn">♥</button>
-                        </div>
-                        <div class="product-footer">
-                            <button class="order-btn">Order Now →</button>
-                            <div class="rating-badge">★ 5.0</div>
-                        </div>
-                    </div>
+       <!-- Products Section -->
+    <section class="products-sections"> 
+        
+        <!-- BUTTONS (Hidden on Desktop, Visible on Mobile) -->
+        <button class="scroll-btn left" id="leftBtn">&#10094;</button>
+        <button class="scroll-btn right" id="rightBtn">&#10095;</button>
 
-                    <!-- Product Card 2 -->
-                    <div class="product-card card-orange">
-                        <div class="product-img">
-                            <img src="/Images/Burger.jpg" alt="Healthy Salad">
-                        </div>
-                        <div class="product-name"> Chicken Burger</div>
-                        <div class="product-bottom">
-                            <div class="price">₹180.00</div>
-                            <button class="fav-btn">♥</button>
-                        </div>
-                        <div class="product-footer">
-                            <button class="order-btn">Order Now →</button>
-                            <div class="rating-badge">★ 5.0</div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 3 -->
-                    <div class="product-card card-green">
-                        <div class="product-img">
-                            <img src="/Images/Fruits.jpg" alt="Fruitsz">
-                        </div>
-                        <div class="product-name">Fruitsz</div>
-                        <div class="product-bottom">
-                            <div class="price">₹400.00</div>
-                            <button class="fav-btn">♥</button>
-                        </div>
-                        <div class="product-footer">
-                            <button class="order-btn">Order Now →</button>
-                            <div class="rating-badge">★ 5.0</div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 4 -->
-                    <div class="product-card card-purple">
-                        <div class="product-img">
-                            <img src="/Images/vegtabless.jpg" alt="Vegetables">
-                        </div>
-                        <div class="product-name">Vegetables </div>
-                        <div class="product-bottom">
-                            <div class="price">₹340.00</div>
-                            <button class="fav-btn">♥</button>
-                        </div>
-                        <div class="product-footer">
-                            <button class="order-btn">Order Now →</button>
-                            <div class="rating-badge">★ 5.0</div>
-                        </div>
-                    </div>
+        <div class="carousel-container" id="carousel">
+            <!-- Product Card 1 -->
+            <div class="product-card card-pink">
+                <div class="product-img">
+                    <!-- Placeholder image for demo -->
+                    <img src="/Images/HydraBiryani.jpg" alt="biriyani">
+                </div>
+                <div class="product-name">Hydrabadi biriyani</div>
+                <div class="product-bottom">
+                    <div class="price">₹190.00</div>
+                    <button class="fav-btn">♥</button>
+                </div>
+                <div class="product-footer">
+                    <button class="order-btn">Order Now →</button>
+                    <div class="rating-badge">★ 5.0</div>
                 </div>
             </div>
-        </section>
-    
 
- <!-- <-- Service Cards --> 
+            <!-- Product Card 2 -->
+            <div class="product-card card-orange">
+                <div class="product-img">
+                    <img src="/Images/ChickenBurger.jpg" alt="Burger">
+                </div>
+                <div class="product-name"> Chicken Burger</div>
+                <div class="product-bottom">
+                    <div class="price">₹180.00</div>
+                    <button class="fav-btn">♥</button>
+                </div>
+                <div class="product-footer">
+                    <button class="order-btn">Order Now →</button>
+                    <div class="rating-badge">★ 5.0</div>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="product-card card-green">
+                <div class="product-img">
+                    <img src="/Images/Fruits.jpg" alt="Fruits">
+                </div>
+                <div class="product-name">Fruitsz</div>
+                <div class="product-bottom">
+                    <div class="price">₹400.00</div>
+                    <button class="fav-btn">♥</button>
+                </div>
+                <div class="product-footer">
+                    <button class="order-btn">Order Now →</button>
+                    <div class="rating-badge">★ 5.0</div>
+                </div>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div class="product-card card-purple">
+                <div class="product-img">
+                    <img src="/Images/Vegetables.webp" alt="Vegetables">
+                </div>
+                <div class="product-name">Vegetables </div>
+                <div class="product-bottom">
+                    <div class="price">₹340.00</div>
+                    <button class="fav-btn">♥</button>
+                </div>
+                <div class="product-footer">
+                    <button class="order-btn">Order Now →</button>
+                    <div class="rating-badge">★ 5.0</div>
+                </div>
+            </div>
+
+            <!-- Product Card 5 (Added so we can scroll) -->
+            <div class="product-card card-red">
+                <div class="product-img">
+                    <img src="/Images/cake.jpg  " alt="Cake">
+                </div>
+                <div class="product-name">Choco Cake</div>
+                <div class="product-bottom">
+                    <div class="price">₹240.00</div>
+                    <button class="fav-btn">♥</button>
+                </div>
+                <div class="product-footer">
+                    <button class="order-btn">Order Now →</button>
+                    <div class="rating-badge">★ 4.8</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+      </div>
+  <!-- <-- Service Cards  -->
 <section class="cards">
   <div class="service-card" data-service="food">
     <div class="card-content"> 

@@ -886,26 +886,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
       //Hamburger // 
+// Select Elements
 const hamburger = document.getElementById("hamburger");
+const closeBtn = document.getElementById("closeBtn");
 const mobileMenu = document.getElementById("mobileMenu");
 const overlay = document.getElementById("overlay");
 
-// Open / Close menu
-hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("active");
-    mobileMenu.classList.toggle("show");
-    overlay.classList.toggle("active");
-});
+// Function to Open Menu
+function openMenu() {
+    mobileMenu.classList.add("show"); // Slide in menu
+    overlay.classList.add("active");  // Show dark overlay
+    document.body.style.overflow = "hidden"; // Disable scrolling on body
+}
 
-// Close when clicking overlay
-overlay.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    mobileMenu.classList.remove("show");
-    overlay.classList.remove("active");
-});
+// Function to Close Menu
+function closeMenu() {
+    mobileMenu.classList.remove("show"); // Slide out menu
+    overlay.classList.remove("active");  // Hide overlay
+    document.body.style.overflow = "auto"; // Re-enable scrolling
+}
+
+// Event Listeners
+hamburger.addEventListener("click", openMenu);
+closeBtn.addEventListener("click", closeMenu);
+overlay.addEventListener("click", closeMenu);
     
-        
 
+// 1. Select the elements
+        const carousel = document.getElementById("carousel");
+        const leftBtn = document.getElementById("leftBtn");
+        const rightBtn = document.getElementById("rightBtn");
+
+        // 2. Define how much to scroll (Card width 260px + Gap 40px = 300px)
+        const scrollAmount = 300;
+
+        // 3. Add Click Events
+        
+        // Scroll Right
+        rightBtn.addEventListener("click", () => {
+            carousel.scrollBy({
+                top: 0,
+                left: scrollAmount, // Positive value moves right
+                behavior: "smooth"
+            });
+        });
+
+        // Scroll Left
+        leftBtn.addEventListener("click", () => {
+            carousel.scrollBy({
+                top: 0,
+                left: -scrollAmount, // Negative value moves left
+                behavior: "smooth"
+            });
+        });
 
 
 

@@ -1,2763 +1,2066 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swiggy - Food Delivery</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Express - Order Food Online</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffffff;
-            color: #3d4152;
-        }
-
-        /* Header */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-            background: white;
-            border-bottom: 1px solid #e9e9eb;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: #fc8019;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .location {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            color: #000000;
-        }
-
-        /* .location::after {
-            content: '▼';
-            font-size: 12px;
-            color: #fc8019;
-        } */
-
-        .nav-items {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #000000;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-item:hover {
-            color: #fc8019;
-        }
-
-        .nav-item.new::after {
-            content: 'NEW';
-            background: #fc8019;
-            color: white;
-            font-size: 10px;
-            padding: 2px 4px;
-            border-radius: 2px;
-            margin-left: 4px;
-        }
-
-        .cart-count {
-            background: #60b246;
-            color: white;
-            border-radius: 4px;
-            padding: 2px 6px;
-            font-size: 12px;
-            margin-left: 4px;
-        }
-           
-        
-    /* ========= Search option Card ========= */
-    .search-card {
-      background: white;
-      border-radius: 12px;
-      padding: 22px;
-      width: 500px;
-      max-width: 100%;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      position: relative;
-      animation: fadeIn 220ms ease;
-      max-height: 90vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    @keyframes fadeIn {
-      from { transform: translateY(-12px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .search-header {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:10px;
-    }
-
-    .search-card h2 {
-      margin: 0;
-      font-size: 18px;
-      color: var(--accent);
-      font-weight:600;
-    }
-
-    .search-card .search-row {
-      display:flex;
-      gap:10px;
-      align-items:center;
-      margin-top:8px;
-    }
-
-    .search-card input[type="text"] {
-      flex:1;
-      padding: 12px 14px;
-      border: 2px solid #e6e6e6;
-      border-radius: 10px;
-      font-size: 15px;
-      outline: none;
-    }
-    .search-card input[type="text"]:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(252,128,25,0.08);
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      font-size: 20px;
-      cursor: pointer;
-      color: #999;
-      line-height:1;
-      padding:6px;
-      border-radius:6px;
-    }
-    .close-btn:hover {
-      color: var(--accent);
-      background: rgba(252,128,25,0.05);
-    }
-
-    /* ========= Results ========= */
-    .results {
-      margin-top: 14px;
-      overflow-y: auto;
-      padding-right: 6px;
-    }
-    .category {
-      margin: 12px 0 8px;
-      font-size: 14px;
-      color: #444;
-      font-weight: 600;
-    }
-
-    .result-item {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.15s;
-      gap:12px;
-    }
-    .result-item:hover,
-    .result-item:focus {
-      background: #fff6ef; /* light accent */
-      outline: none;
-    }
-    .result-item img {
-      width: 56px;
-      height: 56px;
-      border-radius: 8px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-    .result-details h4 {
-      margin: 0;
-      font-size: 15px;
-      color: #222;
-    }
-    .result-details p {
-      margin: 4px 0 0;
-      font-size: 13px;
-      color: #666;
-    }
-
-    .no-results {
-      text-align: center;
-      color: #888;
-      font-size: 14px;
-      margin-top: 12px;
-    }
-
-    /* tags */
-    .tags {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:8px;
-    }
-    .tag {
-      background: var(--accent);
-      color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 13px;
-      user-select:none;
-    }
-    .tag:focus { outline: 2px solid rgba(0,0,0,0.08); }
-
-    /* responsive: mobile full screen feel */
-    @media (max-width: 600px) {
-      .search-card {
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-        max-height: 100vh;
-        padding: 16px;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-      .result-item img { width:48px; height:48px; }
-    }
-        /* food Items what your mind  */
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 5px;
+      :root {
+        --primary: #0a0a0a;
+        --accent: #ff6b00;
+        --bg: #f5f5f7;
+        --card: #ffffff;
+        --border: #e5e5e5;
+        --text: #111;
+        --secondaryText: #6b7280;
+        --success: #22c55e;
+        --danger: #ef4444;
+      }
+
+      body {
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      /* Header */
+      .header {
+        background: var(--card);
+        padding: 18px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.05);
+      }
+
+      .logo-top {
+        font-size: 14px;
+        font-weight: 500;
+        color: #2c3e50;
+        letter-spacing: 1px;
+      }
+
+      .logo-main {
+        font-size: 36px;
+        font-weight: 900;
+        color: rgb(31, 70, 31);
+        letter-spacing: -1px;
+        line-height: 1;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .header-icon-btn {
+        position: relative;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: 0.3s;
+        color: var(--text);
+        border: none;
+        background: none;
+      }
+
+      .header-icon-btn:hover {
+        background: #eff6ff;
+        color: var(--primary);
+      }
+
+      .header-icon-btn i {
+        font-size: 1.5rem;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: var(--primary);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: bold;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Container */
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 30px 20px;
+      }
+
+      /* Page Views */
+      .page-view {
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .page-view.active {
+        display: block;
+      }
+
+      /* Home Page Styles */
+      .section {
+        margin: 50px 0;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .section-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .section-titles {
+        font-size: 35px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .restaurants-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .restaurant-card {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .restaurant-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+
+      .card-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      .card-info {
+        padding: 14px;
+      }
+
+      .card-name {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      /* Cart Page Styles */
+      .cart-container {
+        padding: 30px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .cart-inner {
+        background: var(--card);
+        padding: 25px 32px;
+        border-radius: 22px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .cart-top h2 {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 25px;
+      }
+
+      .cart-layout {
+        display: grid;
+        grid-template-columns: 2fr 1.2fr;
+        gap: 30px;
+      }
+
+      .empty-cart {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--secondaryText);
+        font-size: 18px;
+      }
+
+      .empty-cart i {
+        font-size: 80px;
+        color: var(--border);
+        margin-bottom: 20px;
+      }
+
+      .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .cart-item {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 16px;
+        display: grid;
+        grid-template-columns: 80px 1fr auto;
+        gap: 16px;
+        background: #fff;
+        transition: 0.3s ease;
+      }
+
+      .cart-item:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .cart-item-img img {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      .cart-item-name {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .cart-item-restaurant {
+        font-size: 13px;
+        color: var(--secondaryText);
+        margin-bottom: 8px;
+      }
+
+      .cart-item-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+      }
+
+      .qty-control {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        overflow: hidden;
+      }
+
+      .qty-control button {
+        background: #f5f5f5;
+        border: none;
+        padding: 6px 12px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s ease;
+        font-weight: 700;
+      }
+
+      .qty-control button:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      .qty-control span {
+        padding: 0 12px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .cart-item-total {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .remove-item {
+        border: none;
+        background: none;
+        font-size: 18px;
+        color: var(--danger);
+        cursor: pointer;
+        padding: 4px 8px;
+        transition: 0.2s ease;
+      }
+
+      .remove-item:hover {
+        transform: scale(1.1);
+      }
+
+      .cart-box {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .cart-box h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin: 8px 0;
+      }
+
+      .cart-box hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 12px 0;
+      }
+
+      .total-row {
+        font-weight: 700;
+        font-size: 18px;
+        margin-top: 10px;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        padding: 14px;
+        margin-top: 16px;
+        background: #2c3e50;
+        color: #fff;
+        border: none;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      .checkout-btn:hover {
+        background: #1a252f;
+        transform: translateY(-2px);
+      }
+
+      .back-btn {
+        border: none;
+        background: var(--primary);
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.2s ease;
+        margin-top: 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .back-btn:hover {
+        background: #000;
+        transform: translateY(-2px);
+      }
+
+      /* Checkout Page */
+      .checkout-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 30px;
+        margin-top: 20px;
+      }
+
+      .form-section {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 20px;
+        border: 1px solid var(--border);
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .required {
+        color: var(--danger);
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        font-size: 14px;
+        transition: all 0.3s;
+        font-family: inherit;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.1);
+      }
+
+      input.error,
+      textarea.error {
+        border-color: var(--danger);
+      }
+
+      .error-message {
+        color: var(--danger);
+        font-size: 12px;
+        margin-top: 4px;
+      }
+
+      /* Payment Page */
+      .payment-methods {
+        display: grid;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .payment-method {
+        border: 2px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        border-radius: 16px;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        align-items: center;
+        gap: 16px;
+        background: white;
+      }
+
+      .payment-method:hover {
+        border-color: #2c3e50;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .payment-method.selected {
+        border-color: #2c3e50;
+        background: #f0f9ff;
+      }
+
+      .payment-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+        background: #f8f9fa;
+      }
+
+      .payment-info {
+        flex: 1;
+      }
+
+      .payment-name {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+
+      .payment-desc {
+        font-size: 13px;
+        color: var(--secondaryText);
+      }
+
+      .payment-radio {
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--border);
+        border-radius: 50%;
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .payment-method.selected .payment-radio {
+        border-color: #2c3e50;
+      }
+
+      .payment-method.selected .payment-radio::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #2c3e50;
+      }
+
+      .pay-now-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 14px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 20px;
+      }
+
+      .pay-now-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      .pay-now-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Success Modal */
+      .success-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .success-modal.active {
+        display: flex;
+      }
+
+      .success-content {
+        background: white;
+        padding: 40px;
+        border-radius: 24px;
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+        animation: successPop 0.5s ease;
+      }
+
+      @keyframes successPop {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 40px;
+        color: white;
+      }
+
+      .success-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      .success-message {
+        color: var(--secondaryText);
+        margin-bottom: 24px;
+      }
+
+      .success-btn {
+        background: #2c3e50;
+        color: white;
+        padding: 12px 32px;
+        border-radius: 12px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        width: 100%;
+      }
+
+      .success-btn:hover {
+        background: #1a252f;
+      }
+
+      /* Toast */
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: var(--primary);
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 50px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.4s ease;
+        font-size: 14px;
+        z-index: 999999;
+        width: max-content;
+        max-width: 90%;
+        text-align: center;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* =========Banner=========== */
+      /* Menu Page */
+       .menu-container {
+    padding: 0;              /* REMOVE GAP */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.hero-banner {
+    width: 100%;
+    aspect-ratio: 16/5;
+
+    background-image: url('/Images/delivery.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    border-radius: 20px;
+    margin: 0;               /* ZERO EXTRA SPACE */
+    overflow: hidden;
+}
+
+/* ===== Tablet ===== */
+@media (max-width: 992px) {
+    .hero-banner {
+        border-radius: 18px;
+        background-size: contain;
+    }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 600px) {
+    .hero-banner {
+        border-radius: 14px;
+        background-size: contain;
+        background-position: center;
+    }
+}
+
+
+      /* Responsive Design */
+      @media (max-width: 1280px) {
+        .container,
+        .cart-container {
+          padding: 20px;
+        }
+
+        .restaurants-grid {
+          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        }
+
+        .checkout-grid,
+        .cart-layout {
+          gap: 20px;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .header {
+          padding: 14px 18px;
+        }
+
+        .logo-main {
+          font-size: 30px;
+        }
+
+        .cart-layout,
+        .checkout-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .restaurants-grid {
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header {
+          padding: 12px 16px;
+        }
+
+        .header-actions {
+          gap: 10px;
+        }
+
+        .header-icon-btn {
+          width: 45px;
+          height: 45px;
+        }
+
+        .header-icon-btn i {
+          font-size: 1.3rem;
+        }
+
+        .logo-main {
+          font-size: 26px;
         }
 
         .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #02060c;
+          font-size: 22px;
         }
 
-        
-
-        .section-header {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.section-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #333;
-}
-
-/* Navigation Arrows */
-/* .nav-arrows {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.nav-arrow {
-  background-color: #ff6600;
-  border: none;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 6px;
-  margin: 0 5px;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.nav-arrow:hover {
-  background-color: #e65c00;
-} */
-
-/* Flexbox Layout */
-.food-categories {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin: 20px auto;
-  max-width: 1600px;
-}
-
-.food-category {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 150px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #fff;
-  cursor: pointer;
-}
-
-.food-category:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-}
-
-.food-category img {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-}
-
-.food-category-name {
-  text-align: center;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .food-category {
-    width: 45%;
-  }
-}
-
-@media (max-width: 480px) {
-  .food-category {
-    width: 100%;
-  }
-}
-/*  Top  30 Restuarant */
-.section-title {
-  text-align: center;
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #333;
-}
-
-/* Grid layout */
-.restaurant-grid {
-  display: flex;
-  /* grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); */
-  gap: 20px;
-  padding: 0 20px 50px;
-   overflow-x: auto;
-    scroll-behavior: smooth;
-  /* justify-content: center; */
-    scrollbar-width: none; 
-    -ms-overflow-style: none; 
-}
-
-
-.restaurant-grid::-webkit-scrollbar {
-    display: none; 
-}
-
-
-/* Restaurant Card */
-.restaurant-card {
-  width: 100%;
-  height: 350px; 
-  position: relative;
-  background-color: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Hover Effect */
-.restaurant-card:hover {
-  transform: translateY(-5px);
-  box-shadow: -16px 20px 20px 1px rgba(0, 0, 0, 0.15);
-}
-/* Image */
-.restaurant-image {
-    width: 100%;       /* Full width of the container */
-    height: 230px;      /* Maintain image aspect ratio */
-    max-height: 600px; /* Optional: limit max height */
-    object-fit: cover; /* Show the whole image without cropping */
-    display: block;    /* Remove inline spacing */
-}
-
-/* Overlay */
-/* .restaurant-overlay {
-  position: absolute;
-  bottom: 10px;
-  left: 150px;
-  background: rgba(255, 102, 0, 0.9);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-} */
-
-/* Info section */
-.restaurant-info {
-  padding: 12px;
-}
-
-.restaurant-name {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 5px;
-  color: #222;
-}
-
-.restaurant-meta {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #555;
-}
-
-.restaurant-cuisine {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 4px;
-}
-
-.restaurant-location {
-  font-size: 13px;
-  color: #999;
-}
-      
-         /* Next Section */
-           body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffffff;
-            color: #3d4152;
-            line-height: 1.4;
+        .cart-item {
+          grid-template-columns: 1fr;
+          text-align: center;
+          padding: 12px;
+          gap: 10px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .cart-item-img img {
+          margin: 0 auto;
         }
 
-        /* Main Content */
-        .main-content {
-            padding: 32px 0;
+        .cart-item-actions {
+          border-top: 1px solid var(--border);
+          padding-top: 10px;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
         }
 
-        .page-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #02060c;
-            margin-bottom: 24px;
-            text-align: center;
+        .form-grid {
+          grid-template-columns: 1fr;
         }
 
-        /* Filters Section */
-        .filters-section {
-            margin-bottom: 32px;
+        .form-section {
+          padding: 16px;
         }
 
-        .filters-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
+        .payment-method {
+          padding: 14px;
         }
 
-        .filter-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border: 1px solid #d4d5d9;
-            background: white;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 400;
-            color: #3d4152;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
+        .payment-icon {
+          width: 38px;
+          height: 38px;
+          font-size: 18px;
         }
 
-        .filter-btn:hover {
-            border-color: #fc8019;
-            color: #fc8019;
+        .restaurants-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .logo-main {
+          font-size: 24px;
         }
 
-        .filter-btn.active {
-            background: #fc8019;
-            color: white;
-            border-color: #fc8019;
+        .logo-top {
+          font-size: 12px;
         }
 
-        .filter-btn .icon {
-            font-size: 12px;
-        }
-
-        .sort-filter {
-            position: relative;
-        }
-
-        .sort-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #d4d5d9;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-            display: none;
-            margin-top: 4px;
-        }
-
-        .sort-dropdown.show {
-            display: block;
-        }
-
-        .sort-option {
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .sort-option:hover {
-            background-color: #f5f5f5;
-        }
-
-        /* Resort/Restaurant Grid */
-.resort-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-}
-
-.resort-card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid transparent;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.resort-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    border-color: #e9e9eb;
-}
-
-.resort-image-container {
-    position: relative;
-    width: 100%;
-    height: 180px;
-    overflow: hidden;
-}
-
-.resort-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.resort-card:hover .resort-image {
-    transform: scale(1.05);
-}
-
-.resort-offer {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6));
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 16px;
-    backdrop-filter: blur(4px);
-}
-
-.resort-info {
-    padding: 12px;
-    flex: 1; /* Makes content stretch to fit card */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.resort-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: #02060c;
-    margin-bottom: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.resort-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-    flex-wrap: wrap; /* wrap if needed on small screens */
-}
-
-.rating {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: white;
-    background: #48c479;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.rating.orange {
-    background: #db7c38;
-}
-
-.delivery-time {
-    font-size: 14px;
-    color: #3d4152;
-    font-weight: 500;
-}
-
-.resort-cuisine {
-    font-size: 14px;
-    color: #7e808c;
-    margin-bottom: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.resort-location {
-    font-size: 14px;
-    color: #7e808c;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .resort-grid {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .resort-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 16px;
-    }
-
-    .resort-image-container {
-        height: 160px;
-    }
-
-    .resort-name {
-        font-size: 16px;
-    }
-
-    .resort-cuisine,
-    .resort-location {
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 480px) {
-    .resort-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .resort-info {
-        padding: 10px;
-    }
-
-    .resort-name {
-        font-size: 15px;
-    }
-
-    .resort-cuisine,
-    .resort-location {
-        font-size: 12px;
-    }
-}
-
-
-
-        /* Nav Search Card Modal */
-.search-modal {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    z-index: 1000;
-}
-.search-card {
-    background: #fff;
-    width: 400px;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    animation: fadeIn 0.3s ease;
-}
-.search-input {
-    width: 90%; padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
-}
-.ok-btn {
-    margin-top: 10px;
-    background: #1a73e8;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-.ok-btn:hover { background: #155ab6; }
-.close-btn {
-    float: right;
-    font-size: 22px;
-    cursor: pointer;
-    color: #333;
-}
-.highlight {
-    background: rgb(194, 123, 10);
-    transition: background 0.5s ease;
-}
-@keyframes fadeIn {
-    from { opacity:0; transform:scale(0.9); }
-    to { opacity:1; transform:scale(1); }
-}
-
-/* Example product grid */
-.products {
-    display: flex;
-    gap: 20px;
-    margin: 20px;
-}
-.product-card {
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    text-align: center;
-}
-
-       /* ///////////////// Top 30 Restuarant //////////////////////// */
-
-       /* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-/* Container */
-.resort-container {
-  width: 100%;
-  max-width: 100%;
-  margin: auto;
-  padding: 20px;
-  
-}
-
-/* Grid */
-.resort-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-/* Card */
-.card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-}
-
-/* Card Image */
-.card-image {
-  position: relative;
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-}
-
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
-.card:hover .card-image img {
-  transform: scale(1.05);
-}
-
-/* Offer Badge */
-.offer-badge {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background: #ff4d4d;
-  color: #fff;
-  font-size: 13px;
-  padding: 4px 8px;
-  border-radius: 5px;
-}
-
-/* Card Content */
-.card-content {
-  padding: 15px;
-}
-
-.restaurant-name {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 6px;
-  color: #333;
-}
-
-.rating-time {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 6px;
-}
-
-.rating {
-  display: flex;
-  align-items: center;
-}
-
-.star {
-  color: gold;
-  margin-right: 3px;
-}
-
-.rating-value {
-  font-weight: bold;
-}
-
-.dot {
-  margin: 0 6px;
-  color: #888;
-}
-
-.cuisine {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 4px;
-}
-
-.location {
-  font-size: 13px;
-  color: #999;
-}
-
-/* Responsive */
-@media (max-width: 992px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
-}
-
-@media (max-width: 600px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-  .card-image {
-    height: 160px;
-  }
-  .restaurant-name {
-    font-size: 16px;
-  }
-}
-
-/* link line remove  */
-.restaurant-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    min-width: 300px;
-    min-height: 250px;
-  }
-
-/* /////////////////// Footer////////////// */
-
-        /* Header Styles */
         .header {
-            background-color: #ffffff;
-            padding: 15px 40px;
-            border-bottom: 1px solid #e8e8e8;
-            display: flex;
-            align-items: center;
-            gap: 20px;
+          padding: 10px 12px;
         }
 
         .back-btn {
-            font-size: 24px;
-            cursor: pointer;
-            color: #3d4152;
-        }
-
-        .url-bar {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #f5f5f5;
-            padding: 8px 15px;
-            border-radius: 4px;
-        }
-
-        .url-bar input {
-            border: none;
-            background: transparent;
-            flex: 1;
-            outline: none;
-            font-size: 14px;
-        }
-
-        /* Filter Bar */
-        .filter-bar {
-            padding: 20px 40px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            border-bottom: 1px solid #e8e8e8;
-            background: #ffffff;
-        }
-
-        .filter-btn {
-            padding: 8px 16px;
-            border: 1px solid #d4d5d9;
-            border-radius: 20px;
-            background: white;
-            cursor: pointer;
-            font-size: 14px;
-            color: #3d4152;
-            transition: all 0.3s;
-        }
-
-        .filter-btn:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .search-box {
-            margin-left: auto;
-            padding: 8px 16px;
-            border: 1px solid #d4d5d9;
-            border-radius: 8px;
-            width: 300px;
-            font-size: 14px;
-            outline: none;
-        }
-
-        /* App Download Section */
-        .app-download {
-            background-color: #f0f0f5;
-            padding: 60px 40px;
-            text-align: center;
-        }
-
-        .app-download h2 {
-            font-size: 32px;
-            color: #282c3f;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        .app-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .store-btn {
-            height: 54px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .store-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* Footer */
-        .footer {
-            background-color: #000000;
-            color: #ffffff;
-            padding: 60px 40px 40px;
           width: 100%;
-          height: 100%;
-          margin-top: 50px;
           justify-content: center;
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
+        .form-section {
+          padding: 14px;
         }
 
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
+        .cart-inner {
+          padding: 16px;
         }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: #fc8019;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-        }
-
-        .logo-text {
-            font-size: 32px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .copyright {
-            color: #a9abb2;
-            font-size: 14px;
-        }
-
-        .footer-section h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #ffffff;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: #a9abb2;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: #ffffff;
-        }
-
-        .cities-dropdown {
-            background: #1c1c1c;
-            color: #ffffff;
-            border: 1px solid #3d4152;
-            padding: 10px 15px;
-            border-radius: 8px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 14px;
-            outline: none;
-        }
-
-         /*  social media  */
-          .social-links {
-  display: flex;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-.social-icon {
-  width: 40px;
-  height: 40px;
-  background: #f5f5f5;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  color: #333;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-  background: #ffac4d;
-  color: #fff;
-  transform: scale(1.1);
-}
-
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .filter-bar {
-                overflow-x: auto;
-                flex-wrap: nowrap;
-            }
-
-            .search-box {
-                width: 100%;
-                margin-left: 0;
-                margin-top: 10px;
-            }
-        }
-
-        
-    </style>
-</head>
-<body>
-    <header class="header">
-        <div class="logo">
-           <!-- <img src="/Images/food express logo.png" width="50px"> -->
-            <div class="locations"> <span>Food-Express</span></div>
-        </div>
-
-        <!--  Location  -->
-        
-         <div class="location" id="locationBtn">
-    <img src="/Images/location icons.png" width="15px"> Location
-  </div>
-
-     <style>
-    .location {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 15px;
-      
-      color: #343131;
-      cursor: pointer;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-    </style>
-    <script>
-    const locationBtn = document.getElementById("locationBtn");
-
-    locationBtn.addEventListener("click", () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            const { latitude, longitude } = position.coords;
-            // Open Google Maps with current location
-            const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-            window.open(googleMapsUrl, "_blank");
-          },
-          error => {
-            switch(error.code) {
-              case error.PERMISSION_DENIED:
-                alert("❌ Permission denied. Cannot access your location.");
-                break;
-              case error.POSITION_UNAVAILABLE:
-                alert("❌ Location information is unavailable.");
-                break;
-              case error.TIMEOUT:
-                alert("❌ Request timed out.");
-                break;
-              default:
-                alert("❌ Unknown error occurred.");
-            }
-          }
-        );
-      } else {
-        alert("❌ Geolocation is not supported by your browser.");
       }
-    });
-  </script>
-        
-        <nav class="nav-items">
-         <a href="#" class="nav-item" onclick="openSearch()"><img src="/Images/Search.png" width="20px"> Search</a>
-            <a href="#" class="nav-item new" id="openOffers"><img src="/Images/offers.png" width="20px"> Offers</a>
-            <a href="#" class="nav-item" id="openHelp"><img src="/Images/help.png" width="20px"> Help</a>
-              <a href="#" class="nav-item" id="authLink"><img src="/Images/signin.png" width="20px"> <span id="authText">Sign In</span></a>
-            <a href="#" class="nav-item"><img src="/Images/cart.png" width="20px">  Cart <span class="cart-count">0</span></a>
-        </nav>
+
+      
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo" onclick="app.showPage('home')">
+        <span class="logo-top">FOOD</span>
+        <span class="logo-main">EXPRESS</span>
+      </div>
+
+      <div class="header-actions">
+        <a href="index.html" class="header-icon-btn" title="Back to Home">
+            <i class="fas fa-home"></i>
+        </a>
+
+        <button class="header-icon-btn" onclick="app.showPage('cart')">
+          <i class="fas fa-shopping-bag"></i>
+          <div class="cart-count" id="cartCount">0</div>
+        </button>
+      </div>
     </header>
 
-<!--  Offers new  -->
-     <div class="modal" id="offersModal">
-  <div class="modal-content">
-    <h2>Available Coupons</h2>
-    <div id="couponsContainer"></div>
-    <button class="close-modal" onclick="closeModal()">Close</button>
-  </div>
-</div> 
+     <section id="menuPage" class="page-section active">
+        <div class="menu-container">
+            <div class="hero-banner"></div>
 
-<style>
-  body { font-family: Arial, sans-serif; margin: 0; background:#f8f9fa; }
-  .nav-item { display:inline-flex; align-items:center; gap:6px; padding:10px 15px; cursor:pointer;color:#fff; border-radius:6px; text-decoration:none; }
-  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; z-index:1000; }
-  .modal.active { display:flex; }
-  .modal-content { background:#fff; padding:30px; border-radius:12px; max-width:600px; width:90%; max-height:80%; overflow:auto; text-align:center; }
-  .coupon-card { border:1px solid #ddd; border-radius:8px; margin:15px 0; padding:20px; text-align:left; display:flex; justify-content:space-between; align-items:center; }
-  .coupon-code { font-size:20px; font-weight:bold; color:#e23744; }
-  .show-btn { padding:10px 20px; background:#e23744; color:#fff; border:none; border-radius:6px; cursor:pointer; }
-  .show-btn:hover { background:#c72a35; }
-  .close-modal { margin-top:15px; padding:8px 15px; background:none; border:1px solid #e23744; color:#e23744; cursor:pointer; border-radius:6px; }
-</style>
-<script>
-const couponsArray = [
-  { discount:70, code:'DEALS', title:'Up To 70% Off All Foods' },
-  { discount:65, code:'BIG65', title:'Grab Up To 65% Off Today' },
-  { discount:50, code:'NEW50', title:'50% Off All Orders' },
-  { discount:40, code:'SAVE40', title:'Save 40% On First Order' },
-  { discount:30, code:'WEEKEND30',title:'Weekend Special 30% Off' }
-];
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Cart updated</div>
 
-const openOffers = document.getElementById('openOffers');
-const offersModal = document.getElementById('offersModal');
-const couponsContainer = document.getElementById('couponsContainer');
+    <!-- Home Page -->
+    <div id="homePage" class="page-view active">
+      <div class="container">
+        <section class="section">
+          <div class="section-header">
+            <h1 class="section-titles">Top Restaurants Near You</h1>
+          </div>
 
-function renderCoupons() {
-  couponsContainer.innerHTML = '';
-  couponsArray.forEach(c => {
-    const card = document.createElement('div');
-    card.className = 'coupon-card';
-    card.innerHTML = `
-      <div>
-        <div class="coupon-title">${c.title}</div>
-        <div class="coupon-code">${c.code} - ${c.discount}% OFF</div>
+          <div class="restaurants-grid" id="restaurantsGrid"></div>
+        </section>
       </div>
-      <button class="show-btn" onclick="copyCode('${c.code}')">Copy Code</button>
-    `;
-    couponsContainer.appendChild(card);
-  });
-}
-
-function copyCode(code) {
-  navigator.clipboard.writeText(code).then(() => {
-    alert(`✅ Coupon "${code}" copied!`);
-  });
-}
-
-function closeModal() {
-  offersModal.classList.remove('active');
-}
-
-openOffers.addEventListener('click', e => {
-  e.preventDefault();
-  renderCoupons();
-  offersModal.classList.add('active');
-});
-
-offersModal.addEventListener('click', e => {
-  if(e.target === offersModal) closeModal();
-});
-</script>
-
-
-
-<!--  Help  -->
-  <!-- Help Modal -->
-<div class="modal" id="helpModal">
-  <div class="modal-content">
-    <h2>Help & FAQ</h2>
-    <div class="help-item">
-      <h3>1. How to Order?</h3>
-      <p>Search for your favorite restaurants, select your items, and checkout securely. Track your delivery in real-time.</p>
     </div>
-    <div class="help-item">
-      <h3>2. Payment Options</h3>
-      <p>We accept UPI, credit/debit cards, wallets, and cash on delivery.</p>
+
+    <!-- Restaurant Detail Page -->
+    <div id="restaurantPage" class="page-view">
+      <div class="container">
+        <button class="back-btn" onclick="app.showPage('home')">
+          <i class="fas fa-arrow-left"></i> Back to Restaurants
+        </button>
+        <div id="restaurantDetail"></div>
+        <div id="menuSection"></div>
+      </div>
     </div>
-    <div class="help-item">
-      <h3>3. Promo Codes</h3>
-      <p>Click on the "Offers" section to see active coupons. Copy the code and apply it during checkout.</p>
-    </div>
-    <div class="help-item">
-      <h3>4. Refunds & Support</h3>
-      <p>If an order is missing or delayed, contact support via the app or website to request a refund or resolution.</p>
-    </div>
-    <button class="close-modal" onclick="closeHelp()">Close</button>
-  </div>
-</div>
-<style>
-/* Modal styles */
-  .modal {
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.5);
-    align-items:center;
-    justify-content:center;
-    z-index:1000;
-  }
-  .modal.active { display:flex; }
-  .modal-content {
-    background:#fff;
-    padding:30px;
-    border-radius:12px;
-    max-width:600px;
-    width:90%;
-    max-height:80%;
-    overflow:auto;
-    text-align:left;
-  }
-  .modal-content h2 { margin-top:0; color:#e23744; }
-  .close-modal {
-    margin-top:15px;
-    padding:8px 15px;
-    background:none;
-    border:1px solid #e23744;
-    color:#e23744;
-    cursor:pointer;
-    border-radius:6px;
-  }
-  .help-item { margin-bottom:15px; }
-  .help-item h3 { margin-bottom:5px; color:#e23744; font-size:16px; }
-  .help-item p { color:#333; font-size:14px; }
-</style>
-<script>
-const helpModal = document.getElementById('helpModal');
-const openHelp = document.getElementById('openHelp');
 
-openHelp.addEventListener('click', e => {
-  e.preventDefault();
-  helpModal.classList.add('active');
-});
+    <!-- Cart Page -->
+    <section id="cartPage" class="page-view">
+      <div class="cart-container">
+        <div class="cart-inner">
+          <div class="cart-top">
+            <h2>YOUR CART <span id="cartItemsCount">(0 items)</span></h2>
+          </div>
 
-function closeHelp() {
-  helpModal.classList.remove('active');
-}
-
-// Close modal by clicking outside
-helpModal.addEventListener('click', e => {
-  if(e.target === helpModal) closeHelp();
-});
-</script>
-
-<!--  sign In  -->
-  <!--  Modal page  -->
-  <div class="modal" id="modal">
-    <div class="modal-content" id="modalContent">
-      <span class="close" id="closeModal">&times;</span>
-      <!-- Content dynamically injected -->
-    </div>
-  </div>
-
-  <!-- Notification -->
-  <div class="notification" id="notification"></div>
-
-<!-- .css in Sign-in -->
- <style>
-    /* Nav */
-    .nav-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 15px;
-      color: #333;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    /* Modal Overlay */
-    .modal {
-      display: none; 
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    /* Card */
-    .modal-content {
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      width: 320px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-      text-align: center;
-      position: relative;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .modal-content h2 { margin-bottom: 15px; }
-
-    .modal-content input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-
-    .modal-content button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      background: #ff6600;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 15px;
-    }
-
-    .modal-content button:hover { background: #e65c00; }
-
-    /* Close btn */
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 20px;
-      cursor: pointer;
-      color: #888;
-    }
-
-    /* Notification */
-    .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #4CAF50;
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: 6px;
-      display: none;
-      z-index: 2000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-  </style>
-
-
-<!-- -------------- Js For Sign-In ---------------- -->
-  <script>
-    const authLink = document.getElementById("authLink");
-    const authText = document.getElementById("authText");
-    const modal = document.getElementById("modal");
-    const modalContent = document.getElementById("modalContent");
-    const closeBtn = document.getElementById("closeModal");
-    const notification = document.getElementById("notification");
-
-    let userData = {}; // Store user info
-
-    function openModal(htmlContent) {
-      modalContent.innerHTML = `<span class="close" id="closeModal">&times;</span>` + htmlContent;
-      modal.style.display = "flex";
-
-      // Attach close handler
-      document.getElementById("closeModal").addEventListener("click", () => modal.style.display = "none");
-    }
-
-    function showNotification(message) {
-      notification.textContent = message;
-      notification.style.display = "block";
-      setTimeout(() => notification.style.display = "none", 3000);
-    }
-
-    // Handle Auth Link Click
-    authLink.addEventListener("click", e => {
-      e.preventDefault();
-
-      if(authText.textContent === "Sign In") {
-        // Show Sign In form
-        openModal(`
-          <h2>Sign In</h2>
-          <input type="text" id="name" placeholder="Name" required>
-          <input type="text" id="phone" placeholder="Phone Number" required>
-          <input type="email" id="email" placeholder="Email" required>
-          <button id="signInBtn">Sign In</button>
-        `);
-
-        // Sign In button inside modal
-        document.getElementById("signInBtn").addEventListener("click", () => {
-          const name = document.getElementById("name").value.trim();
-          const phone = document.getElementById("phone").value.trim();
-          const email = document.getElementById("email").value.trim();
-
-          if(name && phone && email) {
-            userData = { name, phone, email };
-            modal.style.display = "none";
-            authText.textContent = "Profiles";
-            showNotification(`✅ ${name}, Successfully Signed In!`);
-          } else {
-            alert("⚠️ Please fill in all fields!");
-          }
-        });
-
-      } else if(authText.textContent === "Profiles") {
-        // Show profile details
-        openModal(`
-          <h2>Profile</h2>
-          <p><strong>Name:</strong> ${userData.name}</p>
-          <p><strong>Phone:</strong> ${userData.phone}</p>
-          <p><strong>Email:</strong> ${userData.email}</p>
-          <button id="signOutBtn">Sign Out</button>
-        `);
-
-        // Sign Out button inside modal
-        document.getElementById("signOutBtn").addEventListener("click", () => {
-          userData = {};
-          modal.style.display = "none";
-          authText.textContent = "Sign In";
-          showNotification("✅ Successfully Signed Out!");
-        });
-      }
-    });
-
-    // Close modal on outside click
-    window.addEventListener("click", e => {
-      if(e.target === modal) modal.style.display = "none";
-    });
-
-    // Optional: press Enter in sign-in form
-    modal.addEventListener("keypress", e => {
-      if(e.key === "Enter") {
-        const signInBtn = document.getElementById("signInBtn");
-        if(signInBtn) signInBtn.click();
-      }
-    });
-  </script>
-
-  
-
-
-
-    <!--  Search //Example  Products -->
-<div class="products">
-    <div class="product-card">🍎 Idly</div>
-    <div class="product-card">🍌 Poori</div>
-    <div class="product-card">🥛 Pongal</div>
-    <div class="product-card">🍫 Biriyani</div>
-    <div class="product-card">🍪 Meals</div>
-     <div class="product-card">🍎 Burger</div>
-    <div class="product-card">🍌 Pizza</div>
-    <div class="product-card">🥛 Milkshake</div>
-    <div class="product-card">🍫 Chocolate</div>
-    <div class="product-card">🍪 Biscuit</div>
-    
-</div>
-
-<!-- Search Modal -->
-<div class="search-modal" id="searchModal">
-    <div class="search-card">
-        <span class="close-btn" onclick="closeSearch()">&times;</span>
-        <h2>Search Products</h2>
-        <input type="text" id="searchInput" class="search-input" placeholder="Type product name...">
-        <br>
-        <button class="ok-btn" onclick="performSearch()">OK</button>
-        <p id="searchResult" style="margin-top:15px; font-weight:bold; color:green;"></p>
-    </div>
-</div>
-
-
-         <!-- What's on your mind section -->
-<div class="section-header">
-  <h2 class="section-title">What's on your mind?</h2>
-</div>
-
-<main class="main-content">
-  <section class="section">
-    
-    <!-- Food Categories Container -->
-    <div class="food-categories" id="foodCategories"></div>
-
-    <!-- Biryani Items Section -->
-    <div class="biryani-items" id="biryaniItems"></div>
-  </section> 
-</main>
-  <!-- Restaurant Grid Section -->
-<section class="restaurant-section">
-  <h2 class="section-title">Top restaurant chains in Pondicherry</h2>
-  <!-- <img src="/Images/sriarvaas_restaurant.jpg" alt="sriarvaas_restaurant"> -->
-  <div class="restaurant-grid" id="restaurantGrid"></div>
-
-</section>
-
-                       <!-- --------------Next Section -------------- -->
-               <section>
-                     <div class="container">
-        <main class="main-content">
-            <h1 class="page-title">Restaurants with online food delivery in Pondicherry</h1>
-            
-            <!-- Filters Section -->
-            <div class="filters-section">
-                <div class="filters-container">
-                    <button class="filter-btn" id="filterBtn">
-                        <span>Filter</span>
-                        <span class="icon">⚙️</span>
-                    </button>
-                    
-                    <div class="sort-filter">
-                        <button class="filter-btn" id="sortBtn">
-                            <span>Sort By</span>
-                            <span class="icon">▼</span>
-                        </button>
-                        <div class="sort-dropdown" id="sortDropdown">
-                            <div class="sort-option" data-sort="relevance">Relevance (Default)</div>
-                            <div class="sort-option" data-sort="delivery-time">Delivery Time</div>
-                            <div class="sort-option" data-sort="rating">Rating</div>
-                            <div class="sort-option" data-sort="cost-low">Cost: Low to High</div>
-                            <div class="sort-option" data-sort="cost-high">Cost: High to Low</div>
-                        </div>
-                    </div>
-                    
-                    <button class="filter-btn" data-filter="fast-delivery">Fast Delivery</button>
-                    <button class="filter-btn" data-filter="new-on-foodhub">New on foodhub</button>
-                    <button class="filter-btn" data-filter="ratings-4">Ratings 4.0+</button>
-                    <button class="filter-btn" data-filter="pure-veg">Pure Veg</button>
-                    <button class="filter-btn" data-filter="offers">Offers</button>
-                    <button class="filter-btn" data-filter="rs-300-600">Rs. 300-Rs. 600</button>
-                    <button class="filter-btn" data-filter="less-than-300">Less than Rs. 300</button>
-                </div>
+          <div class="cart-layout">
+            <div class="cart-left">
+              <div id="emptyCartMsg" class="empty-cart" style="display: none">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Your cart is empty</h3>
+                <p>Add items to get started</p>
+              </div>
+              <div id="cartItems" class="cart-items"></div>
+              <button onclick="app.showPage('home')" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Continue Shopping
+              </button>
             </div>
 
-           <!-- Resorts Grid -->
-<div class="resort-container">
-  <div class="resort-grid" id="resortGrid"></div>
- </div>
-      </div>
-    </main>
-  </div>
-</section>
-
-
-
-           <!-- Footer -->
-            <section>
-    <footer class="footer">
-  <div class="footer-content">
-    <!-- Company Info -->
-    <div class="footer-section">
-      <div class="footer-logo">
-        <img src="/Images/food express logo.png" width="50px" alt="Food Express Logo">
-        <span class="logo-text">Food-Express</span>
-      </div>
-      <p class="copyright">© 2025 Food-Express Limited</p>
-    </div>
-
-    <!-- Company Links -->
-    <div class="footer-section">
-      <h3>Company</h3>
-      <ul class="footer-links">
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Food Corporate</a></li>
-        <li><a href="#">Careers</a></li>
-        <li><a href="#">Team</a></li>
-        <li><a href="#">Food-Express One</a></li>
-        <li><a href="#">Instamart</a></li>
-        <li><a href="#">Dineout</a></li>
-        <li><a href="#">Genie</a></li>
-        <li><a href="#">Minis</a></li>
-        <li><a href="#">Pyng</a></li>
-      </ul>
-    </div>
-
-    <!-- Contact Us -->
-    <div class="footer-section">
-      <h3>Contact Us</h3>
-      <ul class="footer-links">
-        <li><a href="#">Help & Support</a></li>
-        <li><a href="#">Partner with us</a></li>
-        <li><a href="#">Ride with us</a></li>
-      </ul>
-
-      <h3 style="margin-top: 40px;">Legal</h3>
-      <ul class="footer-links">
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Cookie Policy</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Investor Relations</a></li>
-      </ul>
-    </div>
-
-    <!-- Available In -->
-    <div class="footer-section">
-      <h3>Available In:</h3>
-      <ul class="footer-links">
-        <li><a href="#">Bangalore</a></li>
-        <li><a href="#">Gurgaon</a></li>
-        <li><a href="#">Hyderabad</a></li>
-        <li><a href="#">Delhi</a></li>
-        <li><a href="#">Mumbai</a></li>
-        <li><a href="#">Pune</a></li>
-      </ul>
-      <select class="cities-dropdown">
-        <option>100 cities</option>
-      </select>
-    </div>
-
-    <!-- Life at Food Express -->
-    <div class="footer-section">
-      <h3>Life at Food-Express</h3>
-      <ul class="footer-links">
-        <li><a href="#">Explore with Food-Express</a></li>
-        <li><a href="#">Food-Express Stories</a></li>
-        <li><a href="#">Snackables</a></li>
-      </ul>
-
-                <!-- Add Font Awesome in your <head> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<h3 style="margin-top: 40px;">Social Links</h3>
-<div class="social-links">
-    <a href="https://www.linkedin.com" target="_blank" class="social-icon">
-        <i class="fab fa-linkedin"></i>
-    </a>
-    <a href="https://www.instagram.com" target="_blank" class="social-icon">
-        <i class="fab fa-instagram"></i>
-    </a>
-    <a href="https://www.facebook.com" target="_blank" class="social-icon">
-        <i class="fab fa-facebook"></i>
-    </a>
-    </a>
-    <a href="https://www.twitter.com" target="_blank" class="social-icon">
-        <i class="fab fa-twitter"></i>
-    </a>
-</div>
-
+            <div class="cart-right">
+              <div class="cart-box">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                  <span>Subtotal</span>
+                  <span id="summarySubtotal">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Product Discount (15%)</span>
+                  <span id="summaryDiscount">- ₹0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>GST (5%)</span>
+                  <span id="summaryTaxes">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Packaging Charge</span>
+                  <span id="summaryPackaging">₹20.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Delivery Charge</span>
+                  <span id="summaryDelivery">₹40.00</span>
+                </div>
+                <hr />
+                <div class="summary-row total-row">
+                  <span>Total Amount</span>
+                  <span id="summaryTotal">₹0.00</span>
+                </div>
+                <button id="checkoutBtn" class="checkout-btn">
+                  Proceed to Checkout
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Checkout Page -->
+    <section id="checkoutPage" class="page-view">
+      <div class="cart-container">
+        <div class="cart-inner">
+          <div class="cart-top">
+            <h2>CHECKOUT</h2>
+          </div>
+
+          <div class="checkout-grid">
+            <div>
+              <div class="form-section">
+                <h3 class="section-title">Contact Information</h3>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input
+                      type="text"
+                      id="fullName"
+                      placeholder="Enter your full name"
+                    />
+                    <div class="error-message" id="fullNameError"></div>
+                  </div>
+                  <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="Enter your email"
+                    />
+                    <div class="error-message" id="emailError"></div>
+                  </div>
+                  <div class="form-group full-width">
+                    <label>Phone Number <span class="required">*</span></label>
+                    <input
+                      type="tel"
+                      id="phoneNumber"
+                      placeholder="Enter your phone number"
+                    />
+                    <div class="error-message" id="phoneNumberError"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3 class="section-title">Delivery Address</h3>
+                <div class="form-grid">
+                  <div class="form-group full-width">
+                    <label
+                      >Complete Address <span class="required">*</span></label
+                    >
+                    <textarea
+                      id="fullAddress"
+                      placeholder="Enter your complete delivery address"
+                      rows="3"
+                    ></textarea>
+                    <div class="error-message" id="fullAddressError"></div>
+                  </div>
+                </div>
+              </div>
+
+              <button onclick="app.showPage('cart')" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Cart
+              </button>
+            </div>
+
+            <div>
+              <div class="cart-box">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                  <span>Subtotal</span>
+                  <span id="checkoutSubtotal">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Discount (15%)</span>
+                  <span id="checkoutDiscount">- ₹0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>GST (5%)</span>
+                  <span id="checkoutTaxes">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Packaging</span>
+                  <span id="checkoutPackaging">₹20.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Delivery</span>
+                  <span id="checkoutDelivery">₹40.00</span>
+                </div>
+                <hr />
+                <div class="summary-row total-row">
+                  <span>Total Payable</span>
+                  <span id="checkoutTotal">₹0.00</span>
+                </div>
+
+                <button class="checkout-btn" id="paymentBtn">
+                  Proceed to Payment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Payment Page -->
+    <section id="paymentPage" class="page-view">
+      <div class="cart-container">
+        <div class="cart-inner">
+          <div class="cart-top">
+            <h2>PAYMENT METHOD</h2>
+          </div>
+
+          <div class="checkout-grid">
+            <div>
+              <div class="form-section">
+                <h3 class="section-title">Choose Payment Method</h3>
+
+                <div class="payment-methods">
+                  <div class="payment-method" data-method="gpay">
+                    <div class="payment-icon">💳</div>
+                    <div class="payment-info">
+                      <div class="payment-name">Google Pay</div>
+                      <div class="payment-desc">Pay securely with GPay</div>
+                    </div>
+                    <div class="payment-radio"></div>
+                  </div>
+
+                  <div class="payment-method" data-method="paytm">
+                    <div class="payment-icon">💰</div>
+                    <div class="payment-info">
+                      <div class="payment-name">Paytm</div>
+                      <div class="payment-desc">Pay via Paytm wallet</div>
+                    </div>
+                    <div class="payment-radio"></div>
+                  </div>
+
+                  <div class="payment-method" data-method="card">
+                    <div class="payment-icon">💳</div>
+                    <div class="payment-info">
+                      <div class="payment-name">Credit/Debit Card</div>
+                      <div class="payment-desc">Visa, Mastercard, Rupay</div>
+                    </div>
+                    <div class="payment-radio"></div>
+                  </div>
+                </div>
+
+                <button class="pay-now-btn" id="confirmPaymentBtn" disabled>
+                  Confirm Payment
+                </button>
+              </div>
+
+              <button onclick="app.showPage('checkout')" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Checkout
+              </button>
+            </div>
+
+            <div>
+              <div class="cart-box">
+                <h3>Payment Summary</h3>
+                <div class="summary-row">
+                  <span>Total Amount</span>
+                  <span id="paymentTotal">₹0.00</span>
+                </div>
+                <hr />
+                <div class="summary-row total-row">
+                  <span>Amount to Pay</span>
+                  <span id="paymentAmount">₹0.00</span>
+                </div>
+
+                <div
+                  style="
+                    background: #f0f9ff;
+                    padding: 16px;
+                    border-radius: 12px;
+                    margin-top: 20px;
+                  "
+                >
+                  <div
+                    style="font-size: 13px; color: #0369a1; margin-bottom: 8px"
+                  >
+                    <strong>✓</strong> Secure Payment
+                  </div>
+                  <div style="font-size: 13px; color: #0369a1">
+                    <strong>✓</strong> 100% Safe & Encrypted
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="success-modal">
+      <div class="success-content">
+        <div class="success-icon">✓</div>
+        <div class="success-title">Order Successful!</div>
+        <div class="success-message">
+          Your order has been placed successfully. We'll deliver it soon!
+        </div>
+        <button class="success-btn" onclick="app.closeSuccessModal()">
+          Continue Shopping
+        </button>
+      </div>
     </div>
-     </div>
-</footer>
-</section>
 
     <script>
-        // Scroll functionality for food categories
-        function scrollCategories(direction) {
-            const container = document.getElementById('foodCategories');
-            const scrollAmount = 200;
-            container.scrollLeft += direction * scrollAmount;
+      // Data
+      const data = {
+        restaurants: [
+          {
+            id: 1,
+            name: "Domino's Pizza",
+            img: "/Images/Dominos Pizza.jpg",
+            rating: 4.3,
+            time: "25-30 mins",
+            cuisine: "Pizzas, Italian",
+          },
+          {
+            id: 2,
+            name: "KFC",
+            img: "/Images/KFC.jpg",
+            rating: 4.1,
+            time: "30-35 mins",
+            cuisine: "Burgers, Fast Food",
+          },
+          {
+            id: 3,
+            name: "Burger King",
+            img: "/Images/Burger King.jpg",
+            rating: 4.2,
+            time: "35-40 mins",
+            cuisine: "Burgers, American",
+          },
+          {
+            id: 4,
+            name: "Saravana Bhavan",
+            img: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400",
+            rating: 4.5,
+            time: "20-25 mins",
+            cuisine: "South Indian, Veg",
+          },
+          {
+            id: 5,
+            name: "Paradise Biryani",
+            img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400",
+            rating: 4.4,
+            time: "40-45 mins",
+            cuisine: "Biryani, Mughlai",
+          },
+          {
+            id: 6,
+            name: "Subway",
+            img: "/Images/Subway.jpg",
+            rating: 4.0,
+            time: "25-30 mins",
+            cuisine: "Healthy Food, Sandwiches",
+          },
+          {
+            id: 7,
+            name: "Pizza Hut",
+            img: "/Images/",
+            rating: 4.1,
+            time: "35-40 mins",
+            cuisine: "Pizzas",
+          },
+          {
+            id: 8,
+            name: "McDonald's",
+            img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400",
+            rating: 4.3,
+            time: "30-35 mins",
+            cuisine: "Burgers, Beverages",
+          },
+          {
+            id: 9,
+            name: "Wow! Momo",
+            img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400",
+            rating: 4.2,
+            time: "25-30 mins",
+            cuisine: "Chinese, Momos",
+          },
+          {
+            id: 10,
+            name: "Belgian Waffle",
+            img: "https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=400",
+            rating: 4.6,
+            time: "30-35 mins",
+            cuisine: "Desserts, Waffles",
+          },
+          {
+            id: 11,
+            name: "Haldiram's",
+            img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400",
+            rating: 4.4,
+            time: "20-25 mins",
+            cuisine: "North Indian, Snacks",
+          },
+          {
+            id: 12,
+            name: "Baskin Robbins",
+            img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400",
+            rating: 4.5,
+            time: "15-20 mins",
+            cuisine: "Ice Cream, Desserts",
+          },
+          {
+            id: 13,
+            name: "Taco Bell",
+            img: "https://images.unsplash.com/photo-1541542684-4e7a1a5a1c9c?w=400",
+            rating: 4.2,
+            time: "25-30 mins",
+            cuisine: "Mexican, Fast Food",
+          },
+          {
+            id: 14,
+            name: "Barbeque Nation",
+            img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400",
+            rating: 4.3,
+            time: "40-45 mins",
+            cuisine: "Barbecue, Grill",
+          },
+          {
+            id: 15,
+            name: "Anjappar",
+            img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400",
+            rating: 4.0,
+            time: "35-40 mins",
+            cuisine: "Chettinad, South Indian",
+          },
+          {
+            id: 16,
+            name: "Starbucks",
+            img: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400",
+            rating: 4.3,
+            time: "15-20 mins",
+            cuisine: "Cafe, Beverages",
+          },
+          {
+            id: 17,
+            name: "A2B (Adyar Ananda Bhavan)",
+            img: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400",
+            rating: 4.5,
+            time: "20-25 mins",
+            cuisine: "South Indian, Veg",
+          },
+          {
+            id: 18,
+            name: "Dominar Tandoori",
+            img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400",
+            rating: 3.9,
+            time: "45-50 mins",
+            cuisine: "Tandoori, North Indian",
+          },
+          {
+            id: 19,
+            name: "Empire Restaurant",
+            img: "https://images.unsplash.com/photo-1645112230031-87bdb5dc1478?w=400",
+            rating: 4.2,
+            time: "30-35 mins",
+            cuisine: "Biryani, Arabian",
+          },
+          {
+            id: 20,
+            name: "Chai Kings",
+            img: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=400",
+            rating: 4.4,
+            time: "20-25 mins",
+            cuisine: "Tea, Snacks",
+          },
+          {
+            id: 21,
+            name: "Keventers",
+            img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400",
+            rating: 4.3,
+            time: "15-20 mins",
+            cuisine: "Milkshakes, Desserts",
+          },
+          {
+            id: 22,
+            name: "Meghana Foods",
+            img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400",
+            rating: 4.6,
+            time: "35-40 mins",
+            cuisine: "Biryani, Andhra",
+          },
+          {
+            id: 23,
+            name: "Cream Stone",
+            img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400",
+            rating: 4.5,
+            time: "20-25 mins",
+            cuisine: "Ice Cream, Desserts",
+          },
+          {
+            id: 24,
+            name: "Cafe Coffee Day",
+            img: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400",
+            rating: 4.0,
+            time: "20-25 mins",
+            cuisine: "Cafe, Snacks",
+          },
+          {
+            id: 25,
+            name: "Anandha Bhavan Sweets",
+            img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400",
+            rating: 4.4,
+            time: "20-25 mins",
+            cuisine: "Sweets, Snacks",
+          },
+          {
+            id: 26,
+            name: "Punjab Grill",
+            img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400",
+            rating: 4.2,
+            time: "35-40 mins",
+            cuisine: "Punjabi, Tandoor",
+          },
+          {
+            id: 27,
+            name: "Wangs Kitchen",
+            img: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400",
+            rating: 4.1,
+            time: "30-35 mins",
+            cuisine: "Chinese",
+          },
+          {
+            id: 28,
+            name: "Mainland China",
+            img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400",
+            rating: 4.3,
+            time: "35-45 mins",
+            cuisine: "Chinese, Asian",
+          },
+          {
+            id: 29,
+            name: "Thalappakatti",
+            img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400",
+            rating: 4.6,
+            time: "30-35 mins",
+            cuisine: "Biryani, South Indian",
+          },
+          {
+            id: 30,
+            name: "Aroma Multi Cuisine",
+            img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400",
+            rating: 4.1,
+            time: "25-30 mins",
+            cuisine: "Chinese, Indian",
+          },
+        ],
+
+        menuItems: {
+          1: [
+            {
+              id: 101,
+              name: "Margherita Pizza",
+              price: 199,
+              img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300",
+              desc: "Classic cheese pizza",
+            },
+            {
+              id: 102,
+              name: "Pepperoni Pizza",
+              price: 349,
+              img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=300",
+              desc: "Loaded with pepperoni",
+            },
+            {
+              id: 103,
+              name: "Veggie Paradise",
+              price: 299,
+              img: "https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=300",
+              desc: "Fresh vegetables",
+            },
+            {
+              id: 104,
+              name: "Chicken BBQ",
+              price: 399,
+              img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300",
+              desc: "BBQ chicken special",
+            },
+            {
+              id: 105,
+              name: "Cheese Burst",
+              price: 449,
+              img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300",
+              desc: "Extra cheese loaded",
+            },
+
+            // NEW ITEMS
+            {
+              id: 106,
+              name: "Garlic Breadsticks",
+              price: 99,
+              img: "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?w=300",
+              desc: "Crispy garlic bread",
+            },
+            {
+              id: 107,
+              name: "Choco Lava Cake",
+              price: 118,
+              img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300",
+              desc: "Molten chocolate center",
+            },
+            {
+              id: 108,
+              name: "Pasta Italiano",
+              price: 229,
+              img: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=300",
+              desc: "Creamy Italian pasta",
+            },
+            {
+              id: 109,
+              name: "Chicken Wings",
+              price: 249,
+              img: "https://images.unsplash.com/photo-1608039829572-78524f79c4c7?w=300",
+              desc: "Crispy spicy wings",
+            },
+            {
+              id: 110,
+              name: "Coke (500ml)",
+              price: 40,
+              img: "https://images.unsplash.com/photo-1554866585-cd94860890b7?w=300",
+              desc: "Chilled soft drink",
+            },
+          ],
+
+          2: [
+            {
+              id: 201,
+              name: "Zinger Burger",
+              price: 199,
+              img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300",
+              desc: "Crispy chicken burger",
+            },
+            {
+              id: 202,
+              name: "Chicken Bucket",
+              price: 599,
+              img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=300",
+              desc: "8 pieces fried chicken",
+            },
+            {
+              id: 203,
+              name: "Popcorn Chicken",
+              price: 149,
+              img: "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=300",
+              desc: "Bite-sized chicken",
+            },
+            {
+              id: 204,
+              name: "Chicken Biryani",
+              price: 249,
+              img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300",
+              desc: "Fragrant biryani",
+            },
+            {
+              id: 205,
+              name: "Hot Wings",
+              price: 179,
+              img: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=300",
+              desc: "Spicy chicken wings",
+            },
+
+            // NEW ITEMS
+            {
+              id: 206,
+              name: "French Fries",
+              price: 99,
+              img: "https://images.unsplash.com/photo-1630384082525-1e1e7e3a2c56?w=300",
+              desc: "Crispy golden fries",
+            },
+            {
+              id: 207,
+              name: "Coleslaw",
+              price: 69,
+              img: "https://images.unsplash.com/photo-1604909052743-94e838986d24?w=300",
+              desc: "Fresh creamy slaw",
+            },
+            {
+              id: 208,
+              name: "Chicken Strips",
+              price: 169,
+              img: "https://images.unsplash.com/photo-1562967914-608f82629710?w=300",
+              desc: "Crispy chicken strips",
+            },
+            {
+              id: 209,
+              name: "Chocolate Mousse",
+              price: 89,
+              img: "https://images.unsplash.com/photo-1541518763669-27fef04b14ea?w=300",
+              desc: "Rich chocolate dessert",
+            },
+            {
+              id: 210,
+              name: "Pepsi (500ml)",
+              price: 40,
+              img: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300",
+              desc: "Chilled Pepsi",
+            },
+          ],
+        },
+      };
+
+      // Generate menu for all restaurants
+      data.restaurants.forEach((rest) => {
+        if (!data.menuItems[rest.id]) {
+          data.menuItems[rest.id] = [
+            {
+              id: rest.id * 100 + 1,
+              name: "Special Combo",
+              price: 299,
+              img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300",
+              desc: "Chef's special combo",
+            },
+            {
+              id: rest.id * 100 + 2,
+              name: "Deluxe Meal",
+              price: 399,
+              img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=300",
+              desc: "Premium deluxe meal",
+            },
+            {
+              id: rest.id * 100 + 3,
+              name: "Classic Dish",
+              price: 249,
+              img: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300",
+              desc: "Traditional classic",
+            },
+            {
+              id: rest.id * 100 + 4,
+              name: "Premium Pack",
+              price: 449,
+              img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300",
+              desc: "Premium selection",
+            },
+            {
+              id: rest.id * 100 + 5,
+              name: "Value Meal",
+              price: 199,
+              img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300",
+              desc: "Best value for money",
+            },
+            {
+              id: rest.id * 100 + 6,
+              name: "Family Feast",
+              price: 499,
+              img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=300",
+              desc: "Family sharing platter",
+            },
+            {
+              id: rest.id * 100 + 7,
+              name: "Signature Plate",
+              price: 329,
+              img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300",
+              desc: "Restaurant signature dish",
+            },
+            {
+              id: rest.id * 100 + 8,
+              name: "Chef Bowl",
+              price: 259,
+              img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300",
+              desc: "Freshly curated chef bowl",
+            },
+            {
+              id: rest.id * 100 + 9,
+              name: "Party Platter",
+              price: 599,
+              img: "https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=300",
+              desc: "Perfect for celebrations",
+            },
+            {
+              id: rest.id * 100 + 10,
+              name: "Royal Combo",
+              price: 349,
+              img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=300",
+              desc: "Premium dining experience",
+            },
+            {
+              id: rest.id * 100 + 11,
+              name: "Express Meal",
+              price: 179,
+              img: "https://images.unsplash.com/photo-1586816001966-79b736744398?w=300",
+              desc: "Quick and tasty option",
+            },
+            {
+              id: rest.id * 100 + 12,
+              name: "Spice Box",
+              price: 219,
+              img: "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=300",
+              desc: "Flavour packed curry box",
+            },
+            {
+              id: rest.id * 100 + 13,
+              name: "Dessert Bite",
+              price: 99,
+              img: "https://images.unsplash.com/photo-1578926280870-5cc16ee3df1a?w=300",
+              desc: "Sweet finishing treat",
+            },
+          ];
         }
+      });
 
-        // Scroll functionality for restaurants
-        function scrollRestaurants(direction) {
-            const container = document.getElementById('restaurantGrid');
-            const scrollAmount = 320;
-            container.scrollLeft += direction * scrollAmount;
-        }
-        
+      // App State
+      const app = {
+        cart: [],
+        currentRestaurant: null,
 
-        // Wait for DOM to load
-document.addEventListener('DOMContentLoaded', function() {
+        init() {
+          this.renderRestaurants();
+          this.updateCartCount();
+          this.setupEventListeners();
+        },
 
-    // // Add click handlers for restaurant cards
-    // const restaurantCards = document.querySelectorAll('.restaurant-card');
-    // restaurantCards.forEach(card => {
-    //     card.addEventListener('click', function() {
-    //         const restaurantName = this.querySelector('.restaurant-name').textContent;
-    //         alert(`Opening ${restaurantName}...`);
-    //     });
-    // });
+        showPage(page) {
+          document
+            .querySelectorAll(".page-view")
+            .forEach((p) => p.classList.remove("active"));
+          document.getElementById(`${page}Page`).classList.add("active");
+          window.scrollTo(0, 0);
 
-    // // Add click handlers for food categories
-    // const foodCategories = document.querySelectorAll('.food-category');
-    // foodCategories.forEach(category => {
-    //     category.addEventListener('click', function() {
-    //         const categoryName = this.querySelector('.food-category-name').textContent;
-    //         alert(`Searching for ${categoryName}...`);
-    //     });
-    // });
+          if (page === "cart") {
+            this.renderCart();
+          } else if (page === "checkout") {
+            this.updateCheckoutSummary();
+          } else if (page === "payment") {
+            this.updatePaymentSummary();
+          }
+        },
 
-    // Update cart count randomly (demo)
-    const cartCount = document.querySelector('.cart-count');
-    setInterval(() => {
-        const randomCount = Math.floor(Math.random() * 5);
-        cartCount.textContent = randomCount;
-        cartCount.style.display = randomCount > 0 ? 'inline' : 'none';
-    }, 10000);
+        renderRestaurants() {
+          const grid = document.getElementById("restaurantsGrid");
+          grid.innerHTML = data.restaurants
+            .map(
+              (r) => `
+                    <div class="restaurant-card" onclick="app.openRestaurant(${r.id})">
+                        <img src="${r.img}" alt="${r.name}" class="card-img">
+                        <div class="card-info">
+                            <div class="card-name">${r.name}</div>
+                            <div style="display: flex; gap: 8px; margin: 8px 0; font-size: 14px; color: #666;">
+                                <span>⭐ ${r.rating}</span>
+                                <span>•</span>
+                                <span>${r.time}</span>
+                            </div>
+                            <div style="color: #888; font-size: 14px;">${r.cuisine}</div>
+                        </div>
+                    </div>
+                `
+            )
+            .join("");
+        },
 
-    // Add scroll behavior for horizontal scrolling
-    document.addEventListener('wheel', function(e) {
-        const containers = [
-            document.getElementById('foodCategories')
-        ];
-        
-        containers.forEach(container => {
-            if (container && container.contains(e.target)) {
-                e.preventDefault();
-                container.scrollLeft += e.deltaY;
+        openRestaurant(id) {
+          this.currentRestaurant = data.restaurants.find((r) => r.id === id);
+          this.showPage("restaurant");
+          this.renderRestaurantDetail();
+        },
+
+        renderRestaurantDetail() {
+          const r = this.currentRestaurant;
+          const menuItems = data.menuItems[r.id] || [];
+
+          document.getElementById("restaurantDetail").innerHTML = `
+                    <div style="background: white; padding: 30px; border-radius: 16px; margin: 20px 0;">
+                        <h1 style="font-size: 32px; margin-bottom: 12px;">${r.name}</h1>
+                        <div style="display: flex; gap: 15px; font-size: 16px; color: #666; margin-bottom: 10px;">
+                            <span>⭐ ${r.rating}</span>
+                            <span>•</span>
+                            <span>${r.time}</span>
+                        </div>
+                        <p style="color: #888; font-size: 16px;">${r.cuisine}</p>
+                    </div>
+                `;
+
+          document.getElementById("menuSection").innerHTML = `
+                    <h2 style="font-size: 24px; margin: 30px 0 20px; font-weight: 700;">Menu</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+                        ${menuItems
+                          .map(
+                            (item) => `
+                            <div style="background: white; padding: 16px; border-radius: 16px; border: 1px solid var(--border);">
+                                <img src="${item.img}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 12px;">
+                                <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 6px;">${item.name}</h3>
+                                <p style="color: #888; font-size: 14px; margin-bottom: 12px;">${item.desc}</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 20px; font-weight: 700;">₹${item.price}</span>
+                                    <button onclick="app.addToCart(${item.id})" style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        `
+                          )
+                          .join("")}
+                    </div>
+                `;
+        },
+
+        addToCart(itemId) {
+          const restaurant = this.currentRestaurant;
+          const menuItems = data.menuItems[restaurant.id];
+          const item = menuItems.find((m) => m.id === itemId);
+
+          const existing = this.cart.find((c) => c.id === itemId);
+          if (!existing) {
+            this.cart.push({
+              ...item,
+              restaurantName: restaurant.name,
+              quantity: 1,
+            });
+            this.showToast(`${item.name} added to cart!`);
+          } else {
+            existing.quantity++;
+            this.showToast(`${item.name} quantity updated!`);
+          }
+
+          this.updateCartCount();
+        },
+
+        renderCart() {
+          const container = document.getElementById("cartItems");
+          const emptyMsg = document.getElementById("emptyCartMsg");
+
+          if (this.cart.length === 0) {
+            emptyMsg.style.display = "block";
+            container.innerHTML = "";
+            this.updateSummary();
+            return;
+          }
+
+          emptyMsg.style.display = "none";
+          container.innerHTML = this.cart
+            .map(
+              (item, index) => `
+                    <div class="cart-item">
+                        <div class="cart-item-img">
+                            <img src="${item.img}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-restaurant">${
+                              item.restaurantName
+                            }</div>
+                            <div style="color: #888; font-size: 13px;">₹${
+                              item.price
+                            } each</div>
+                        </div>
+                        <div class="cart-item-actions">
+                            <div class="qty-control">
+                                <button onclick="app.updateQty(${index}, -1)">−</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="app.updateQty(${index}, 1)">+</button>
+                            </div>
+                            <div class="cart-item-total">₹${
+                              item.price * item.quantity
+                            }</div>
+                            <button class="remove-item" onclick="app.removeItem(${index})">🗑️</button>
+                        </div>
+                    </div>
+                `
+            )
+            .join("");
+
+          this.updateSummary();
+        },
+
+        updateQty(index, delta) {
+          this.cart[index].quantity += delta;
+          if (this.cart[index].quantity <= 0) {
+            this.cart.splice(index, 1);
+          }
+          this.renderCart();
+          this.updateCartCount();
+        },
+
+        removeItem(index) {
+          this.cart.splice(index, 1);
+          this.renderCart();
+          this.updateCartCount();
+          this.showToast("Item removed from cart");
+        },
+
+        calculateSummary() {
+          const subtotal = this.cart.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          const discount = subtotal * 0.15;
+          const afterDiscount = subtotal - discount;
+          const gst = afterDiscount * 0.05;
+          const packaging = this.cart.length > 0 ? 20 : 0;
+          const delivery = this.cart.length > 0 ? 40 : 0;
+          const total = afterDiscount + gst + packaging + delivery;
+
+          return { subtotal, discount, gst, packaging, delivery, total };
+        },
+
+        updateSummary() {
+          const summary = this.calculateSummary();
+          document.getElementById(
+            "summarySubtotal"
+          ).textContent = `₹${summary.subtotal.toFixed(2)}`;
+          document.getElementById(
+            "summaryDiscount"
+          ).textContent = `- ₹${summary.discount.toFixed(2)}`;
+          document.getElementById(
+            "summaryTaxes"
+          ).textContent = `₹${summary.gst.toFixed(2)}`;
+          document.getElementById(
+            "summaryPackaging"
+          ).textContent = `₹${summary.packaging.toFixed(2)}`;
+          document.getElementById(
+            "summaryDelivery"
+          ).textContent = `₹${summary.delivery.toFixed(2)}`;
+          document.getElementById(
+            "summaryTotal"
+          ).textContent = `₹${summary.total.toFixed(2)}`;
+          document.getElementById(
+            "cartItemsCount"
+          ).textContent = `(${this.cart.length} items)`;
+        },
+
+        updateCheckoutSummary() {
+          const summary = this.calculateSummary();
+          document.getElementById(
+            "checkoutSubtotal"
+          ).textContent = `₹${summary.subtotal.toFixed(2)}`;
+          document.getElementById(
+            "checkoutDiscount"
+          ).textContent = `- ₹${summary.discount.toFixed(2)}`;
+          document.getElementById(
+            "checkoutTaxes"
+          ).textContent = `₹${summary.gst.toFixed(2)}`;
+          document.getElementById(
+            "checkoutPackaging"
+          ).textContent = `₹${summary.packaging.toFixed(2)}`;
+          document.getElementById(
+            "checkoutDelivery"
+          ).textContent = `₹${summary.delivery.toFixed(2)}`;
+          document.getElementById(
+            "checkoutTotal"
+          ).textContent = `₹${summary.total.toFixed(2)}`;
+        },
+
+        updatePaymentSummary() {
+          const summary = this.calculateSummary();
+          document.getElementById(
+            "paymentTotal"
+          ).textContent = `₹${summary.total.toFixed(2)}`;
+          document.getElementById(
+            "paymentAmount"
+          ).textContent = `₹${summary.total.toFixed(2)}`;
+        },
+
+        validateForm() {
+          const fields = ["fullName", "email", "phoneNumber", "fullAddress"];
+          let isValid = true;
+
+          fields.forEach((field) => {
+            const input = document.getElementById(field);
+            const error = document.getElementById(field + "Error");
+
+            if (!input.value.trim()) {
+              input.classList.add("error");
+              error.textContent = "This field is required";
+              isValid = false;
+            } else {
+              input.classList.remove("error");
+              error.textContent = "";
             }
-        });
-    });
+          });
 
-});
+          return isValid;
+        },
 
-        // Add touch/swipe support for mobile
-        let startX = 0;
-        let scrollLeft = 0;
+        processPayment() {
+          const selectedMethod = document.querySelector(
+            ".payment-method.selected"
+          );
 
-        function handleTouchStart(e) {
-            startX = e.touches[0].pageX;
-            scrollLeft = e.target.closest('.food-categories, .restaurant-grid').scrollLeft;
-        }
+          if (!selectedMethod) {
+            this.showToast("Please select a payment method");
+            return;
+          }
 
-        function handleTouchMove(e) {
-            if (!startX) return;
-            
-            const x = e.touches[0].pageX;
-            const walk = (startX - x) * 2;
-            const container = e.target.closest('.food-categories, .restaurant-grid');
-            
-            if (container) {
-                container.scrollLeft = scrollLeft + walk;
-            }
-        }
+          const btn = document.getElementById("confirmPaymentBtn");
+          const methodName =
+            selectedMethod.querySelector(".payment-name").textContent;
 
-        function handleTouchEnd() {
-            startX = 0;
-        }
+          btn.innerHTML =
+            '<span style="display:inline-block;animation:spin 1s linear infinite;">⏳</span> Processing...';
+          btn.disabled = true;
 
-        // Add touch event listeners
-        document.addEventListener('touchstart', handleTouchStart);
-        document.addEventListener('touchmove', handleTouchMove);
-        document.addEventListener('touchend', handleTouchEnd);
+          this.showToast(`Processing payment via ${methodName}...`);
 
-        // Next Section //
+          setTimeout(() => {
+            document.getElementById("successModal").classList.add("active");
+            btn.innerHTML = "Confirm Payment";
+            btn.disabled = false;
+          }, 3000);
+        },
 
-        // Filter and Sort functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
-            const sortBtn = document.getElementById('sortBtn');
-            const sortDropdown = document.getElementById('sortDropdown');
-            const sortOptions = document.querySelectorAll('.sort-option');
-            const restaurantCards = document.querySelectorAll('.restaurant-card');
-            let activeFilters = new Set();
-            let currentSort = 'relevance';
+        closeSuccessModal() {
+          document.getElementById("successModal").classList.remove("active");
+          this.cart = [];
+          this.updateCartCount();
+          this.showPage("home");
+          this.showToast("Order placed successfully! 🎉");
+        },
 
-            // Filter functionality
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const filterType = this.dataset.filter;
-                    
-                    if (activeFilters.has(filterType)) {
-                        activeFilters.delete(filterType);
-                        this.classList.remove('active');
-                    } else {
-                        activeFilters.add(filterType);
-                        this.classList.add('active');
-                    }
-                    
-                    applyFilters();
-                });
+        updateCartCount() {
+          const count = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+          document.getElementById("cartCount").textContent = count;
+        },
+
+        showToast(message) {
+          const toast = document.getElementById("toast");
+          toast.textContent = message;
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 2000);
+        },
+
+        setupEventListeners() {
+          document
+            .getElementById("checkoutBtn")
+            .addEventListener("click", () => {
+              if (this.cart.length === 0) {
+                this.showToast("Cart is empty");
+                return;
+              }
+              this.showPage("checkout");
             });
 
-            // Sort dropdown functionality
-            // sortBtn.addEventListener('click', function(e) {
-            //     e.stopPropagation();
-            //     sortDropdown.classList.toggle('show');
-            // });
-
-            // document.addEventListener('click', function() {
-            //     sortDropdown.classList.remove('show');
-            // });
-
-            // sortOptions.forEach(option => { 
-            //     option.addEventListener('click', function() {
-            //         currentSort = this.dataset.sort;
-            //         sortDropdown.classList.remove('show');
-            //         applySorting();
-            //     });
-            // });
-
-            // Apply filters function
-            // function applyFilters() {
-            //     restaurantCards.forEach(card => {
-            //         let shouldShow = true;
-
-            //         activeFilters.forEach(filter => {
-            //             switch(filter) {
-            //                 case 'ratings-4':
-            //                     const rating = parseFloat(card.dataset.rating);
-            //                     if (rating < 4.0) shouldShow = false;
-            //                     break;
-            //                 case 'fast-delivery':
-            //                     const time = card.dataset.time;
-            //                     const maxTime = parseInt(time.split('-')[1]);
-            //                     if (maxTime > 25) shouldShow = false;
-            //                     break;
-            //                 case 'pure-veg':
-            //                     const cuisine = card.dataset.cuisine;
-            //                     if (!cuisine.includes('veg') && !cuisine.includes('south-indian')) {
-            //                         shouldShow = false;
-            //                     }
-            //                     break;
-            //                 case 'offers':
-            //                     if (!card.dataset.offer) shouldShow = false;
-            //                     break;
-            //                 case 'new-on-foodhub':
-            //                     // Simulate new restaurants (you can modify this logic)
-            //                     const isNew = Math.random() > 0.7;
-            //                     if (!isNew) shouldShow = false;
-            //                     break;
-            //                 case 'rs-300-600':
-            //                     // Simulate price range (you can modify this logic)
-            //                     const inRange = Math.random() > 0.5;
-            //                     if (!inRange) shouldShow = false;
-            //                     break;
-            //                 case 'less-than-300':
-            //                     // Simulate price range (you can modify this logic)
-            //                     const underBudget = Math.random() > 0.3;
-            //                     if (!underBudget) shouldShow = false;
-            //                     break;
-            //             }
-            //         });
-
-            //         card.style.display = shouldShow ? 'block' : 'none';
-            //     });
-            // }
-
-            // // Apply sorting function
-            // function applySorting() {
-            //     const grid = document.getElementById('restaurantsGrid');
-            //     const cards = Array.from(restaurantCards);
-
-            //     cards.sort((a, b) => {
-            //         switch(currentSort) {
-            //             case 'rating':
-            //                 return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
-            //             case 'delivery-time':
-            //                 const timeA = parseInt(a.dataset.time.split('-')[0]);
-            //                 const timeB = parseInt(b.dataset.time.split('-')[0]);
-            //                 return timeA - timeB;
-            //             case 'cost-low':
-            //                 // Simulate cost sorting (you can modify this logic)
-            //                 return Math.random() - 0.5;
-            //             case 'cost-high':
-            //                 // Simulate cost sorting (you can modify this logic)
-            //                 return Math.random() - 0.5;
-            //             default:
-            //                 return 0; // relevance (default order)
-            //         }
-            //     });
-
-            //     // Re-append sorted cards
-            //     cards.forEach(card => grid.appendChild(card));
-            // }
-
-            // // Restaurant card click handlers
-            // restaurantCards.forEach(card => {
-            //     card.addEventListener('click', function() {
-            //         const restaurantName = this.querySelector('.restaurant-name').textContent;
-            //         alert(`Opening ${restaurantName} menu...`);
-            //     });
-            // });
-
-            // Add hover effects with JavaScript for better performance
-            restaurantCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-2px)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
+          document
+            .getElementById("paymentBtn")
+            .addEventListener("click", () => {
+              if (this.validateForm()) {
+                this.showPage("payment");
+              }
             });
 
-            // Simulate loading more restaurants on scroll
-            let loading = false;
-            window.addEventListener('scroll', function() {
-                if (loading) return;
-                
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const windowHeight = window.innerHeight;
-                const docHeight = document.documentElement.offsetHeight;
-                
-                if (scrollTop + windowHeight >= docHeight - 100) {
-                    loading = true;
-                    // Simulate loading delay
-                    setTimeout(() => {
-                        console.log('Loading more restaurants...');
-                        loading = false;
-                    }, 1000);
-                }
+          document.querySelectorAll(".payment-method").forEach((method) => {
+            method.addEventListener("click", function () {
+              document
+                .querySelectorAll(".payment-method")
+                .forEach((m) => m.classList.remove("selected"));
+              this.classList.add("selected");
+              document.getElementById("confirmPaymentBtn").disabled = false;
+            });
+          });
+
+          document
+            .getElementById("confirmPaymentBtn")
+            .addEventListener("click", () => {
+              this.processPayment();
             });
 
-            // Filter button for mobile (you can expand this for mobile filter modal)
-            document.getElementById('filterBtn').addEventListener('click', function() {
-                // alert('Filter options would open in a modal on mobile');
+          const formInputs = [
+            "fullName",
+            "email",
+            "phoneNumber",
+            "fullAddress",
+          ];
+          formInputs.forEach((field) => {
+            const input = document.getElementById(field);
+            input.addEventListener("input", () => {
+              input.classList.remove("error");
+              document.getElementById(field + "Error").textContent = "";
             });
+          });
+        },
+      };
 
-            // Add animation on page load
-            restaurantCards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-        });
-
-        // Add some interactive features
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add ripple effect on filter buttons
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-                    
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = x + 'px';
-                    ripple.style.top = y + 'px';
-                    ripple.classList.add('ripple');
-                    
-                    this.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 300);
-                });
-            });
-        });
-
-        // Add CSS for ripple effect
-        const style = document.createElement('style');
-        style.textContent = `
-            .filter-btn {
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(252, 128, 25, 0.3);
-                transform: scale(0);
-                animation: ripple-animation 0.3s linear;
-                pointer-events: none;
-            }
-            
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(2);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-
-
-    //////////////// Search Option //////////////// 
-
-    // Open Search Modal
-function openSearch() {
-    document.getElementById('searchModal').style.display = 'block';
-    document.getElementById('searchInput').focus();
-}
-// Close Search Modal
-function closeSearch() {
-    document.getElementById('searchModal').style.display = 'none';
-    document.getElementById('searchResult').textContent = '';
-    document.getElementById('searchInput').value = '';
-    document.querySelectorAll('.product-card').forEach(card => card.classList.remove('highlight'));
-}
-
-// Perform Search
-function performSearch() {
-    let query = document.getElementById('searchInput').value.trim().toLowerCase();
-    let resultText = document.getElementById('searchResult');
-    let found = false;
-
-    // Clear old highlights
-    document.querySelectorAll('.product-card').forEach(card => card.classList.remove('highlight'));
-
-    if (query) {
-        document.querySelectorAll('.product-card').forEach(card => {
-            if (card.textContent.toLowerCase().includes(query)) {
-                card.classList.add('highlight');
-                found = true;
-            }
-        });
-        resultText.textContent = found ? `✅ Found results for "${query}"` : `❌ No product found for "${query}"`;
-    } else {
-        resultText.textContent = "⚠️ Please type something to search.";
-    }
-}
-
-// Allow Enter Key
-document.getElementById('searchInput').addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        performSearch();
-    }
-});
-
-// ////////////////// call by function in restuarant name /////////////////
-
-     // Restaurant Data
-  const restaurants = [
-   
-    {
-      name: "Coolcat Pure Veg",
-      image: "./Images/coolcat.png",
-      overlay: "ITEMS AT ₹49",
-      rating: "⭐ 4.5",
-      time: "25-30 mins",
-      cuisine: "South Indian, Chinese, North Indian",
-      location: "Reddiarpalayam",
-      link: "restuarant.html?id=coolcat"
-    },
-    {
-      name: "KBS Kofi Bar",
-      image: "./Images/Kbscoffee.jpg",
-      overlay: "ITEMS AT ₹69",
-      rating: "⭐ 4.3",
-      time: "30-35 mins",
-      cuisine: "South Indian, Beverages, Chinese",
-      location: "Puducherry",
-      link: "restuarant.html?id=kbskofi"
-    },
-     {
-    name: "Anjappar Chettinad",
-    image: "./Images/Anjappaar.png",
-    overlay: "Authentic Chettinad",
-    rating: "⭐ 4.4",
-    time: "30-35 mins",
-    cuisine: "Chettinad, South Indian",
-    location: "Mission Street",
-    link: "restuarant.html?id=anjappar"
-  },
-   {
-      name: "Hotel Sri Arvaas",
-      image: "./Images/Aryaass.png",
-      overlay: "Hotel Sri Arvaas",
-      rating: "⭐ 4.6",
-      time: "25-30 mins",
-      cuisine: "South Indian, North Indian, Chinese",
-      location: "Reddiyarpalayam",
-      link: "restuarant.html?id=sriarvaas"
-    },
-  {
-    name: "Domino's Pizza",
-    image: "./Images/Dominos Pizza.jpg",
-    overlay: "50% Off Pizzas",
-    rating: "⭐ 4.3",
-    time: "20-30 mins",
-    cuisine: "Italian, Pizza, Fast Food",
-    location: "Heritage Town",
-    link: "restuarant.html?id=dominos"
-  },
-  {
-    name: "KFC",
-    image: "./Images/KFC.jpg",
-    overlay: "Bucket Deals",
-    rating: "⭐ 4.2",
-    time: "20-25 mins",
-    cuisine: "Fast Food, Burgers",
-    location: "MG Road",
-    link: "restuarant.html?id=kfc"
-  },
-  {
-    name: "Biryani House",
-    image: "./Images/Biriyani House.avif",
-    overlay: "Hyderabadi Special",
-    rating: "⭐ 4.6",
-    time: "25-35 mins",
-    cuisine: "Biryani, North Indian",
-    location: "Lawspet",
-    link: "restuarant.html?id=biryani-house"
-  },
-  {
-    name: "Sangeetha Veg Restaurant",
-    image: "./Images/Sangeetha food",
-    overlay: "Pure Veg Meals",
-    rating: "⭐ 4.5",
-    time: "20-30 mins",
-    cuisine: "South Indian, Veg",
-    location: "Nehru Street",
-    link: "restuarant.html?id=sangeetha"
-  },
-  {
-    name: "Subway",
-    image: "./Images/Subway.jpg",
-    overlay: "Eat Fresh",
-    rating: "⭐ 4.4",
-    time: "15-20 mins",
-    cuisine: "Healthy, Sandwiches",
-    location: "Mission Street",
-    link: "restuarant.html?id=subway"
-  },
-  {
-    name: "Burger King",
-    image: "./Images/Burger King.jpg",
-    overlay: "Whopper Meals",
-    rating: "⭐ 4.3",
-    time: "20-25 mins",
-    cuisine: "Burgers, Fast Food",
-    location: "Anna Salai",
-    link: "restuarant.html?id=burgerking"
-  },
-  {
-    name: "A2B Adyar Ananda Bhavan",
-    image: "./Images/A2b.jpg",
-    overlay: "Sweets & Snacks",
-    rating: "⭐ 4.5",
-    time: "20-30 mins",
-    cuisine: "South Indian, North Indian, Sweets",
-    location: "Nehru Street",
-    link: "restuarant.html?id=a2b"
-  },
-  {
-    name: "Tandoori Nights",
-    image: "./Images/Tdn.jpg",
-    overlay: "Grill Specials",
-    rating: "⭐ 4.4",
-    time: "30-40 mins",
-    cuisine: "North Indian, Tandoor",
-    location: "Heritage Town",
-    link: "restuarant.html?id=tandoorinights"
-  },
-  {
-    name: "Hot Breads",
-    image: "./Images/hotbread.jpg ",
-    overlay: "Freshly Baked",
-    rating: "⭐ 4.2",
-    time: "20-25 mins",
-    cuisine: "Bakery, Cafe",
-    location: "Anna Salai",
-    link: "restuarant.html?id=hotbreads"
-  },
-  {
-    name: "Barbeque Nation",
-    image: "./Images/BarbequeNation.jpg",
-    overlay: "Buffet Offers",
-    rating: "⭐ 4.6",
-    time: "40-50 mins",
-    cuisine: "BBQ, North Indian",
-    location: "MG Road",
-    link: "restuarant.html?id=bbq-nation"
-  },
-  {
-    name: "Zaitoon",
-    image: "./Images/Zaaitoon.jpg",
-    overlay: "Middle Eastern",
-    rating: "⭐ 4.5",
-    time: "25-35 mins",
-    cuisine: "Arabian, Mughlai",
-    location: "Lawspet",
-    link: "restuarant.html?id=zaitoon"
-  },
-{
-    name: "Chinese Wok",
-    image: "./Images/Chinesewok.avif",
-    overlay: "Hot & Spicy",
-    rating: "⭐ 4.2",
-    time: "25-35 mins",
-    cuisine: "Chinese, Asian",
-    location: "MG Road",
-    link: "restuarant.html?id=chinesewok"
-  }
-   
-  ];
-
-  // Render Restaurants
-  const restaurantGrid = document.getElementById("restaurantGrid");
-  restaurantGrid.innerHTML = restaurants.map(r => `
-    <a href="${r.link}" class="restaurant-link">
-      <div class="restaurant-card">
-        <img src="${r.image}" alt="${r.name}" class="restaurant-image">
-        <div class="restaurant-info">
-          <h3 class="restaurant-name">${r.name}</h3>
-          <div class="restaurant-meta">
-            <span class="rating">${r.rating}</span>
-            <span class="delivery-time">${r.time}</span>
-          </div>
-          <div class="restaurant-cuisine">${r.cuisine}</div>
-          <div class="restaurant-location">${r.location}</div>
-        </div>
-      </div>
-    </a>
-  `).join("");
-// Food Categories 
-const foodCategories = [
-  { name: "Biriyani", img: "/Images/biriyani 3.jpg" },
-  { name: "Idly", img: "Images/idly2.jpg" },
-  { name: "Dosa", img: "/Images/dosa2.jpg" },
-  { name: "Parotta", img: "/Images/parota.jpg" },
-  { name: "Pongal", img: "/Images/pongal.jpg" },
-  { name: "Meals", img: "/Images/meals.jpg" },
-  { name: "Noodles", img: "/Images/Noodles.jpg" },
-  { name: "Pizza", img: "Images/pizza 1.jpg" },
-  { name: "Paratha", img: "Images/Burger.jpg" },
-  { name: "Icecream", img: "Images/icecream.jpg" },
-  { name: "Shakes", img: "Images/shakes.jpg" },
-  { name: "Shawarma", img: "Images/shawarma.jpg" },
-  { name: "Cake", img: "Images/cake.jpg" },
-  { name: "Kebab", img: "Images/kebab.jpg" },
-  { name: "Burger", img: "Images/Burger.jpg" },
-  { name: "Salad", img: "Images/salad.jpg" }
-];
-
-const container = document.getElementById("foodCategories");
-
-// Render cards
-foodCategories.forEach(item => {
-  const div = document.createElement("div");
-  div.classList.add("food-category");
-  div.innerHTML = `
-    <img src="${item.img}" alt="${item.name}">
-    <div class="food-category-name">${item.name}</div>
-  `;
-  container.appendChild(div);
-});
-
-// Arrow Scroll
-function scrollCategories(direction) {
-  document.getElementById("foodCategories")
-    .scrollBy({ left: direction * 300, behavior: "smooth" });
-}
-
-// Auto horizontal scroll with mouse wheel
-container.addEventListener("wheel", (e) => {
-  e.preventDefault();
-  container.scrollLeft += e.deltaY;
-});
-
-
-// top  30 Restuarant //
-const Restaurants = [
-  {
-    name: "Hotel Sri Arvaas",
-    img: "./Images/sriarvaas_restaurant.jpg",
-    overlay: "Hotel Sri Arvaas",
-    rating: "⭐ 4.6",
-    time: "25-30 mins",
-    cuisine: "South Indian, North Indian, Chinese",
-    location: "Reddiyarpalayam"
-  },
-  {
-    name: "Coolcat Pure Veg",
-    img: "./Images/Noodles.jpg",
-    overlay: "ITEMS AT ₹49",
-    rating: "⭐ 4.5",
-    time: "25-30 mins",
-    cuisine: "South Indian, Chinese, North Indian",
-    location: "Reddiarpalayam"
-  },
-  {
-    name: "KBS Kofi Bar",
-    img: "https://source.unsplash.com/300x180/?coffee",
-    overlay: "ITEMS AT ₹69",
-    rating: "⭐ 4.3",
-    time: "30-35 mins",
-    cuisine: "South Indian, Beverages, Chinese",
-    location: "Puducherry"
-  },
-  {
-    name: "Atherai Veg Restaurant",
-    img: "https://source.unsplash.com/300x180/?veg-restaurant",
-    overlay: "10% OFF UPTO ₹40",
-    rating: "⭐ 4.5",
-    time: "30-35 mins",
-    cuisine: "South Indian, North Indian, Fast Food",
-    location: "Puducherry"
-  },
-  {
-    name: "Domino’s Pizza",
-    img: "https://source.unsplash.com/300x180/?pizza",
-    overlay: "50% OFF",
-    rating: "⭐ 4.2",
-    time: "20-25 mins",
-    cuisine: "Pizza, Italian",
-    location: "Mission Street"
-  },
-  {
-    name: "McDonald's",
-    img: "https://source.unsplash.com/300x180/?burger",
-    overlay: "Free Fries",
-    rating: "⭐ 4.4",
-    time: "20-30 mins",
-    cuisine: "Burgers, Fast Food",
-    location: "Anna Salai"
-  },
-  {
-    name: "Junior Kuppanna",
-    img: "https://source.unsplash.com/300x180/?biryani",
-    overlay: "15% OFF",
-    rating: "⭐ 4.6",
-    time: "25-35 mins",
-    cuisine: "Biryani, Chettinad, South Indian",
-    location: "Muthialpet"
-  },
-  {
-    name: "Bread & Chocolate",
-    img: "https://source.unsplash.com/300x180/?sandwich",
-    overlay: "Trending",
-    rating: "⭐ 4.7",
-    time: "20-25 mins",
-    cuisine: "Cafe, Sandwiches, Desserts",
-    location: "Auroville"
-  },
-  {
-    name: "Zuka Choco-la",
-    img: "https://source.unsplash.com/300x180/?cakes",
-    overlay: "Best Desserts",
-    rating: "⭐ 4.8",
-    time: "15-20 mins",
-    cuisine: "Desserts, Cakes, Cafe",
-    location: "MG Road"
-  },
-  {
-    name: "Theevu Plage",
-    img: "https://source.unsplash.com/300x180/?seafood",
-    overlay: "Seafood Special",
-    rating: "⭐ 4.6",
-    time: "30-40 mins",
-    cuisine: "Seafood, French, Continental",
-    location: "Serenity Beach"
-  },
-  {
-    name: "Burger King",
-    img: "https://source.unsplash.com/300x180/?burger-king",
-    overlay: "Free Fries",
-    rating: "⭐ 4.1",
-    time: "20-25 mins",
-    cuisine: "Burgers, Fast Food, Beverages",
-    location: "Nehru Street"
-  },
-  {
-    name: "Anjappar Chettinad",
-    img: "https://source.unsplash.com/300x180/?biryani",
-    overlay: "Best Biryani",
-    rating: "⭐ 4.4",
-    time: "30-40 mins",
-    cuisine: "Chettinad, Biryani, South Indian",
-    location: "Heritage Town"
-  },
-  {
-    name: "Hot Breads",
-    img: "https://source.unsplash.com/300x180/?cakeshop",
-    overlay: "Fresh Cakes",
-    rating: "⭐ 4.3",
-    time: "20-25 mins",
-    cuisine: "Bakery, Snacks, Beverages",
-    location: "Mission Street"
-  },
-  {
-    name: "KFC",
-    img: "https://source.unsplash.com/300x180/?fried-chicken",
-    overlay: "Special Combos",
-    rating: "⭐ 4.0",
-    time: "20-30 mins",
-    cuisine: "Chicken, Burgers, Fast Food",
-    location: "MG Road Area"
-  },
-  {
-    name: "Le Cafe",
-    img: "https://source.unsplash.com/300x180/?french-cafe",
-    overlay: "Beachside View",
-    rating: "⭐ 4.7",
-    time: "15-20 mins",
-    cuisine: "French, Continental, Coffee",
-    location: "Rock Beach"
-  },
-  {
-    name: "Tokyo Treats",
-    img: "https://source.unsplash.com/300x180/?sushi",
-    overlay: "20% OFF",
-    rating: "⭐ 4.5",
-    time: "30-40 mins",
-    cuisine: "Japanese, Sushi, Asian",
-    location: "White Town"
-  },
-  {
-    name: "Tandoor House",
-    img: "https://source.unsplash.com/300x180/?tandoori",
-    overlay: "Buy 1 Get 1 Free",
-    rating: "⭐ 4.3",
-    time: "25-30 mins",
-    cuisine: "North Indian, Tandoori",
-    location: "Lawspet"
-  },
-  {
-    name: "Dosa Corner",
-    img: "https://source.unsplash.com/300x180/?dosa",
-    overlay: "₹30 OFF",
-    rating: "⭐ 4.6",
-    time: "15-20 mins",
-    cuisine: "South Indian, Snacks",
-    location: "Villianur"
-  },
-  {
-    name: "Cream Bliss",
-    img: "https://source.unsplash.com/300x180/?ice-cream",
-    overlay: "Buy 2 Get 1",
-    rating: "⭐ 4.4",
-    time: "20-25 mins",
-    cuisine: "Ice Cream, Desserts",
-    location: "MG Road"
-  },
-  {
-    name: "Wrap & Roll",
-    img: "https://source.unsplash.com/300x180/?wraps",
-    overlay: "Flat ₹50 OFF",
-    rating: "⭐ 4.2",
-    time: "20-30 mins",
-    cuisine: "Wraps, Rolls, Fast Food",
-    location: "Gorimedu"
-  },
-  {
-    name: "Wok Express",
-    img: "https://source.unsplash.com/300x180/?noodles",
-    overlay: "30% OFF",
-    rating: "⭐ 4.1",
-    time: "30-35 mins",
-    cuisine: "Chinese, Thai, Asian",
-    location: "Heritage Town"
-  },
-  {
-    name: "Green Bowl",
-    img: "https://source.unsplash.com/300x180/?salad",
-    overlay: "Healthy Picks",
-    rating: "⭐ 4.7",
-    time: "20-25 mins",
-    cuisine: "Salads, Health Food",
-    location: "Auroville"
-  },
-  {
-    name: "Pasta Place",
-    img: "https://source.unsplash.com/300x180/?pasta",
-    overlay: "New Arrival",
-    rating: "⭐ 4.3",
-    time: "25-30 mins",
-    cuisine: "Italian, Continental",
-    location: "White Town"
-  },
-  {
-    name: "Thali Ghar",
-    img: "https://source.unsplash.com/300x180/?indian-thali",
-    overlay: "Unlimited Thali",
-    rating: "⭐ 4.5",
-    time: "20-30 mins",
-    cuisine: "Indian, Veg Thali",
-    location: "Reddiarpalayam"
-  },
-  {
-    name: "Grill Nation",
-    img: "https://source.unsplash.com/300x180/?grill-chicken",
-    overlay: "Combo Deals",
-    rating: "⭐ 4.6",
-    time: "30-40 mins",
-    cuisine: "Grill, BBQ, Fast Food",
-    location: "Anna Salai"
-  },
-  {
-    name: "Chaat Street",
-    img: "https://source.unsplash.com/300x180/?chaat",
-    overlay: "Snacks at ₹30",
-    rating: "⭐ 4.2",
-    time: "15-20 mins",
-    cuisine: "Street Food, Chaat",
-    location: "MG Road"
-  },
-  {
-    name: "Smoothie Shack",
-    img: "https://source.unsplash.com/300x180/?smoothie",
-    overlay: "Boost Your Day",
-    rating: "⭐ 4.4",
-    time: "20-25 mins",
-    cuisine: "Smoothies, Juices, Healthy",
-    location: "Auroville"
-  },
-  {
-    name: "Ramen Station",
-    img: "https://source.unsplash.com/300x180/?ramen",
-    overlay: "Top Rated",
-    rating: "⭐ 4.8",
-    time: "35-40 mins",
-    cuisine: "Ramen, Japanese",
-    location: "Heritage Town"
-  },
-  {
-    name: "Soup Stop",
-    img: "https://source.unsplash.com/300x180/?soup",
-    overlay: "Hot & Fresh",
-    rating: "⭐ 4.0",
-    time: "20-30 mins",
-    cuisine: "Soups, Starters",
-    location: "Villianur"
-  },
-  {
-    name: "Steak & Grill",
-    img: "images",
-    overlay: "Premium Picks",
-    rating: "⭐ 4.5",
-    time: "30-45 mins",
-cuisine: "Steak, Grill, Western", location: "Serenity Beach"
-  }
-];
-
-// Render dynamically
-// const grid = document.getElementById("restaurantGrid");
-// restaurants.forEach(r => {
-//   const card = document.createElement("div");
-//   card.classList.add("restaurant-card");
-//   card.innerHTML = `
-//     <img src="${r.img}" alt="${r.img}" class="restaurant-image">
-//     <div class="restaurant-overlay">${r.overlay}</div>
-//     <div class="restaurant-info">
-//       <h3 class="restaurant-name">${r.name}</h3>
-//       <div class="restaurant-meta">
-//         <span class="rating">${r.rating}</span>
-//         <span class="delivery-time">${r.time}</span>
-//       </div>
-//       <div class="restaurant-cuisine">${r.cuisine}</div>
-//       <div class="restaurant-location">${r.location}</div>
-//     </div>
-//   `;
-//   card.addEventListener("click", () => {
-//     // alert(`Opening ${r.name} menu...`);
-//   });
-//   grid.appendChild(card);
-// });
-
-
-// Restaurant data array
-const resorts = [
-
-  { name: "Surguru Restaurant", image: "/Images/surguru.avif", rating: 4.5, time: "20-25 mins", cuisine: "South Indian, Veg", location: "Mission St" },
-  { name: "Villa Shanti", image: "/Images/villasanthi.avif", rating: 4.6, time: "30-35 mins", cuisine: "Continental, Seafood", location: "Rue Suffren" },
-  { name: "Baker Street", image: "/Images/baker.avif", rating: 4.4, time: "20-25 mins", cuisine: "Bakery, French", location: "Bussy St" },
-  { name: "Le Dupleix", image: "/Images/ledupleix.webp", rating: 4.7, time: "35-40 mins", cuisine: "French, Seafood", location: "White Town" },
-  { name: "The Indian Kaffe Express", image: "/Images/indiankaffe.jpg", rating: 4.3, time: "20-25 mins", cuisine: "Cafe, Italian", location: "Mission St" },
-  { name: "La Villa", image: "/Images/la villa.avif", rating: 4.5, time: "30-35 mins", cuisine: "French, European", location: "White Town" },
-  { name: "Zuka Choco-la", image: "/Images/zuka.avif", rating: 4.6, time: "15-20 mins", cuisine: "Desserts, Cafe", location: "Mission St" },
-  { name: "Bay of Buddha", image: "/Images/bayofbudda.jpg", rating: 4.6, time: "35-40 mins", cuisine: "Asian, Thai", location: "Promenade" },
-  { name: "Café des Arts", image: "/Images/cafe des.jpg", rating: 4.7, time: "20-25 mins", cuisine: "Cafe, French", location: "White Town" },
-  { name: "Le Café", image: "/Images/lecafes.jpg", rating: 4.2, time: "25-30 mins", cuisine: "Cafe, Indian", location: "Beach Rd" },
-  { name: "Rendezvous", image: "/Images/rendezvous.avif", rating: 4.4, time: "30-35 mins", cuisine: "Seafood, Continental", location: "White Town" },
-  { name: "Tanto Pizzeria", image: "/Images/tantores.jpg", rating: 4.6, time: "25-30 mins", cuisine: "Italian, Pizzas", location: "Auroville" },
-  { name: "New Farm Fresh", image: "/Images/farmfresh.jpg", rating: 4.3, time: "20-25 mins", cuisine: "Indian, Grill", location: "Heritage Town" },
-  { name: "Café Xtasi", image: "/Images/cafextasi.avif", rating: 4.5, time: "25-30 mins", cuisine: "Italian, Pizzas", location: "MG Road" },
-  { name: "Bread & Chocolate", image: "/Images/breadcafe.jpg", rating: 4.7, time: "20-25 mins", cuisine: "Bakery, Cafe", location: "Auroville" },
-  { name: "Hôtel de l’Orient", image: "/Images/deorient.webp", rating: 4.6, time: "30-35 mins", cuisine: "French, Seafood", location: "White Town" },
-  { name: "Kasha Ki Aasha", image: "/Images/Kasha Ki Aasha.webp", rating: 4.4, time: "20-25 mins", cuisine: "Cafe, Vegetarian", location: "White Town" },
-  { name: "Crepe in Touch", image: "/Images/Crepe in Touch.avif", rating: 4.6, time: "20-25 mins", cuisine: "French, Crepes", location: "Mission St" },
-  { name: "Mango Hill", image: "/Images/mango-hill.jpg", rating: 4.5, time: "30-35 mins", cuisine: "Continental, Seafood", location: "ECR Road" },
-  { name: "Theevu Plage", image: "/Images/theevu-plage.jpg", rating: 4.4, time: "30-35 mins", cuisine: "Seafood, Indian", location: "Serenity Beach" },
-  // { name: "Escape In", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop", rating: 4.2, time: "20-25 mins", cuisine: "Cafe, Snacks", location: "Auroville" },
-  // { name: "Gelato Factory", image: "https://images.unsplash.com/photo-1600891963920-29f7d8a45a8b?w=400&h=300&fit=crop", rating: 4.6, time: "15-20 mins", cuisine: "Ice Creams, Desserts", location: "MG Road" },
-  // { name: "Coromandel Café", image: "https://images.unsplash.com/photo-1576107232684-1279f390859f?w=400&h=300&fit=crop", rating: 4.7, time: "25-30 mins", cuisine: "European, French", location: "White Town" },
-  // { name: "Appachi Chettinad", image: "https://images.unsplash.com/photo-1601924928359-3c28a1c8cbf1?w=400&h=300&fit=crop", rating: 4.5, time: "20-25 mins", cuisine: "Chettinad, South Indian", location: "Ranga Pillai St" },
-  // { name: "Café Ole", image: "https://images.unsplash.com/photo-1565958011704-44e7a4dcf1db?w=400&h=300&fit=crop", rating: 4.3, time: "20-25 mins", cuisine: "Cafe, Snacks", location: "Mission St" },
-  // { name: "Tanto Auroville Bakery", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop", rating: 4.6, time: "25-30 mins", cuisine: "Bakery, Italian", location: "Auroville" },
-  // { name: "Tanto Little Italy", image: "https://images.unsplash.com/photo-1543353071-873f17a7a088?w=400&h=300&fit=crop", rating: 4.5, time: "25-30 mins", cuisine: "Italian, Pasta", location: "Auroville" },
-  // { name: "Tanto Serenity Beach", image: "https://images.unsplash.com/photo-1605475128014-5c66e4ae79e3?w=400&h=300&fit=crop", rating: 4.4, time: "30-35 mins", cuisine: "Italian, Pizza", location: "Serenity Beach" }
-];
-
-// Select grid container by ID
-const resortGrid = document.getElementById("resortGrid");
-
-// Generate resort cards dynamically
-resortGrid.innerHTML = resorts
-  .map(
-    (r) => `
-    <div class="card">
-      <div class="card-image">
-        <img src="${r.image}" alt="${r.name}">
-      </div>
-      <div class="card-content">
-        <h3 class="resort-name">${r.name}</h3>
-        <div class="rating-time">
-          <span class="rating">★ ${r.rating}</span>
-          <span class="dot">•</span>
-          <span class="time">${r.time}</span>
-        </div>
-        <p class="cuisine">${r.cuisine}</p>
-        <p class="location">${r.location}</p>
-      </div>
-    </div>
-  `
-  )
-  .join("");
-
-
+      // Initialize app
+      window.onload = () => app.init();
     </script>
-</body>
+  </body>
 </html>

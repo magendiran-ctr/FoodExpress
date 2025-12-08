@@ -1156,11 +1156,9 @@ header {
 @media (max-width: 768px) {
     body { padding: 10px; }
     .container { padding: 20px; border-radius: 20px; }
-    
-    .logo-main { font-size: 24px; }
-    .cart-btn span { display: none; } 
+    .logo-main { font-size: 14px; }
+    .cart-btn span { display: none; width: 40px; } 
     .signin-btn { display: none; } 
-
     .hero-left h1 { font-size: 36px; }
     .btn-explore { width: 50%; }
     .main-bowl { width: 280px; height: 280px; }
@@ -1196,7 +1194,11 @@ header {
 @media (max-width: 480px) {
     .container { padding: 15px; margin-bottom: 20px; }
     header { gap: 10px; }
-    .header-right { gap: 10px; }
+    .header-right { gap: 5px; font-size: 10px; }
+    .profile-btn{
+      width: 20px;
+      height: 20px;
+    }
     
     .hero-left h1 { font-size: 28px; }
     .hero-subtitle { font-size: 14px; }
@@ -1214,3 +1216,87 @@ header {
     
     .food-card { min-width: 160px; height: 220px; }
 }
+
+
+
+
+
+ .signin-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            border: 2px solid #E8EAF0;
+            padding: 11px 26px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .signin-btn:hover {
+            border-color: var(--brand-red);
+            transform: translateY(-2px);
+        }
+
+        .profile-btn { 
+            display: none;
+            align-items: center; 
+            gap: 10px; 
+            background: white; 
+            border: 2px solid var(--primary); 
+            padding: 11px 26px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-size: 15px; 
+            font-weight: 600; 
+            color: var(--primary); 
+            transition: all 0.3s ease;
+            background: rgba(0, 184, 148, 0.05);
+        }
+        .profile-btn:hover { 
+            border-color: var(--brand-red); 
+            transform: translateY(-2px); 
+        }
+        .profile-avatar { 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 50%; 
+            background: linear-gradient(135deg, var(--primary), #55efc4); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-weight: 700; 
+            font-size: 14px; 
+        }
+
+
+        .profile-modal { display: none; position: fixed; top: 80px; right: 40px; background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); width: 320px; z-index: 9999; animation: slideDown 0.3s; }
+        .profile-modal.show { display: block; }
+        .profile-header { padding: 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 14px; }
+        .profile-avatar-large { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #55efc4); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 22px; }
+        .profile-info h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+        .profile-info p { font-size: 13px; color: var(--text-gray); }
+        .profile-body { padding: 20px 24px; }
+        .profile-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+        .profile-item:last-child { border-bottom: none; }
+        .profile-item i { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(0, 184, 148, 0.1); border-radius: 8px; color: var(--primary); font-size: 14px; }
+        .profile-item-text { flex: 1; }
+        .profile-item-label { font-size: 12px; color: var(--text-gray); margin-bottom: 2px; }
+        .profile-item-value { font-size: 14px; font-weight: 600; color: var(--dark); }
+        .profile-footer { padding: 16px 24px; border-top: 1px solid var(--border); }
+        .signout-btn { width: 100%; padding: 12px; background: #fff5f5; color: #e74c3c; border: 1px solid #e74c3c; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .signout-btn:hover { background: #e74c3c; color: white; }
+
+        @keyframes slideDown { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        @media (max-width: 768px) {
+            .main-header { padding: 16px 20px; }
+            .hero { padding: 60px 20px; }
+            .hero h1 { font-size: 40px; }
+            .features { padding: 40px 20px; }
+            .profile-modal { right: 20px; width: calc(100% - 40px); }
+        }

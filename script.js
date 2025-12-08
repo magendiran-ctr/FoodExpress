@@ -941,6 +941,107 @@ overlay.addEventListener("click", closeMenu);
         });
 
 
+        
+// Session Management
+let userSession = null;
+
+// Check for existing session on page load
+window.addEventListener('load', () => {
+    checkSession();
+});
+
+function checkSession() {
+    // In a real app, you'd check with your backend
+    // For now, we'll check if user data exists in memory
+    if (userSession) {
+        updateUI(userSession);
+    }
+}
+
+function openAuthPage(e) {
+    e.preventDefault();
+    // Store return URL
+    sessionStorage.setItem('returnUrl', window.location.href);
+    // Navigate to auth page
+    window.location.href = 'sign-in.html';
+}
+
+function checkAuth(e) {
+    e.preventDefault();
+    if (!userSession) {
+        openAuthPage(e);
+    } else {
+        // User is logged in, proceed with ordering
+        alert('🎉 Let\'s start ordering! (This would open the menu page)');
+    }
+}
+
+function toggleProfileModal() {
+    const modal = document.getElementById('profileModal');
+    modal.classList.toggle('show');
+}
+
+// Close profile modal when clicking outside
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('profileModal');
+    const btn = document.getElementById('profileBtn');
+    if (modal.classList.contains('show') && !modal.contains(e.target) && !btn.contains(e.target)) {
+        modal.classList.remove('show');
+    }
+});
+
+function updateUI(session) {
+    if (session) {
+        const initials = session.email.charAt(0).toUpperCase();
+        const name = session.email.split('@')[0];
+        document.getElementById('signinBtn').style.display = 'none';
+        document.getElementById('profileBtn').style.display = 'flex';
+        document.getElementById('headerAvatar').textContent = initials;
+        // document.getElementById('headerUsername').textContent = name;
+        document.getElementById('modalAvatar').textContent = initials;
+        document.getElementById('modalUsername').textContent = name;
+        document.getElementById('modalEmail').textContent = session.email;
+        document.getElementById('modalMobile').textContent = '+91 ' + session.mobile;
+        const date = new Date(session.timestamp);
+        document.getElementById('modalDate').textContent = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    } else {
+        document.getElementById('signinBtn').style.display = 'flex';
+        document.getElementById('profileBtn').style.display = 'none';
+    }
+}
+
+function handleSignOut() {
+    userSession = null;
+    updateUI(null);
+    document.getElementById('profileModal').classList.remove('show');
+}
+
+// Listen for login success from auth page
+window.addEventListener('message', (event) => {
+    if (event.data.type === 'AUTH_SUCCESS') {
+        userSession = event.data.session;
+        updateUI(userSession);
+    }
+});
+
+// Check if returning from auth page
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('auth') === 'success') {
+    // Get user data (in real app, from backend)
+    const email = urlParams.get('email');
+    const mobile = urlParams.get('mobile');
+    if (email && mobile) {
+        userSession = {
+            email: email,
+            mobile: mobile,
+            timestamp: Date.now()
+        };
+        updateUI(userSession);
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+}
+
 
 
         

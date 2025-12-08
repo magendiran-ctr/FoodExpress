@@ -3,384 +3,570 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In - Food-Express</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Food-Express - Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         :root {
-            /* --- NEW COLOR PALETTE (Mint & Charcoal) --- */
-            --primary: #00b894; 
+            --primary: #00b894;
             --primary-hover: #00a383;
+            --brand-red: #ff4757;
             --dark: #2d3436;
             --text-gray: #636e72;
             --bg-light: #f5f7fa;
             --border: #dfe6e9;
             --radius: 16px;
-            --glass: rgba(255, 255, 255, 0.15);
+            --error: #e74c3c;
+            --success: #10ac84;
+            --whatsapp: #25D366;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf0 100%); min-height: 100vh; display: flex; flex-direction: column; }
 
-        body {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--bg-light);
-            overflow: hidden;
+        .main-header { 
+            background: white; 
+            padding: 20px 40px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
         }
-
-        .login-wrapper {
-            display: flex;
-            width: 100%;
-            height: 100vh;
-            background: white;
-        }
-
-        /* --- LEFT SIDE (Cinematic Visual) --- */
-        .visual-side {
-            flex: 1.3;
-            position: relative;
-            overflow: hidden; /* Critical for the zoom effect */
+        .logo-header { display: flex; align-items: center; gap: 12px; }
+       
+        .logo {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            padding: 60px;
-            color: white;
-        }
-
-        /* Moving Background Image */
-        .visual-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            /* High quality dark food image */
-            background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80') center/cover;
-            z-index: 0;
-            /* ANIMATION: Slow Zoom & Pan */
-            animation: zoomPan 25s infinite alternate ease-in-out;
-        }
-
-        .visual-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(45, 52, 54, 0.4), rgba(45, 52, 54, 0.9));
-            z-index: 1;
-        }
-
-        .visual-content { position: relative; z-index: 2; }
-        
-        .visual-content h2 { 
-            font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; 
-            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        /* Glassmorphism Card */
-        .glass-card {
-            position: relative; z-index: 2;
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 25px;
-            border-radius: var(--radius);
-            border: 1px solid rgba(255,255,255,0.3);
-            max-width: 400px;
-            transform: translateY(0);
-            transition: transform 0.3s;
-        }
-        .glass-card:hover { transform: translateY(-5px); }
-
-        /* --- RIGHT SIDE (Form) --- */
-        .form-side {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            background: white;
-            position: relative;
-        }
-
-        .form-container {
-            width: 100%;
-            max-width: 400px;
-        }
-
-        /* Staggered Animation for Form Elements */
-        .animate-in {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-
-       /* * Logo Styles */ 
-.logo {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.logo:hover {
-    transform: scale(1.05);
-}
-
-.logo-top {
-    font-size: 14px;
-    font-weight: 500;
-    color: #2c3e50;
-    letter-spacing: 1px;
-}
-
-.logo-main {
-    font-size: 36px;
-    font-weight: 900;
-    color: rgb(31, 70, 31);
-    letter-spacing: -1px;
-    line-height: 1;
-}
-
-        h1 { font-size: 32px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
-        .subtitle { color: var(--text-gray); margin-bottom: 35px; font-size: 16px; }
-
-        /* Social Buttons */
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-        .social-btn {
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-            padding: 14px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            background: white;
             cursor: pointer;
-            font-weight: 600;
-            color: var(--dark);
-            transition: 0.2s;
+            transition: transform 0.3s ease;
         }
-        .social-btn:hover { background: #f9f9f9; border-color: #ccc; }
 
-        .divider {
-            display: flex; align-items: center; color: var(--text-gray); margin-bottom: 30px; font-size: 13px; font-weight: 500;
+        .logo:hover {
+            transform: scale(1.05);
         }
-        .divider::before, .divider::after {
-            content: ''; flex: 1; height: 1px; background: var(--border); opacity: 0.6;
+
+        .logo-top {
+            font-size: 14px;
+            font-weight: 500;
+            color: #2c3e50;
+            letter-spacing: 1px;
         }
+
+        .logo-main {
+            font-size: 36px;
+            font-weight: 900;
+            color: rgb(31, 70, 31);
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+        .back-to-home { display: flex; align-items: center; gap: 8px; color: var(--text-gray); text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .back-to-home:hover { color: var(--primary); }
+
+        .auth-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+        .auth-box { background: white; border-radius: 24px; width: 90%; max-width: 500px; padding: 50px 45px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); }
+        .auth-box h2 { font-size: 32px; font-weight: 800; color: var(--dark); margin-bottom: 12px; }
+        .auth-box .subtitle { color: var(--text-gray); margin-bottom: 35px; font-size: 15px; line-height: 1.5; }
+
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
+        .social-btn { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 13px; border: 1px solid var(--border); border-radius: 12px; background: white; cursor: pointer; font-weight: 600; font-size: 14px; color: var(--dark); transition: 0.2s; }
+        .social-btn:hover { background: #f9f9f9; border-color: #ccc; }
+        .divider { display: flex; align-items: center; color: var(--text-gray); margin-bottom: 25px; font-size: 13px; font-weight: 500; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
         .divider span { padding: 0 15px; }
 
-        /* Inputs */
-        .input-group { position: relative; margin-bottom: 24px; }
-        
-        .input-field {
-            width: 100%;
-            padding: 18px 20px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            font-size: 16px;
-            outline: none;
-            transition: 0.3s;
-            background: #fff;
-            color: var(--dark);
-            font-weight: 500;
-        }
-
-        .input-label {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-gray);
-            font-size: 15px;
-            pointer-events: none;
-            transition: 0.3s;
-            background: white;
-            padding: 0 5px;
-        }
-
+        .input-group { position: relative; margin-bottom: 20px; }
+        .input-field { width: 100%; padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; font-size: 15px; outline: none; transition: 0.3s; background: #fff; color: var(--dark); font-weight: 500; }
+        .input-label { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-gray); font-size: 15px; pointer-events: none; transition: 0.3s; background: white; padding: 0 5px; }
         .input-field:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0, 184, 148, 0.1); }
-        .input-field:focus ~ .input-label,
-        .input-field:not(:placeholder-shown) ~ .input-label {
-            top: 0; font-size: 12px; color: var(--primary); font-weight: 700;
-        }
+        .input-field:focus ~ .input-label, .input-field:not(:placeholder-shown) ~ .input-label { top: 0; font-size: 12px; color: var(--primary); font-weight: 700; }
+        .password-toggle { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--text-gray); cursor: pointer; }
 
-        .password-toggle {
-            position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
-            color: var(--text-gray); cursor: pointer;
-        }
+        .btn-primary { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; margin-top: 10px; }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 184, 148, 0.25); }
+        .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .btn-whatsapp { background: var(--whatsapp); }
+        .btn-whatsapp:hover { background: #20ba5a; }
 
-        /* Primary Button */
-        .btn-primary {
-            width: 100%;
-            padding: 18px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: var(--radius);
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex; justify-content: center; align-items: center;
-            margin-top: 10px;
-        }
-
-        .btn-primary:hover { 
-            background: var(--primary-hover); 
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 20px rgba(0, 184, 148, 0.25); 
-        }
-        
-        .spinner {
-            width: 22px; height: 22px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.8s infinite linear;
-            display: none;
-        }
-        
+        .spinner { width: 20px; height: 20px; border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: white; animation: spin 0.8s infinite linear; display: none; }
         .btn-primary.loading .btn-text { display: none; }
         .btn-primary.loading .spinner { display: block; }
 
-        .bottom-links { 
-            display: flex; justify-content: space-between; margin-top: 25px; font-size: 14px; font-weight: 500; 
-        }
-        .link { color: var(--primary); text-decoration: none; transition: 0.2s; }
-        .link:hover { text-decoration: underline; color: var(--primary-hover); }
+        .error-text { font-size: 13px; color: var(--error); margin-top: 6px; display: none; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-gray); margin-bottom: 16px; cursor: pointer; transition: 0.2s; }
+        .back-link:hover { color: var(--primary); }
 
-        /* --- ANIMATIONS --- */
-        @keyframes zoomPan {
-            0% { transform: scale(1) translate(0, 0); }
-            100% { transform: scale(1.15) translate(-20px, -10px); }
-        }
+        .whatsapp-notice { background: #e7f9f0; border: 1px solid #25D366; border-radius: 12px; padding: 14px; margin: 20px 0; display: flex; align-items: center; gap: 12px; }
+        .whatsapp-notice i { font-size: 22px; color: var(--whatsapp); }
+        .whatsapp-notice-text { font-size: 13px; color: var(--dark); line-height: 1.5; }
 
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .otp-wrapper { display: flex; justify-content: space-between; gap: 10px; margin: 20px 0; }
+        .otp-input { width: 70px; height: 70px; text-align: center; font-size: 28px; font-weight: 700; border-radius: 12px; border: 1px solid var(--border); outline: none; transition: 0.3s; }
+        .otp-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.15); }
+        .otp-meta { display: flex; justify-content: space-between; align-items: center; font-size: 13px; margin-top: 10px; }
+        .resend-btn { border: none; background: none; color: var(--primary); font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .resend-btn:hover { text-decoration: underline; }
+        .resend-btn:disabled { color: var(--text-gray); cursor: not-allowed; }
 
+        .otp-alert-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 9999; align-items: center; justify-content: center; animation: fadeIn 0.3s; }
+        .otp-alert-overlay.show { display: flex; }
+        .otp-alert-box { background: white; padding: 40px; border-radius: 20px; max-width: 450px; width: 90%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); animation: slideUp 0.4s; text-align: center; }
+        .otp-alert-icon { width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #25D366, #20ba5a); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 2s infinite; }
+        .otp-alert-icon i { font-size: 40px; color: white; }
+        .otp-alert-title { font-size: 24px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+        .otp-alert-subtitle { font-size: 14px; color: var(--text-gray); margin-bottom: 20px; }
+        .otp-display { background: #f0f9f6; border: 2px dashed #25D366; border-radius: 12px; padding: 20px; margin: 20px 0; }
+        .otp-display-label { font-size: 12px; color: var(--text-gray); margin-bottom: 8px; font-weight: 600; }
+        .otp-display-code { font-size: 40px; font-weight: 800; color: var(--dark); letter-spacing: 10px; font-family: 'Courier New', monospace; }
+        .otp-alert-note { font-size: 12px; color: var(--text-gray); margin-top: 15px; line-height: 1.6; }
+        .otp-alert-btn { background: var(--whatsapp); color: white; border: none; padding: 14px 30px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .otp-alert-btn:hover { background: #20ba5a; transform: scale(1.03); }
+
+        .success-icon { width: 70px; height: 70px; border-radius: 50%; background: rgba(16, 172, 132, 0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .success-icon i { font-size: 34px; color: var(--success); }
+
+        .auth-screen { display: none; }
+        .auth-screen.active { display: block; animation: fadeSlide 0.4s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeSlide { from { opacity: 0; transform: translateX(15px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .visual-side { display: none; }
+       /* Tablet Styles */
+        @media (max-width: 1024px) {
+            .main-header { padding: 18px 30px; }
+            .logo-top { font-size: 12px; }
+            .logo-main { font-size: 32px; }
+            .auth-container { padding: 30px 20px; }
+            .auth-box { 
+                max-width: 480px; 
+                padding: 45px 40px; 
+            }
+            .auth-box h2 { font-size: 28px; }
+            .social-grid { gap: 10px; }
+            .otp-input { width: 65px; height: 65px; font-size: 26px; }
+        }
+
+        /* Mobile Styles - Fix applied here for Logo/Navbar */
+        @media (max-width: 768px) {
+            .main-header { 
+                padding: 16px 20px; 
+                /* Remove flex-wrap here to keep elements on one line unless necessary */
+            }
+            .logo-top { font-size: 11px; letter-spacing: 0.5px; }
+            .logo-main { font-size: 24px; /* Slightly reduced for better fit */ }
+            .back-to-home { 
+                font-size: 13px; /* Slightly reduced */
+                gap: 5px;
+            }
+            .auth-container { padding: 20px 15px; }
+            .auth-box { 
+                padding: 35px 25px; 
+                border-radius: 20px;
+                max-width: 100%;
+            }
+            .auth-box h2 { 
+                font-size: 24px; /* Adjusted */
+                margin-bottom: 10px;
+            }
+            .auth-box .subtitle { 
+                font-size: 13px; 
+                margin-bottom: 25px;
+            }
+            .social-grid { 
+                grid-template-columns: 1fr; 
+                gap: 10px; 
+            }
+            .btn-primary { 
+                padding: 14px; 
+                font-size: 14px;
+            }
+            .otp-input { 
+                width: 50px; /* Adjusted for better fit on small screens */
+                height: 50px; 
+                font-size: 20px; 
+            }
+            .otp-wrapper { gap: 6px; }
+            .otp-meta { 
+                flex-direction: row; /* Keep meta elements on one line if possible */
+                justify-content: space-between;
+                gap: 0;
+            }
+            .success-icon { 
+                width: 60px; 
+                height: 60px; 
+            }
+            .success-icon i { font-size: 28px; }
+        }
+
+        /* Small Mobile Styles - Fix applied here for Logo/Navbar */
+        @media (max-width: 480px) {
+            .main-header { 
+                padding: 14px 16px; 
+                flex-wrap: wrap; /* Allow wrap for smallest screens */
+            }
+            .logo-top { font-size: 10px; }
+            .logo-main { font-size: 20px; }
+            .back-to-home { 
+                font-size: 12px;
+                width: 100%;
+                margin-top: 8px;
+                justify-content: center;
+                order: 3; /* Push to the bottom when wrapped */
+            }
+            .auth-box h2 { font-size: 22px; }
+            .otp-input { 
+                width: 40px; 
+                height: 40px; 
+                font-size: 18px; 
+            }
+        }
+
+        /* Landscape Mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .auth-box { max-height: 95vh; } /* Give more vertical space */
+            .main-header { padding: 10px 20px; } /* Smaller padding */
         }
     </style>
 </head>
 <body>
 
-    <div class="login-wrapper">
-        
-        <div class="visual-side">
-            <div class="visual-bg"></div> <div class="visual-overlay"></div>
-            
-             <div class="logo" onclick="showPage('menuPage')">
+<div class="otp-alert-overlay" id="otpAlertModal">
+    <div class="otp-alert-box">
+        <div class="otp-alert-icon"><i class="fab fa-whatsapp"></i></div>
+        <div class="otp-alert-title">WhatsApp OTP Sent! ✅</div>
+        <div class="otp-alert-subtitle">Your verification code has been generated</div>
+        <div class="otp-display">
+            <div class="otp-display-label">YOUR OTP CODE</div>
+            <div class="otp-display-code" id="displayOtpCode">----</div>
+        </div>
+        <div class="otp-alert-note">
+            📱 In production, this code will be sent to your WhatsApp number: <strong id="displayOtpMobile">+91 XXXXXXXXXX</strong><br><br>⏰ Code expires in 30 seconds
+        </div>
+        <button class="otp-alert-btn" onclick="closeOtpAlert()">Got it! Enter Code →</button>
+    </div>
+</div>
+
+<header class="main-header">
+    <div class="logo-header">
+        <div class="logo" onclick="showPage('menuPage')">
         <span class="logo-top">FOOD</span>
         <span class="logo-main">EXPRESS</span>
     </div>
+    </div>
+    <a href="index.html" class="back-to-home">
+        <i class="fas fa-arrow-left"></i>
+        Back to Home
+    </a>
+</header>
 
+<div class="auth-container">
+    <div class="auth-box">
+        
+        <div id="screen-login" class="auth-screen active">
+            <h2>Welcome Back! 👋</h2>
+            <p class="subtitle">Enter your credentials to access your account and start ordering delicious food.</p>
             
-            <div class="visual-content">
-                <h2 class="animate-in delay-2">Eat Fresh.<br>Live Better.</h2>
-                
-                <div class="glass-card animate-in delay-3">
-                    <div style="display:flex; gap:15px; align-items:center; margin-bottom:15px;">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" style="width:45px; height:45px; border-radius:50%; border:2px solid white;">
-                        <div>
-                            <div style="font-weight:700; font-size:15px;">Mahendiran </div>
-                            <div style="color:#ffd700; font-size:12px;">★★★★★ Verified Review</div>
-                        </div>
-                    </div>
-                    <p style="font-size:14px; line-height:1.5; opacity:0.9;">"The healthy options on Foodied are incredible. The delivery was faster than expected and the food was still hot!"</p>
-                </div>
+            <div class="social-grid">
+                <div class="social-btn"><img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18"> Google</div>
+                <div class="social-btn"><i class="fab fa-apple" style="font-size: 20px;"></i> Apple</div>
             </div>
+            
+            <div class="divider"><span>Or login with email</span></div>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="email" class="input-field" id="email" placeholder=" " required>
+                    <label for="email" class="input-label">Email Address</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" class="input-field" id="password" placeholder=" " required>
+                    <label for="password" class="input-label">Password</label>
+                    <i class="far fa-eye password-toggle" id="togglePassword"></i>
+                </div>
+                <div id="loginError" class="error-text">Invalid credentials. Please try again.</div>
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span class="btn-text">Sign In</span><div class="spinner"></div>
+                </button>
+            </form>
         </div>
 
-        <div class="form-side">
-            <div class="form-container">
-                <div class="logo-brand animate-in">
-                 FOOD-EXPRESS
-                </div>
-                
-                <div class="animate-in delay-1">
-                    <h1>Welcome Back! 👋</h1>
-                    <p class="subtitle">Enter your credentials to access your account.</p>
-                </div>
-
-                <div class="social-grid animate-in delay-2">
-                    <div class="social-btn">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20" alt="Google"> Google
-                    </div>
-                    <div class="social-btn">
-                        <i class="fab fa-apple" style="font-size: 22px;"></i> Apple
-                    </div>
-                </div>
-
-                <div class="divider animate-in delay-2"><span>Or login with email</span></div>
-
-                <form id="loginForm" class="animate-in delay-3">
-                    <div class="input-group">
-                        <input type="email" class="input-field" id="email" placeholder=" " required>
-                        <label for="email" class="input-label">Email Address</label>
-                    </div>
-
-                    <div class="input-group">
-                        <input type="password" class="input-field" id="password" placeholder=" " required>
-                        <label for="password" class="input-label">Password</label>
-                        <i class="far fa-eye password-toggle" id="togglePassword"></i>
-                    </div>
-
-                    <button type="submit" class="btn-primary" id="submitBtn">
-                        <span class="btn-text">Sign In</span>
-                        <div class="spinner"></div>
-                    </button>
-
-                    <div class="bottom-links">
-                        <a href="#" class="link" style="color:var(--text-gray)">Create Account</a>
-                        <a href="#" class="link">Forgot Password?</a>
-                    </div>
-                </form>
-
+        <div id="screen-mobile" class="auth-screen">
+            <div class="back-link" onclick="showScreen('login')"><i class="fa fa-arrow-left"></i> Back to login</div>
+            <h2>Verify via WhatsApp 📱</h2>
+            <p class="subtitle">Enter your mobile number to receive a one-time password on WhatsApp.</p>
+            
+            <div class="whatsapp-notice">
+                <i class="fab fa-whatsapp"></i>
+                <div class="whatsapp-notice-text"><strong>WhatsApp Verification</strong><br>We'll send a secure OTP to your WhatsApp number for verification.</div>
             </div>
+            
+            <form id="mobileForm">
+                <div class="input-group">
+                    <input type="tel" class="input-field" id="mobile" placeholder=" " maxlength="10" required>
+                    <label for="mobile" class="input-label">Mobile Number (10 digits)</label>
+                </div>
+                <div id="mobileError" class="error-text">Please enter a valid 10-digit mobile number.</div>
+                <button type="submit" class="btn-primary btn-whatsapp" id="mobileBtn">
+                    <span class="btn-text"><i class="fab fa-whatsapp"></i> Send OTP via WhatsApp</span><div class="spinner"></div>
+                </button>
+            </form>
+        </div>
+
+        <div id="screen-otp" class="auth-screen">
+            <div class="back-link" onclick="showScreen('mobile')"><i class="fa fa-arrow-left"></i> Back</div>
+            <h2>Enter WhatsApp OTP 🔐</h2>
+            <p class="subtitle">Check your WhatsApp for the verification code sent to<br><span id="otpMobileLabel" style="font-weight: 600;"></span></p>
+            
+            <form id="otpForm">
+                <div class="otp-wrapper">
+                    <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                </div>
+                <div id="otpError" class="error-text">Incorrect code. Please try again.</div>
+                <div class="otp-meta">
+                    <div id="otpTimer">Expires in 00:30</div>
+                    <button type="button" id="resendBtn" class="resend-btn" disabled><i class="fab fa-whatsapp"></i> Resend</button>
+                </div>
+                <button type="submit" class="btn-primary" id="otpBtn" style="margin-top: 24px;">
+                    <span class="btn-text">Verify OTP</span><div class="spinner"></div>
+                </button>
+            </form>
+        </div>
+
+        <div id="screen-success" class="auth-screen">
+            <div class="success-icon"><i class="fa fa-check"></i></div>
+            <h2>Account Verified ✅</h2>
+            <p class="subtitle">You're all set! Your profile is now active. Redirecting you to the home page...</p>
+            <button class="btn-primary" id="continueBtn" style="margin-top: 30px;" onclick="redirectToHome()">
+                <span class="btn-text">Continue to Home</span>
+            </button>
         </div>
     </div>
+</div>
 
-    <script>
-        // Toggle Password Logic
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#password');
+<script>
+let currentEmail = '';
+let currentMobile = '';
+let generatedOtp = '';
+let otpTimer = null;
+let otpSec = 30;
 
-        togglePassword.addEventListener('click', function () {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
-        });
+function showScreen(id) {
+    document.querySelectorAll('.auth-screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + id).classList.add('active');
+}
 
-        // Login Simulation
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submitBtn');
+function showOtpAlert(mobile, otp) {
+    document.getElementById('displayOtpCode').textContent = otp;
+    document.getElementById('displayOtpMobile').textContent = '+91 ' + mobile;
+    document.getElementById('otpAlertModal').classList.add('show');
+}
+
+function closeOtpAlert() {
+    document.getElementById('otpAlertModal').classList.remove('show');
+}
+
+function startOtpTimer() {
+    otpSec = 30;
+    const timer = document.getElementById('otpTimer');
+    const resendBtn = document.getElementById('resendBtn');
+    resendBtn.disabled = true;
+    
+    // Clear any existing timer
+    if (otpTimer) {
+        clearInterval(otpTimer);
+    }
+    
+    otpTimer = setInterval(() => {
+        otpSec--;
+        const mins = Math.floor(otpSec / 60);
+        const secs = otpSec % 60;
+        timer.textContent = `Expires in ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        
+        if (otpSec <= 0) {
+            clearInterval(otpTimer);
+            timer.textContent = 'Code expired';
+            resendBtn.disabled = false;
+        }
+    }, 1000);
+}
+
+// **CORRECTED REDIRECT FUNCTION**
+function redirectToHome() {
+    // In a production environment, this would navigate the user to the logged-in dashboard/home
+    const returnUrl = sessionStorage.getItem('returnUrl') || 'index.html';
+    const params = new URLSearchParams({
+        auth: 'success',
+        // In a real app, you would pass a session token, not user data
+        email: currentEmail.substring(0, currentEmail.indexOf('@')) + '...', 
+        mobile: currentMobile ? currentMobile.slice(-4) : '...'
+    });
+    
+    // For this example, we'll use a functional redirect path
+    // Remove the alert for a smoother user experience
+    window.location.href = `${returnUrl}?${params.toString()}`;
+    
+    // NOTE: For live testing in a snippet environment, you might prefer to re-add the alert:
+    // alert(`Simulated Login Success. Redirecting to: ${returnUrl}?${params.toString()}`);
+}
+
+// Toggle password visibility
+document.getElementById('togglePassword').addEventListener('click', function() {
+    const p = document.getElementById('password');
+    const t = p.type === 'password' ? 'text' : 'password';
+    p.type = t;
+    this.classList.toggle('fa-eye');
+    this.classList.toggle('fa-eye-slash');
+});
+
+// Login form submission
+document.getElementById('loginForm').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('loginError').style.display = 'none';
+    
+    const email = document.getElementById('email').value.trim();
+    const pwd = document.getElementById('password').value.trim();
+    
+    if (!email || !pwd) {
+        document.getElementById('loginError').style.display = 'block';
+        return;
+    }
+    
+    currentEmail = email;
+    const btn = document.getElementById('loginBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+    
+    // Simulate API call for login
+    setTimeout(() => {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        // Assume successful login step, move to mobile verification
+        showScreen('mobile');
+    }, 1500);
+});
+
+// Mobile form submission
+document.getElementById('mobileForm').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('mobileError').style.display = 'none';
+    
+    const m = document.getElementById('mobile').value.trim();
+    if (!/^\d{10}$/.test(m)) {
+        document.getElementById('mobileError').style.display = 'block';
+        return;
+    }
+    
+    currentMobile = m;
+    const btn = document.getElementById('mobileBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+    
+    // Simulate API call for sending OTP
+    setTimeout(() => {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        
+        // Generate 4-digit OTP
+        generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+        
+        // Show OTP alert (for demo purposes)
+        showOtpAlert(m, generatedOtp);
+        
+        // Show OTP entry screen
+        showScreen('otp');
+        document.getElementById('otpMobileLabel').textContent = '+91 ' + m;
+        
+        // Start timer
+        startOtpTimer();
+    }, 1500);
+});
+
+// OTP input handling
+const otpInputs = document.querySelectorAll('.otp-input');
+otpInputs.forEach((input, index) => {
+    input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1) {
+            if (index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
+        }
+    });
+    
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            otpInputs[index - 1].focus();
+        }
+    });
+});
+
+// OTP form submission
+document.getElementById('otpForm').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('otpError').style.display = 'none';
+    
+    const otp = Array.from(otpInputs).map(i => i.value).join('');
+    
+    if (otp.length !== 4) {
+        document.getElementById('otpError').textContent = 'Please enter complete OTP.';
+        document.getElementById('otpError').style.display = 'block';
+        return;
+    }
+    
+    const btn = document.getElementById('otpBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+    
+    // Simulate OTP verification API call
+    setTimeout(() => {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        
+        if (otp === generatedOtp) {
+            clearInterval(otpTimer);
+            showScreen('success');
             
-            // Start Loading
-            btn.classList.add('loading');
-
-            // Simulate Server Delay
+            // Auto-redirect after 2 seconds
             setTimeout(() => {
-                btn.classList.remove('loading');
-                // Change button to success state
-                btn.style.backgroundColor = "#10ac84"; // Darker Green
-                btn.innerHTML = '<i class="fas fa-check-circle"></i> &nbsp; Success!';
-                
-                // Redirect
-                setTimeout(() => {
-                    window.location.href = "index.html"; 
-                }, 800);
+                redirectToHome();
             }, 2000);
-        });
-    </script>
+        } else {
+            document.getElementById('otpError').textContent = 'Incorrect code. Please try again.';
+            document.getElementById('otpError').style.display = 'block';
+            otpInputs.forEach(i => i.value = '');
+            otpInputs[0].focus();
+        }
+    }, 1000);
+});
+
+// Resend OTP
+document.getElementById('resendBtn').addEventListener('click', () => {
+    // Simulate new OTP generation
+    generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+    showOtpAlert(currentMobile, generatedOtp);
+    startOtpTimer();
+    otpInputs.forEach(i => i.value = '');
+    otpInputs[0].focus();
+});
+
+// Auto-focus first OTP input when OTP screen is shown
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.target.id === 'screen-otp' && mutation.target.classList.contains('active')) {
+            setTimeout(() => otpInputs[0].focus(), 100);
+        }
+    });
+});
+
+// Observe the OTP screen for the 'active' class change
+observer.observe(document.getElementById('screen-otp'), {
+    attributes: true,
+    attributeFilter: ['class']
+});
+</script>
 
 </body>
 </html>

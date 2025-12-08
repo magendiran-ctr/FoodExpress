@@ -29,13 +29,53 @@
         <button id="cartBtn" class="cart-btn" data-url="cart.html">
             🛒 Cart <span id="cartCount">0</span>
         </button>
-
-        <a href="sign-in.html">
-            <button class="signin-btn">
-                <span>👤</span>
-                <span>Sign in</span>
-            </button>
+           <a href="sign-in.html" id="signinBtn" class="signin-btn" onclick="openAuthPage(event)">
+            <span>👤</span>
+            <span>Sign in</span>
         </a>
+        <button class="profile-btn" id="profileBtn" onclick="toggleProfileModal()">
+            <div class="profile-avatar" id="headerAvatar">U</div>
+            <!-- <span id="headerUsername">User</span> -->
+        </button>
+
+<div class="profile-modal" id="profileModal">
+    <div class="profile-header">
+        <div class="profile-avatar-large" id="modalAvatar">U</div>
+        <div class="profile-info">
+            <h3 id="modalUsername">User Name</h3>
+            <p>Food-Express Member</p>
+        </div>
+    </div>
+    <div class="profile-body">
+        <div class="profile-item">
+            <i class="fas fa-envelope"></i>
+            <div class="profile-item-text">
+                <div class="profile-item-label">Email</div>
+                <div class="profile-item-value" id="modalEmail">user@example.com</div>
+            </div>
+        </div>
+        <div class="profile-item">
+            <i class="fas fa-phone"></i>
+            <div class="profile-item-text">
+                <div class="profile-item-label">Mobile</div>
+                <div class="profile-item-value" id="modalMobile">+91 XXXXXXXXXX</div>
+            </div>
+        </div>
+        <div class="profile-item">
+            <i class="fas fa-calendar"></i>
+            <div class="profile-item-text">
+                <div class="profile-item-label">Member Since</div>
+                <div class="profile-item-value" id="modalDate">Dec 2024</div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-footer">
+        <button class="signout-btn" onclick="handleSignOut()">
+            <i class="fas fa-sign-out-alt"></i> Sign Out
+        </button>
+    </div>
+</div>
+        
 
         <!-- Mobile Hamburger -->
        <div class="hamburger" id="hamburger">
@@ -102,6 +142,7 @@
                 </div>
             </div>
         </section>
+        </header>
 
        <!-- Products Section -->
     <section class="products-sections"> 
@@ -194,7 +235,6 @@
         </div>
     </section>
 
-
       </div>
   <!-- <-- Service Cards  -->
 <section class="cards">
@@ -223,6 +263,7 @@
 
   </div>
 </section>
+
 
 
   <!-- 🌮 Food Categories Section (Smash/Fan Cards) -->
@@ -1023,5 +1064,3 @@
         </div>
     </footer>
   <script src="script.js"></script>
-</body>
-</html>
